@@ -1,0 +1,26 @@
+---
+permalink: admin/defining-domain-policy-and-registering-node.html 
+sidebar: sidebar 
+keywords: domain policy, tsm, tivoli storage manager 
+summary: Sie müssen eine Domänenrichtlinie definieren, die die TSM-Managementklasse für die Daten verwendet, die vom Archiv-Node gespeichert wurden, und dann einen Knoten registrieren, um diese Domänenrichtlinie zu verwenden. 
+---
+= Definieren Sie eine Domänenrichtlinie und registrieren Sie einen Knoten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen eine Domänenrichtlinie definieren, die die TSM-Managementklasse für die Daten verwendet, die vom Archiv-Node gespeichert wurden, und dann einen Knoten registrieren, um diese Domänenrichtlinie zu verwenden.
+
+
+NOTE: Archive Node-Prozesse können Speicher auslaufen, wenn das Clientpasswort für den Archive Node im Tivoli Storage Manager (TSM) abläuft. Stellen Sie sicher, dass der TSM-Server so konfiguriert ist, dass der Client-Benutzername/das Passwort für den Archiv-Node nie abläuft.
+
+Wenn Sie einen Knoten auf dem TSM-Server für die Verwendung des Archiv-Knotens registrieren (oder einen vorhandenen Knoten aktualisieren), müssen Sie die Anzahl der Mount-Punkte angeben, die der Knoten für Schreibvorgänge verwenden kann, indem Sie den MAXNUMMP-Parameter für den BEFEHL REGISTER NODE angeben. Die Anzahl der Bereitstellungspunkte entspricht in der Regel der Anzahl der Bandlaufwerksköpfe, die dem Archiv-Node zugewiesen sind. Die für MAXNUMMP auf dem TSM-Server angegebene Zahl muss mindestens so groß sein wie der für den *ARC* > *Ziel* > *Konfiguration* > *Haupt* > *maximale Store Sessions* für den Archive Node festgelegte Wert, Der auf den Wert 0 oder 1 gesetzt ist, da gleichzeitige Speichersitzungen vom Archive Node nicht unterstützt werden.
+
+Der Wert des MAXSESSIONS-Satzes für den TSM-Server steuert die maximale Anzahl von Sitzungen, die für den TSM-Server von allen Client-Anwendungen geöffnet werden können. Der auf dem TSM angegebene MAXSESSIONS-Wert muss mindestens so groß sein wie der für *ARC* > *Ziel* > *Konfiguration* > *Main* > *Anzahl Sitzungen* im Grid Manager für den Archiv-Node angegebene Wert. Der Archivknoten erstellt gleichzeitig höchstens eine Sitzung pro Bereitstellungspunkt plus eine kleine Zahl (< 5) zusätzlicher Sitzungen.
+
+Der dem Archiv-Node zugewiesene TSM-Node verwendet eine benutzerdefinierte Domänenrichtlinie `tsm-domain`. Der `tsm-domain` Domain-Richtlinie ist eine geänderte Version der „Standard“-Domänenrichtlinie, die für den Schreibvorgang auf Band und den Archivziel als Speicherpool des StorageGRID Systems konfiguriert ist (`_SGWSDiskPool_`).
+
+
+NOTE: Sie müssen sich am TSM-Server mit Administratorrechten anmelden und das dsmadmc-Tool verwenden, um die Domänenrichtlinie zu erstellen und zu aktivieren.

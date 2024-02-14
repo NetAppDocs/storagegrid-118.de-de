@@ -1,0 +1,241 @@
+---
+permalink: monitor/comparing-alerts-and-alarms.html 
+sidebar: sidebar 
+keywords: how to compare alerts and alarms 
+summary: Es gibt mehrere Ähnlichkeiten zwischen dem Alarmsystem und dem alten Alarmsystem, aber das Alarmsystem bietet erhebliche Vorteile und ist einfacher zu bedienen. 
+---
+= Vergleichen von Warnungen und Alarmen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es gibt mehrere Ähnlichkeiten zwischen dem Alarmsystem und dem alten Alarmsystem, aber das Alarmsystem bietet erhebliche Vorteile und ist einfacher zu bedienen.
+
+In der folgenden Tabelle erfahren Sie, wie Sie ähnliche Vorgänge ausführen.
+
+[cols="1a,1a,1a"]
+|===
+|  | Meldungen | Alarme (Altsystem) 
+
+
+ a| 
+Wie sehe ich, welche Alarme oder Alarme aktiv sind?
+ a| 
+* Wählen Sie den Link *Aktuelle Alarme* auf dem Dashboard aus.
+* Wählen Sie die Warnmeldung auf der Seite *NODES* > *Übersicht* aus.
+* Wählen Sie *ALERTS* > *Current*.
+
+
+link:monitoring-system-health.html#view-current-and-resolved-alerts["Anzeigen aktueller Warnmeldungen"]
+ a| 
+Wählen Sie *SUPPORT* > *Alarme (alt)* > *Aktueller Alarm* aus.
+
+link:managing-alarms.html["Verwalten von Alarmen (Altsystem)"]
+
+
+
+ a| 
+Was bewirkt, dass eine Warnung oder ein Alarm ausgelöst wird?
+ a| 
+Alarme werden ausgelöst, wenn ein Prometheus-Ausdruck in einer Alarmregel für die spezifische Triggerbedingung und -Dauer als wahr bewertet wird.
+
+link:view-alert-rules.html["Zeigen Sie Alarmregeln an"]
+ a| 
+Alarme werden ausgelöst, wenn ein StorageGRID-Attribut einen Schwellenwert erreicht.
+
+link:managing-alarms.html["Verwalten von Alarmen (Altsystem)"]
+
+
+
+ a| 
+Wie kann ich das zugrunde liegende Problem lösen, wenn eine Meldung oder ein Alarm ausgelöst wird?
+ a| 
+Die empfohlenen Aktionen für eine Warnmeldung sind in E-Mail-Benachrichtigungen enthalten und stehen auf den Alerts-Seiten im Grid Manager zur Verfügung.
+
+Falls erforderlich, werden weitere Informationen in der StorageGRID-Dokumentation bereitgestellt.
+
+link:alerts-reference.html["Alerts Referenz"]
+ a| 
+Sie können sich über einen Alarm informieren, indem Sie den Attributnamen auswählen oder in der StorageGRID-Dokumentation nach einem Alarmcode suchen.
+
+link:alarms-reference.html["Alarmreferenz (Altsystem)"]
+
+
+
+ a| 
+Wo kann ich eine Liste der Alarme oder Alarme sehen, die gelöst wurden?
+ a| 
+Wählen Sie *ALARME* > *aufgelöst*.
+
+link:monitoring-system-health.html#view-current-and-resolved-alerts["Anzeige aktueller und aufgelöster Warnmeldungen"]
+ a| 
+Wählen Sie *SUPPORT* > *Alarme (alt)* > *Historische Alarme*.
+
+link:managing-alarms.html["Verwalten von Alarmen (Altsystem)"]
+
+
+
+ a| 
+Wo kann ich die Einstellungen verwalten?
+ a| 
+Wählen Sie *ALERTS* > *Rules*.
+
+link:managing-alerts.html["Verwalten von Meldungen"]
+ a| 
+Wählen Sie *SUPPORT*. Verwenden Sie dann die Optionen im Abschnitt *Alarme (alt)* des Menüs.
+
+link:managing-alarms.html["Verwalten von Alarmen (Altsystem)"]
+
+
+
+ a| 
+Welche Benutzergruppenberechtigungen brauche ich?
+ a| 
+* Jeder, der sich beim Grid Manager anmelden kann, kann aktuelle und behobene Warnmeldungen anzeigen.
+* Sie müssen über die Berechtigung zum Verwalten von Warnmeldungen verfügen, um Stille, Warnmeldungen und Warnungsregeln zu verwalten.
+
+
+link:../admin/index.html["StorageGRID verwalten"]
+ a| 
+* Jeder, der sich beim Grid Manager anmelden kann, kann ältere Alarme anzeigen.
+* Sie müssen über die Berechtigung zum Quittieren von Alarmen verfügen, um Alarme bestätigen zu können.
+* Sie müssen sowohl über die Konfiguration der Seite „Grid-Topologie“ als auch über andere Berechtigungen für die Rasterkonfiguration verfügen, um globale Alarme und E-Mail-Benachrichtigungen verwalten zu können.
+
+
+link:../admin/index.html["StorageGRID verwalten"]
+
+
+
+ a| 
+Wie managt ich E-Mail-Benachrichtigungen?
+ a| 
+Wählen Sie *ALERTS* > *Email Setup*.
+
+*Hinweis:* Da Alarme und Alarme unabhängige Systeme sind, wird das E-Mail-Setup für Alarm- und AutoSupport-Benachrichtigungen nicht für Benachrichtigungen verwendet. Sie können jedoch denselben E-Mail-Server für alle Benachrichtigungen verwenden.
+
+link:email-alert-notifications.html["Richten Sie E-Mail-Benachrichtigungen für Warnmeldungen ein"]
+ a| 
+Wählen Sie *SUPPORT* > *Alarme (alt)* > *Legacy E-Mail-Einrichtung*.
+
+link:managing-alarms.html["Verwalten von Alarmen (Altsystem)"]
+
+
+
+ a| 
+Wie verwalte ich SNMP Benachrichtigungen?
+ a| 
+Wählen Sie *KONFIGURATION* > *Überwachung* > *SNMP-Agent*.
+
+link:using-snmp-monitoring.html["Verwenden Sie SNMP-Überwachung"]
+ a| 
+_Nicht unterstützt_
+
+
+
+ a| 
+Wie kontrolliere ich, wer Benachrichtigungen erhält?
+ a| 
+. Wählen Sie *ALERTS* > *Email Setup*.
+. Geben Sie im Abschnitt *Empfänger* eine E-Mail-Adresse für jede E-Mail-Liste oder Person ein, die eine E-Mail erhalten soll, wenn eine Benachrichtigung erfolgt.
+
+
+link:email-alert-notifications.html["Richten Sie E-Mail-Benachrichtigungen für Warnmeldungen ein"]
+ a| 
+. Wählen Sie *SUPPORT* > *Alarme (alt)* > *Legacy E-Mail-Einrichtung*.
+. Mailingliste wird erstellt.
+. Wählen Sie *Benachrichtigungen*.
+. Wählen Sie die Mailingliste aus.
+
+
+link:managing-alarms.html["Verwalten von Alarmen (Altsystem)"]
+
+
+
+ a| 
+Welche Admin Nodes senden Benachrichtigungen?
+ a| 
+Ein einzelner Admin-Knoten (der bevorzugte Absender).
+
+link:../primer/what-admin-node-is.html["Was ist ein Admin-Node?"]
+ a| 
+Ein einzelner Admin-Knoten (der bevorzugte Absender).
+
+link:../primer/what-admin-node-is.html["Was ist ein Admin-Node?"]
+
+
+
+ a| 
+Wie kann ich einige Benachrichtigungen unterdrücken?
+ a| 
+. Wählen Sie *ALARME* > *Stille*.
+. Wählen Sie die Alarmregel aus, die stummschalten soll.
+. Geben Sie eine Dauer für die Stille an.
+. Wählen Sie den Schweregrad der Warnmeldung aus, den Sie stummschalten möchten.
+. Wählen Sie diese Option aus, um die Stille auf das gesamte Raster, einen einzelnen Standort oder einen einzelnen Knoten anzuwenden.
+
+
+*Hinweis*: Wenn Sie den SNMP-Agent aktiviert haben, unterdrücken Stille auch SNMP-Traps und informieren.
+
+link:silencing-alert-notifications.html["Benachrichtigung über Stille"]
+ a| 
+. Wählen Sie *SUPPORT* > *Alarme (alt)* > *Legacy E-Mail-Einrichtung*.
+. Wählen Sie *Benachrichtigungen*.
+. Wählen Sie eine Mailingliste aus, und wählen Sie *unterdrücken*.
+
+
+link:managing-alarms.html["Verwalten von Alarmen (Altsystem)"]
+
+
+
+ a| 
+Wie kann ich alle Benachrichtigungen unterdrücken?
+ a| 
+Wählen Sie *ALARME* > *Stille* und dann *Alle Regeln*.
+
+*Hinweis*: Wenn Sie den SNMP-Agent aktiviert haben, unterdrücken Stille auch SNMP-Traps und informieren.
+
+link:silencing-alert-notifications.html["Benachrichtigung über Stille"]
+ a| 
+_Nicht unterstützt_
+
+
+
+ a| 
+Wie kann ich die Bedingungen und Trigger anpassen?
+ a| 
+. Wählen Sie *ALERTS* > *Rules*.
+. Wählen Sie eine Standardregel zum Bearbeiten aus, oder wählen Sie *benutzerdefinierte Regel erstellen*.
+
+
+link:editing-alert-rules.html["Bearbeiten von Meldungsregeln"]
+
+link:creating-custom-alert-rules.html["Erstellen benutzerdefinierter Warnungsregeln"]
+ a| 
+. Wählen Sie *SUPPORT* > *Alarme (alt)* > *Globale Alarme*.
+. Erstellen Sie einen globalen benutzerdefinierten Alarm, um einen Standardalarm zu überschreiben oder ein Attribut zu überwachen, das keinen Standardalarm hat.
+
+
+link:managing-alarms.html["Verwalten von Alarmen (Altsystem)"]
+
+
+
+ a| 
+Wie deaktiviere ich eine einzelne Warnung oder einen einzelnen Alarm?
+ a| 
+. Wählen Sie *ALERTS* > *Rules*.
+. Wählen Sie die Regel aus, und wählen Sie *Regel bearbeiten*.
+. Deaktivieren Sie das Kontrollkästchen *aktiviert*.
+
+
+link:disabling-alert-rules.html["Deaktivieren von Meldungsregeln"]
+ a| 
+. Wählen Sie *SUPPORT* > *Alarme (alt)* > *Globale Alarme*.
+. Wählen Sie die Regel aus, und wählen Sie das Symbol Bearbeiten aus.
+. Deaktivieren Sie das Kontrollkästchen *aktiviert*.
+
+
+link:managing-alarms.html["Verwalten von Alarmen (Altsystem)"]
+
+|===

@@ -1,0 +1,58 @@
+---
+permalink: maintain/checking-data-repair-jobs.html 
+sidebar: sidebar 
+keywords: storagegrid, data repair 
+summary: Bevor Sie einen Grid-Node außer Betrieb nehmen, müssen Sie bestätigen, dass keine Datenreparatur-Jobs aktiv sind. Wenn Reparaturen fehlgeschlagen sind, müssen Sie sie neu starten und vor der Außerbetriebnahme abschließen lassen. 
+---
+= Prüfen Sie die Reparatur von Daten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie einen Grid-Node außer Betrieb nehmen, müssen Sie bestätigen, dass keine Datenreparatur-Jobs aktiv sind. Wenn Reparaturen fehlgeschlagen sind, müssen Sie sie neu starten und vor der Außerbetriebnahme abschließen lassen.
+
+.Über diese Aufgabe
+Wenn Sie einen nicht verbundenen Speicherknoten stilllegen müssen, führen Sie diese Schritte auch nach Abschluss des Stilllegungsvorgangs aus, um sicherzustellen, dass der Datenreparaturauftrag erfolgreich abgeschlossen wurde. Sie müssen sicherstellen, dass alle Fragmente, die mit Erasure-Coding-Verfahren codiert wurden, die sich auf dem entfernten Node befanden, erfolgreich wiederhergestellt wurden.
+
+Die Schritte gelten nur für Systeme mit Erasure-Coding-Objekten.
+
+.Schritte
+. Melden Sie sich beim primären Admin-Node an:
++
+.. Geben Sie den folgenden Befehl ein: `ssh admin@_grid_node_IP_`
+.. Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
+.. Geben Sie den folgenden Befehl ein, um zum Root zu wechseln: `su -`
+.. Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
++
+Wenn Sie als root angemeldet sind, ändert sich die Eingabeaufforderung von `$` Bis `#`.
+
+
+
+. Auf laufende Reparaturen prüfen: `repair-data show-ec-repair-status`
++
+** Wenn Sie noch nie einen Datenreparaturauftrag ausgeführt haben, wird die Ausgabe angezeigt `No job found`. Sie müssen keine Reparaturjobs neu starten.
+** Wenn der Datenreparaturauftrag zuvor ausgeführt wurde oder derzeit ausgeführt wird, listet die Ausgabe Informationen für die Reparatur auf. Jede Reparatur hat eine eindeutige Reparatur-ID.
++
+image::../media/repair-data-status.png[Reparaturdatenstatus]
+
+
+
++
+
+TIP: Optional können Sie den Grid Manager verwenden, um laufende Wiederherstellungsprozesse zu überwachen und einen Wiederherstellungsverlauf anzuzeigen. Siehe
+link:../maintain/restoring-volume.html["Stellen Sie Objektdaten mithilfe von Grid Manager wieder her"].
+
+. Wenn der Zustand für alle Reparaturen ist `Completed`, Sie brauchen keine Reparatur-Jobs neu zu starten.
+. Wenn der Status für eine Reparatur ist `Stopped`, Sie müssen diese Reparatur neu starten.
++
+.. Beziehen Sie die Reparatur-ID für die fehlerhafte Reparatur von der Ausgabe.
+.. Führen Sie die aus `repair-data start-ec-node-repair` Befehl.
++
+Verwenden Sie die `--repair-id` Option zum Festlegen der Reparatur-ID. Wenn Sie beispielsweise eine Reparatur mit der Reparatur-ID 949292 erneut versuchen möchten, führen Sie den folgenden Befehl aus: `repair-data start-ec-node-repair --repair-id 949292`
+
+.. Verfolgen Sie den Status der EC-Datenreparaturen weiter, bis der Zustand für alle Reparaturen vorliegt `Completed`.
+
+
+

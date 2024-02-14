@@ -1,0 +1,13 @@
+---
+layout: landing-page 
+sidebar: sidebar 
+permalink: landing-configure-manage/index.html 
+summary: Die Konfigurationsaufgaben, die Sie für ein neues StorageGRID-System durchführen müssen, hängen davon ab, wie Sie Ihr Grid verwenden. Sie richten mindestens den Systemzugriff ein, verwenden die FabricPool- und S3-Assistenten und managen verschiedene Storage- und Sicherheitseinstellungen. 
+---
+= Konfiguration und Management eines StorageGRID Systems
+:hardbreaks:
+:allow-uri-read: 
+:linkattrs: 
+:imagesdir: ./media/
+
+

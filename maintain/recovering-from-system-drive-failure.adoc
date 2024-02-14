@@ -1,0 +1,21 @@
+---
+permalink: maintain/recovering-from-system-drive-failure.html 
+sidebar: sidebar 
+keywords: recover, system drive failure, workflow 
+summary: Wenn das Systemlaufwerk auf einem softwarebasierten Speicherknoten ausgefallen ist, steht der Speicherknoten dem StorageGRID-System nicht zur Verfügung. Sie müssen einen bestimmten Satz von Aufgaben zur Wiederherstellung nach einem Systemausfall ausführen. 
+---
+= Wiederherstellung nach einem Systemlaufwerk-Fehler: Workflow
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn das Systemlaufwerk auf einem softwarebasierten Speicherknoten ausgefallen ist, steht der Speicherknoten dem StorageGRID-System nicht zur Verfügung. Sie müssen einen bestimmten Satz von Aufgaben zur Wiederherstellung nach einem Systemausfall ausführen.
+
+Gehen Sie folgendermaßen vor, um nach einem Systemlaufwerksausfall auf einem softwarebasierten Speicherknoten wiederherzustellen. Dieses Verfahren umfasst die Schritte, die Sie befolgen sollten, wenn Speicher-Volumes ebenfalls ausgefallen sind oder nicht neu gemountet werden können.
+
+
+NOTE: Dieses Verfahren gilt nur für softwarebasierte Speicherknoten. Sie müssen eine andere Vorgehensweise als befolgen link:recovering-storagegrid-appliance-storage-node.html["Stellen Sie einen Appliance-Storage-Node wieder her"].
+
+image::../media/storage_node_recovery_system_drive.gif[Wiederherstellungsschritte für ausgefallenes Systemlaufwerk auf softwarebasierter Speicherknoten]

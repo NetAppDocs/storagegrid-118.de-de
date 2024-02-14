@@ -1,0 +1,28 @@
+---
+permalink: maintain/recovering-from-archive-node-failures.html 
+sidebar: sidebar 
+keywords: recover, archive node failure, workflow 
+summary: Sie müssen eine Reihe von Aufgaben genau durchführen, um nach einem Ausfall des Archivierungs-Knotens wiederherstellen zu können. 
+---
+= Wiederherstellung nach Ausfällen von Archive Node: Workflow
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen eine Reihe von Aufgaben genau durchführen, um nach einem Ausfall des Archivierungs-Knotens wiederherstellen zu können.
+
+image::../media/overview_archive_node_recovery.gif[Übersicht Flussdiagramm der Archiv Knoten Wiederherstellung]
+
+Die Wiederherstellung von Archivknoten ist von den folgenden Problemen betroffen:
+
+* Wenn die ILM-Richtlinie für die Replizierung einer einzelnen Kopie konfiguriert ist
++
+In einem StorageGRID-System, das für eine einzelne Objektkopie konfiguriert ist, kann ein Ausfall des Archiv-Nodes zu einem nicht wiederherstellbaren Verlust von Daten führen. Wenn ein Fehler auftritt, gehen alle diese Objekte verloren. Sie müssen jedoch trotzdem Recovery-Verfahren durchführen, um Ihr StorageGRID-System zu „bereinigen“ und verlorene Objektinformationen aus der Datenbank zu löschen.
+
+* Wenn während der Wiederherstellung des Speicherknotens ein Ausfall des Archivknotens auftritt.
++
+Wenn der Archivknoten bei der Verarbeitung der Massenabrufe im Rahmen einer Speicherknotenwiederherstellung ausfällt, Sie müssen das Verfahren wiederholen, um Kopien von Objektdaten auf den Storage-Node von Anfang an wiederherzustellen, um sicherzustellen, dass alle vom Archiv-Node abgerufenen Objektdaten auf dem Storage-Node wiederhergestellt werden.
+
+

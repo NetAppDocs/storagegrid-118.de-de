@@ -1,0 +1,35 @@
+---
+permalink: ubuntu/specifying-domain-name-system-server-information.html 
+sidebar: sidebar 
+keywords: how to specify domain name system server information 
+summary: Sie müssen DNS-Informationen für Ihr StorageGRID-System angeben, damit Sie mit Hostnamen anstelle von IP-Adressen auf externe Server zugreifen können. 
+---
+= Geben Sie die DNS-Serverinformationen an
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen DNS-Informationen für Ihr StorageGRID-System angeben, damit Sie mit Hostnamen anstelle von IP-Adressen auf externe Server zugreifen können.
+
+.Über diese Aufgabe
+Angeben https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/checking-dns-server-configuration.html["Informationen zum DNS-Server"^] Ermöglicht die Verwendung von vollständig qualifizierten Domänennamen (FQDN) anstelle von IP-Adressen für E-Mail-Benachrichtigungen und AutoSupport.
+
+Um einen ordnungsgemäßen Betrieb zu gewährleisten, geben Sie zwei oder drei DNS-Server an. Wenn Sie mehr als drei angeben, können aufgrund bekannter Einschränkungen des Betriebssystems auf einigen Plattformen nur drei verwendet werden. Wenn in Ihrer Umgebung Routing-Einschränkungen bestehen, können Sie dies tun link:../maintain/modifying-dns-configuration-for-single-grid-node.html["Passen Sie die DNS-Serverliste an"] Für einzelne Knoten (in der Regel alle Knoten an einem Standort) einen anderen Satz von bis zu drei DNS-Servern verwenden.
+
+Verwenden Sie nach Möglichkeit DNS-Server, auf die jeder Standort lokal zugreifen kann, um sicherzustellen, dass ein Inselstandort die FQDNs für externe Ziele auflösen kann.
+
+Wenn die DNS-Serverinformationen nicht angegeben oder falsch konfiguriert sind, wird ein DNST-Alarm für den SSM-Service jedes Grid-Knotens ausgelöst. Der Alarm wird gelöscht, wenn DNS richtig konfiguriert ist und die neuen Serverinformationen alle Grid-Knoten erreicht haben.
+
+.Schritte
+. Geben Sie die IPv4-Adresse für mindestens einen DNS-Server im Textfeld *Server 1* an.
+. Wählen Sie bei Bedarf das Pluszeichen neben dem letzten Eintrag aus, um zusätzliche Servereinträge hinzuzufügen.
++
+image::../media/9_gmi_installer_dns_page.gif[Dieses Bild wird durch den umgebenden Text erläutert.]
+
++
+Als Best Practice empfehlen wir, mindestens zwei DNS-Server anzugeben. Sie können bis zu sechs DNS-Server angeben.
+
+. Wählen Sie *Weiter*.
+

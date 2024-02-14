@@ -1,0 +1,82 @@
+---
+permalink: tenant/configuring-cross-origin-resource-sharing-cors.html 
+sidebar: sidebar 
+keywords: how to configure cross-origin resource sharing, cors 
+summary: 'Sie können die Cross-Origin Resource Sharing \(CORS\) für einen S3-Bucket konfigurieren, wenn Webanwendungen in anderen Domänen auf diesen Bucket und die Objekte in diesem Bucket zugreifen sollen.' 
+---
+= Konfiguration der Cross-Origin Resource Sharing (CORS)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können CORS (Cross-Origin Resource Sharing) für einen S3-Bucket konfigurieren, wenn Webapplikationen in anderen Domänen auf diesen Bucket und die Objekte in diesem Bucket zugreifen sollen.
+
+.Bevor Sie beginnen
+* Sie sind mit einem beim Mandantenmanager angemeldet link:../admin/web-browser-requirements.html["Unterstützter Webbrowser"].
+* Sie gehören einer Benutzergruppe an, die über den verfügt link:tenant-management-permissions.html["Managen aller Buckets oder Root-Zugriffsberechtigungen"]. Diese Berechtigungen überschreiben die Berechtigungseinstellungen in Gruppen- oder Bucket-Richtlinien.
+
+
+.Über diese Aufgabe
+CORS (Cross-Origin Resource Sharing) ist ein Sicherheitsmechanismus, mit dem Client-Webanwendungen in einer Domäne auf Ressourcen in einer anderen Domäne zugreifen können. Angenommen, Sie verwenden einen S3-Bucket mit dem Namen `Images` Zum Speichern von Grafiken. Durch Konfigurieren von CORS für das `Images` Bucket: Sie können zulassen, dass die Bilder in diesem Bucket auf der Website angezeigt werden `+http://www.example.com+`.
+
+
+
+== CORS für einen Bucket aktivieren
+
+.Schritte
+. Verwenden Sie einen Texteditor, um die erforderliche XML zu erstellen.
++
+Dieses Beispiel zeigt die XML, die zur Aktivierung von CORS für einen S3-Bucket verwendet wird. Mit dieser XML-Datei kann jede Domäne GET-Anforderungen an den Bucket senden, es erlaubt jedoch nur das `+http://www.example.com+` Domain zum Senden VON POST- und LÖSCHEN von Anfragen. Alle Anfragezeilen sind zulässig.
+
++
+[listing]
+----
+<CORSConfiguration
+    xmlns="http://s3.amazonaws.com/doc/2020-10-22/">
+    <CORSRule>
+        <AllowedOrigin>*</AllowedOrigin>
+        <AllowedMethod>GET</AllowedMethod>
+        <AllowedHeader>*</AllowedHeader>
+    </CORSRule>
+    <CORSRule>
+        <AllowedOrigin>http://www.example.com</AllowedOrigin>
+        <AllowedMethod>GET</AllowedMethod>
+        <AllowedMethod>POST</AllowedMethod>
+        <AllowedMethod>DELETE</AllowedMethod>
+        <AllowedHeader>*</AllowedHeader>
+    </CORSRule>
+</CORSConfiguration>
+----
++
+Weitere Informationen zur CORS-Konfigurations-XML finden Sie unter http://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html["Amazon Web Services (AWS) Dokumentation: Amazon Simple Storage Service Developer Guide"^].
+
+. Wählen Sie *View Buckets* aus dem Dashboard, oder wählen Sie *STORAGE (S3)* > *Buckets*.
+. Wählen Sie den Bucket-Namen aus der Tabelle aus.
++
+Die Seite mit den Bucket-Details wird angezeigt.
+
+. Wählen Sie auf der Registerkarte *Bucket Access* das Akkordeon *Cross-Origin Resource Sharing (CORS)* aus.
+. Aktivieren Sie das Kontrollkästchen *CORS aktivieren*.
+. Fügen Sie die CORS-Konfigurations-XML in das Textfeld ein.
+. Wählen Sie *Änderungen speichern*.
+
+
+
+
+== CORS-Einstellung ändern
+
+.Schritte
+. Aktualisieren Sie die CORS-Konfigurations-XML im Textfeld, oder wählen Sie *Clear*, um von vorne zu beginnen.
+. Wählen Sie *Änderungen speichern*.
+
+
+
+
+== Deaktivieren Sie die CORS-Einstellung
+
+.Schritte
+. Deaktivieren Sie das Kontrollkästchen *CORS aktivieren*.
+. Wählen Sie *Änderungen speichern*.
+

@@ -1,0 +1,69 @@
+---
+permalink: monitor/logs-for-third-party-software.html 
+sidebar: sidebar 
+keywords: troubleshooting, logs 
+summary: Sie können die Softwareprotokolle von Drittanbietern verwenden, um Probleme zu beheben. 
+---
+= Protokolle für Drittanbietersoftware
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die Softwareprotokolle von Drittanbietern verwenden, um Probleme zu beheben.
+
+[cols="1a,2a,3a,1a"]
+|===
+| Kategorie | Dateiname | Hinweise | Gefunden am 
+
+
+ a| 
+Archivierung
+| /Var/local/log/dsierror.log  a| 
+Fehlerinformationen für TSM Client APIs.
+ a| 
+Archiv-Nodes
+
+
+
+ a| 
+MySQL
+| /Var/local/log/mysql.err
+
+/Var/local/log/mysql-slow.log  a| 
+Protokolldateien von MySQL erstellt.
+
+`mysql.err` Erfasst Datenbankfehler und Ereignisse wie Start-ups und Herunterfahren.
+
+`mysql-slow.log` (Das langsame Abfrageprotokoll) erfasst die SQL-Anweisungen, die mehr als 10 Sekunden in Anspruch genommen haben.
+ a| 
+Admin-Nodes
+
+
+
+ a| 
+Betriebssystem
+| /Var/local/log/messages  a| 
+Dieses Verzeichnis enthält Protokolldateien für das Betriebssystem. Die in diesen Protokollen enthaltenen Fehler werden auch im Grid Manager angezeigt. Wählen Sie *SUPPORT* > *Tools* > *Grid-Topologie* aus. Wählen Sie dann *Topologie* > *_Site_* > *_Node_* > *SSM* > *Events* aus.
+ a| 
+Alle Nodes
+
+
+
+ a| 
+NTP
+| /Var/local/log/ntp.log
+
+/Var/lib/ntp/var/log/ntpstats/  a| 
+`/var/local/log/ntp.log` Enthält die Protokolldatei für NTP-Fehlermeldungen.
+
+`/var/lib/ntp/var/log/ntpstats/` Verzeichnis enthält NTP-Zeitstatistiken.
+
+`loopstats` Statistikdaten für Datensätze-Loop-Filter.
+
+`peerstats` Zeichnet Informationen zu Peer-Statistiken auf.
+ a| 
+Alle Nodes
+
+|===

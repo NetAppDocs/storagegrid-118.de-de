@@ -1,0 +1,229 @@
+---
+permalink: maintain/archive-node-maintenance-for-tsm-middleware.html 
+sidebar: sidebar 
+keywords: storagegrid, archive node, tsm, tsm middleware, middleware 
+summary: Archive Nodes sind möglicherweise für Tapes über einen TSM Middleware-Server oder die Cloud über die S3-API konfiguriert. Wenn die Konfiguration abgeschlossen ist, kann ein Ziel für den Archive Node nicht geändert werden. 
+---
+= Wartung von Archivierungs-Nodes für TSM Middleware
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Archive Nodes sind möglicherweise für Tapes über einen TSM Middleware-Server oder die Cloud über die S3-API konfiguriert. Wenn die Konfiguration abgeschlossen ist, kann das Ziel eines Archive Node nicht geändert werden.
+
+Wenn der Server, der den Archivknoten hostet, ausfällt, ersetzen Sie den Server, und befolgen Sie den entsprechenden Wiederherstellungsvorgang.
+
+
+
+== Fehler bei Archivgeräten
+
+Wenn Sie feststellen, dass ein Fehler beim Archivspeichergerät vorliegt, auf das der Archivknoten über Tivoli Storage Manager (TSM) zugreift, schalten Sie den Archivknoten offline, um die Anzahl der im StorageGRID-System angezeigten Alarme zu begrenzen. Anschließend können Sie das Problem mit den administrativen Tools des TSM-Servers, des Speichergeräts oder beidem weiter diagnostizieren und lösen.
+
+
+
+=== Versetzen Sie die Zielkomponente in den Offline-Modus
+
+Bevor Sie eine Wartung des TSM Middleware-Servers durchführen, der dazu führen kann, dass der Knoten „Archiv“ nicht mehr verfügbar ist, nehmen Sie die Zielkomponente offline, um die Anzahl der Alarme zu begrenzen, die ausgelöst werden, wenn der TSM Middleware-Server nicht mehr verfügbar ist.
+
+.Bevor Sie beginnen
+Sie sind mit einem bei Grid Manager angemeldet link:../admin/web-browser-requirements.html["Unterstützter Webbrowser"].
+
+.Schritte
+. Wählen Sie *SUPPORT* > *Tools* > *Grid-Topologie* aus.
+. Wählen Sie *Archivknoten* > *ARC* > *Ziel* > *Konfiguration* > *Haupt*.
+. Ändern Sie den Wert für Tivoli Storage Manager Status in *Offline* und klicken Sie auf *Änderungen anwenden*.
+. Nachdem die Wartung abgeschlossen ist, ändern Sie den Wert des Tivoli Storage Manager-Status in *Online* und klicken Sie auf *Änderungen übernehmen*.
+
+
+
+
+== Administrative Tools für Tivoli Storage Manager
+
+Das dsmadmc-Tool ist die Administrationskonsole für den TSM Middleware-Server, der auf dem Archiv-Knoten installiert ist. Sie können auf das Tool zugreifen, indem Sie eingeben `dsmadmc` In der Befehlszeile des Servers. Melden Sie sich an der Verwaltungskonsole mit demselben administrativen Benutzernamen und Kennwort an, das für den ARC-Dienst konfiguriert ist.
+
+Der `tsmquery.rb` Skript wurde erstellt, um Statusinformationen aus dsmadmc in lesbarer Form zu generieren. Sie können dieses Skript ausführen, indem Sie den folgenden Befehl in der Befehlszeile des Archiv-Knotens eingeben: `/usr/local/arc/tsmquery.rb status`
+
+Weitere Informationen zur TSM Administrationskonsole dsmadmc finden Sie im _Tivoli Storage Manager für Linux: Administratorʹs Reference_.
+
+
+
+== Objekt dauerhaft nicht verfügbar
+
+Wenn der Archivknoten ein Objekt vom Tivoli Storage Manager (TSM)-Server anfordert und der Abruf fehlschlägt, versucht der Archivknoten die Anforderung nach einem Intervall von 10 Sekunden erneut. Wenn das Objekt dauerhaft nicht verfügbar ist (z. B. weil das Objekt auf Band beschädigt ist), kann die TSM-API dies nicht auf den Archiv-Node hinweisen, sodass der Archivknoten die Anforderung weiterhin erneut versucht.
+
+Wenn diese Situation eintritt, wird ein Alarm ausgelöst, und der Wert steigt weiter. Um den Alarm anzuzeigen, wählen Sie *SUPPORT* > *Tools* > *Gittertopologie*. Wählen Sie dann *Archivknoten* > *ARC* > *Retrieve* > *Fehler anfordern*.
+
+Wenn das Objekt dauerhaft nicht verfügbar ist, müssen Sie das Objekt identifizieren und die Anfrage des Archivierungs-Nodes manuell abbrechen, wie in der Prozedur beschrieben. <<determining_objects_permanently_unavailable,Bestimmen, ob Objekte dauerhaft nicht verfügbar sind>>.
+
+Ein Abruf kann auch fehlschlagen, wenn das Objekt vorübergehend nicht verfügbar ist. In diesem Fall sollten nachfolgende Abrufanfragen erfolgreich sein.
+
+Wenn das StorageGRID System für die Verwendung einer ILM-Regel konfiguriert ist, die eine einzelne Objektkopie erstellt und diese Kopie nicht abgerufen werden kann, geht das Objekt verloren und kann nicht wiederhergestellt werden. Sie müssen jedoch weiterhin das Verfahren befolgen, um festzustellen, ob das Objekt für die „Bereinigung“ des StorageGRID-Systems dauerhaft nicht verfügbar ist, um die Anforderung des Archivknotens abzubrechen und Metadaten für das verlorene Objekt zu löschen.
+
+
+
+=== Bestimmen, ob Objekte dauerhaft nicht verfügbar sind
+
+Sie können feststellen, ob Objekte dauerhaft nicht verfügbar sind, indem Sie eine Anforderung über die TSM-Administrationskonsole erstellen.
+
+.Bevor Sie beginnen
+* Das ist schon link:../admin/admin-group-permissions.html["Bestimmte Zugriffsberechtigungen"].
+* Sie haben die `Passwords.txt` Datei:
+* Sie haben die IP-Adresse eines Admin-Knotens.
+
+
+.Über diese Aufgabe
+Dieses Beispiel dient als Informationsmaterial. Mit diesem Verfahren können Sie nicht alle Fehlerbedingungen identifizieren, die zu nicht verfügbaren Objekten oder Bandvolumes führen können. Informationen zur TSM-Administration finden Sie in der TSM-Server-Dokumentation.
+
+.Schritte
+. Melden Sie sich bei einem Admin-Knoten an:
++
+.. Geben Sie den folgenden Befehl ein: `ssh admin@Admin_Node_IP`
+.. Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
+
+
+. Identifizieren Sie das Objekt oder die Objekte, die nicht vom Archiv-Node abgerufen werden konnten:
++
+.. Gehen Sie zu dem Verzeichnis, das die Audit-Log-Dateien enthält: `cd /var/local/log`
++
+Die aktive Audit-Log-Datei heißt Audit.log. Einmal am Tag, die aktive `audit.log` Die Datei wird gespeichert und eine neue `audit.log` Datei wird gestartet. Der Name der gespeicherten Datei gibt an, wann sie gespeichert wurde, im Format `yyyy-mm-dd.txt`. Nach einem Tag wird die gespeicherte Datei komprimiert und im Format umbenannt `yyyy-mm-dd.txt.gz`, Die das ursprüngliche Datum bewahrt.
+
+.. Durchsuchen Sie die entsprechende Audit-Log-Datei nach Meldungen, die darauf hinweisen, dass ein archiviertes Objekt nicht abgerufen werden konnte. Geben Sie beispielsweise Folgendes ein: `grep ARCE audit.log | less -n`
++
+Wenn ein Objekt nicht von einem Archivknoten abgerufen werden kann, wird in DER ARCE-Überwachungsmeldung (Archivobjekt abrufen Ende) ARUN (ArchivMiddleware nicht verfügbar) oder GERR (allgemeiner Fehler) im Ergebnisfeld angezeigt. Die folgende Beispielzeile aus dem Audit-Protokoll zeigt, dass die ARCE-Meldung mit dem Ergebnis ARUN für CBID 498D8A1F681F05B3 beendet wurde.
+
++
+[listing]
+----
+[AUDT:[CBID(UI64):0x498D8A1F681F05B3][VLID(UI64):20091127][RSLT(FC32):ARUN][AVER(UI32):7]
+[ATIM(UI64):1350613602969243][ATYP(FC32):ARCE][ANID(UI32):13959984][AMID(FC32):ARCI]
+[ATID(UI64):4560349751312520631]]
+----
++
+Weitere Informationen finden Sie in den Anweisungen zum Verständnis von Überwachungsmeldungen.
+
+.. Notieren Sie die CBID jedes Objekts, bei dem ein Anforderungsfehler auftritt.
++
+Möglicherweise möchten Sie auch die folgenden zusätzlichen Informationen aufzeichnen, die vom TSM zur Identifizierung von Objekten verwendet werden, die vom Archiv-Node gespeichert wurden:
+
++
+*** *Dateiplatzname*: Entspricht der Archiv-Knoten-ID. Um die Archiv-Knoten-ID zu finden, wählen Sie *SUPPORT* > *Tools* > *Grid Topology*. Wählen Sie dann *Archivknoten* > *ARC* > *Ziel* > *Übersicht*.
+*** *Hoher Level Name*: Entspricht der Volume-ID, die dem Objekt durch den Archiv-Node zugewiesen wurde. Die Volume-ID hat die Form eines Datums (z. B. `20091127`), und wird als VLID des Objekts in Archiv-Audit-Nachrichten aufgezeichnet.
+*** *Name der unteren Ebene*: Entspricht der CBID, die einem Objekt vom StorageGRID-System zugewiesen wurde.
+
+
+.. Melden Sie sich aus der Befehlsshell ab: `exit`
+
+
+. Überprüfen Sie den TSM-Server, ob die in Schritt 2 identifizierten Objekte dauerhaft nicht verfügbar sind:
++
+.. Melden Sie sich bei der Administrationskonsole des TSM-Servers an: `dsmadmc`
++
+Verwenden Sie den für den ARC-Dienst konfigurierten administrativen Benutzernamen und das für den ARC-Dienst konfigurierte Passwort. Geben Sie den Benutzernamen und das Kennwort in den Grid Manager ein. (Um den Benutzernamen anzuzeigen, wählen Sie *SUPPORT* > *Tools* > *Grid Topology*. Wählen Sie dann *Archivknoten* > *ARC* > *Ziel* > *Konfiguration*.)
+
+.. Stellen Sie fest, ob das Objekt dauerhaft nicht verfügbar ist.
++
+Beispielsweise können Sie im TSM-Aktivitätsprotokoll nach einem Datenintegritätsfehler für das Objekt suchen. Das folgende Beispiel zeigt eine Suche des Aktivitätsprotokolls für den letzten Tag nach einem Objekt mit CBID `498D8A1F681F05B3`.
+
++
+[listing]
+----
+> query actlog begindate=-1 search=276C14E94082CC69
+12/21/2008 05:39:15 ANR0548W Retrieve or restore
+failed for session 9139359 for node DEV-ARC-20 (Bycast ARC)
+processing file space /19130020 4 for file /20081002/
+498D8A1F681F05B3 stored as Archive - data
+integrity error detected. (SESSION: 9139359)
+>
+----
++
+Je nach Art des Fehlers kann die CBID nicht im TSM-Aktivitätsprotokoll aufgezeichnet werden. Zum Zeitpunkt des Fehlers der Anforderung müssen Sie möglicherweise das Protokoll nach anderen TSM-Fehlern durchsuchen.
+
+.. Wenn ein ganzes Band dauerhaft nicht verfügbar ist, identifizieren Sie die CBIDs für alle Objekte, die auf diesem Volume gespeichert sind: `query content TSM_Volume_Name`
++
+Wo `TSM_Volume_Name` Ist der TSM-Name für das nicht verfügbare Band. Im Folgenden finden Sie ein Beispiel für die Ausgabe dieses Befehls:
+
++
+[listing]
+----
+ > query content TSM-Volume-Name
+Node Name     Type Filespace  FSID Client's Name for File Name
+------------- ---- ---------- ---- ----------------------------
+DEV-ARC-20    Arch /19130020  216  /20081201/ C1D172940E6C7E12
+DEV-ARC-20    Arch /19130020  216  /20081201/ F1D7FBC2B4B0779E
+----
++
+Der `Client’s Name for File Name` Ist identisch mit der Volume-ID des Archivknotens (oder TSM „High Level Name“) gefolgt von der CBID des Objekts (oder TSM „Low Level Name“). Das ist, das `Client’s Name for File Name` Nimmt das Formular an `/Archive Node volume ID /CBID`. In der ersten Zeile der Beispielausgabe wird der angezeigt `Client’s Name for File Name` Ist `/20081201/ C1D172940E6C7E12`.
+
++
+Erinnern Sie sich auch daran, dass die `Filespace` Ist die Knoten-ID des Archiv-Knotens.
+
++
+Sie benötigen die CBID jedes auf dem Volume gespeicherten Objekts und die Node-ID des Archiv-Node, um die Anforderung zum Abrufen abzubrechen.
+
+
+
+. Brechen Sie bei jedem Objekt, das dauerhaft nicht verfügbar ist, die Abfrage ab, und geben Sie einen Befehl ein, um das StorageGRID System über den Verlust der Objektkopie zu informieren:
++
+
+CAUTION: Verwenden Sie die ADE-Konsole vorsichtig. Wenn die Konsole nicht ordnungsgemäß verwendet wird, können Systemvorgänge und beschädigte Daten unterbrochen werden. Geben Sie Befehle sorgfältig ein, und verwenden Sie nur die in diesem Verfahren dokumentierten Befehle.
+
++
+.. Wenn Sie noch nicht beim Archivknoten angemeldet sind, melden Sie sich wie folgt an:
++
+... Geben Sie den folgenden Befehl ein: `ssh admin@_grid_node_IP_`
+... Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
+... Geben Sie den folgenden Befehl ein, um zum Root zu wechseln: `su -`
+... Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
+
+
+.. Zugriff auf die ADE-Konsole des ARC-Dienstes: `telnet localhost 1409`
+.. Abbrechen der Anfrage für das Objekt: `/proc/BRTR/cancel -c CBID`
++
+Wo `CBID` Ist die Kennung des Objekts, das nicht vom TSM abgerufen werden kann.
+
++
+Wenn sich die einzigen Kopien des Objekts auf Band befinden, wird die Anforderung „Massenabruf“ mit der Meldung „1 Anforderungen abgebrochen“ abgebrochen. Wenn an anderer Stelle im System Kopien des Objekts vorhanden sind, wird der Objektabruf von einem anderen Modul verarbeitet, sodass die Antwort auf die Meldung „0 Anfragen abgebrochen“ lautet.
+
+.. Geben Sie einen Befehl ein, um das StorageGRID System darüber zu informieren, dass eine Objektkopie verloren gegangen ist und dass weitere Kopien erstellt werden müssen: `/proc/CMSI/Object_Lost CBID node_ID`
++
+Wo `CBID` Ist die Kennung des Objekts, das nicht vom TSM-Server abgerufen werden kann, und `node_ID` Ist die Knoten-ID des Archiv-Knotens, bei dem der Abruf fehlgeschlagen ist.
+
++
+Sie müssen einen separaten Befehl für jede verlorene Objektkopie eingeben: Die Eingabe eines Bereichs von CBIDs wird nicht unterstützt.
+
++
+In den meisten Fällen erstellt das StorageGRID System sofort zusätzliche Kopien von Objektdaten, um sicherzustellen, dass die ILM-Richtlinie des Systems befolgt wird.
+
++
+Wenn jedoch in der ILM-Regel für das Objekt angegeben wurde, dass nur eine Kopie erstellt wurde und diese Kopie jetzt verloren gegangen ist, kann das Objekt nicht wiederhergestellt werden. In diesem Fall die ausführen `Object_Lost` Der Befehl bereinigt die Metadaten des verlorenen Objekts aus dem StorageGRID System.
+
++
+Wenn der `Object_Lost` Befehl wurde erfolgreich abgeschlossen, die folgende Meldung wird zurückgegeben:
+
++
+[listing]
+----
+CLOC_LOST_ANS returned result ‘SUCS’
+----
++
+
+NOTE: Der `/proc/CMSI/Object_Lost` Der Befehl ist nur für verlorene Objekte gültig, die auf Archiv-Knoten gespeichert sind.
+
+.. Verlassen Sie die ADE-Konsole: `exit`
+.. Melden Sie sich vom Archiv-Knoten ab: `exit`
+
+
+. Zurücksetzen des Werts von Anfragefehlern im StorageGRID System:
++
+.. Gehen Sie zu *Archivknoten* > *ARC* > *Retrieve* > *Konfiguration*, und wählen Sie *Fehleranzahl der Anfrage zurücksetzen*.
+.. Klicken Sie Auf *Änderungen Übernehmen*.
+
+
+
+
+.Verwandte Informationen
+link:../admin/index.html["StorageGRID verwalten"]
+
+link:../audit/index.html["Prüfung von Audit-Protokollen"]

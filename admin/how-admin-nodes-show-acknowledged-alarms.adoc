@@ -1,0 +1,20 @@
+---
+permalink: admin/how-admin-nodes-show-acknowledged-alarms.html 
+sidebar: sidebar 
+keywords: admin node, acknowledge alarm 
+summary: Wenn Sie einen Alarm an einem Admin-Knoten bestätigen, wird der bestätigte Alarm nicht auf einen anderen Admin-Knoten kopiert. Da Danksagungen nicht auf andere Admin-Knoten kopiert werden, sieht die Struktur der Grid Topology für jeden Admin-Knoten möglicherweise nicht gleich aus. 
+---
+= So zeigen Admin-Knoten bestätigte Alarme an (Legacy-System)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie einen Alarm an einem Admin-Knoten bestätigen, wird der bestätigte Alarm nicht auf einen anderen Admin-Knoten kopiert. Da Bestätigungen nicht in andere Admin-Knoten kopiert werden, sieht die Struktur der Grid-Topologie für jeden Admin-Knoten möglicherweise nicht gleich aus.
+
+Dieser Unterschied kann nützlich sein, wenn Web-Clients verbunden werden. Web-Clients können je nach Administratoranforderungen unterschiedliche Ansichten des StorageGRID-Systems haben.
+
+image::../media/grid_topology_with_differing_alarm_acknowledgments.gif[Mehrere Admin-Knoten und Alarmbestätigungen]
+
+Beachten Sie, dass Benachrichtigungen vom Admin-Knoten gesendet werden, wo die Bestätigung erfolgt.

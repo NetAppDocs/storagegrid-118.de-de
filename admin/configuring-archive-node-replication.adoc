@@ -1,0 +1,43 @@
+---
+permalink: admin/configuring-archive-node-replication.html 
+sidebar: sidebar 
+keywords: archive node replication 
+summary: Sie können die Replikationseinstellungen für einen Archivknoten konfigurieren und die ein- und ausgehende Replikation deaktivieren oder die für die zugehörigen Alarme zu protokollierenden Fehlerzählungen zurücksetzen. 
+---
+= Konfigurieren Sie die Replikation des Archivierungs-Knotens
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die Replikationseinstellungen für einen Archivknoten konfigurieren und die ein- und ausgehende Replikation deaktivieren oder die für die zugehörigen Alarme zu protokollierenden Fehlerzählungen zurücksetzen.
+
+.Bevor Sie beginnen
+* Sie sind mit einem bei Grid Manager angemeldet link:../admin/web-browser-requirements.html["Unterstützter Webbrowser"].
+* Das ist schon link:admin-group-permissions.html["Bestimmte Zugriffsberechtigungen"].
+
+
+.Schritte
+. Wählen Sie *SUPPORT* > *Tools* > *Grid-Topologie* aus.
+. Wählen Sie *_Archivknoten_* > *ARC* > *Replikation* aus.
+. Wählen Sie *Konfiguration* > *Main*.
++
+image::../media/archive_node_replication.gif[Konfigurationsseite für einen Archiv-Knoten > Replikationseinstellungen]
+
+. Ändern Sie bei Bedarf die folgenden Einstellungen:
++
+** *Fehleranzahl Inbound Replication zurücksetzen*: Wählen Sie, um den Zähler für eingehende Replikationsfehler zurückzusetzen. Dies kann verwendet werden, um den RIRF-Alarm (eingehende Replikationen -- fehlgeschlagen) zu löschen.
+** *Fehleranzahl bei ausgehenden Replikationsfehlern zurücksetzen*: Wählen Sie, um den Zähler für ausgehende Replikationsfehler zurückzusetzen. Dies kann verwendet werden, um den RORF-Alarm (ausgehende Replikationen -- fehlgeschlagen) zu löschen.
+** *Inbound Replication* deaktivieren: Wählen Sie aus, um die eingehende Replikation im Rahmen eines Wartungs- oder Testverfahrens zu deaktivieren. Während des normalen Betriebs löschen lassen.
++
+Wenn die eingehende Replikation deaktiviert ist, können Objektdaten vom ARC-Dienst zur Replikation an andere Standorte im StorageGRID-System abgerufen werden. Objekte können jedoch nicht von anderen Systemstandorten auf diesen ARC-Dienst repliziert werden. Der ARC-Dienst wird‐only gelesen.
+
+** *Ausgehende Replikation deaktivieren*: Aktivieren Sie das Kontrollkästchen, um die ausgehende Replikation (einschließlich Inhaltsanforderungen für HTTP-Abfragen) im Rahmen eines Wartungs- oder Testverfahrens zu deaktivieren. Während des normalen Betriebs nicht aktiviert lassen.
++
+Wenn die ausgehende Replikation deaktiviert ist, können Objektdaten zu diesem ARC-Dienst kopiert werden, um ILM-Regeln zu erfüllen. Objektdaten können jedoch nicht vom ARC-Dienst abgerufen werden, um an andere Orte im StorageGRID-System kopiert zu werden. Der ARC-Dienst ist nur schreiben‐.
+
+
+
+. Wählen Sie *Änderungen Anwenden*.
+

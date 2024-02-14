@@ -1,0 +1,86 @@
+---
+permalink: tenant/configuring-search-integration-service.html 
+sidebar: sidebar 
+keywords: how to configure search integration service 
+summary: Der Suchintegrations-Service sendet Objektmetadaten an einen Zielindex bei jedem Erstellen, Löschen oder Aktualisieren der zugehörigen Metadaten oder Tags. 
+---
+= Konfigurieren Sie den Suchintegrationsdienst
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der Suchintegrations-Service sendet Objektmetadaten an einen Zielindex bei jedem Erstellen, Löschen oder Aktualisieren der zugehörigen Metadaten oder Tags.
+
+.Bevor Sie beginnen
+* Die Plattformservices wurden für Ihr Mandantenkonto von einem StorageGRID-Administrator aktiviert.
+* Sie haben bereits einen S3-Bucket erstellt, dessen Inhalt Sie indizieren möchten.
+* Der Endpunkt, den Sie als Ziel für den Suchintegrationsdienst verwenden möchten, ist bereits vorhanden, und Sie haben seinen URN.
+* Sie gehören einer Benutzergruppe an, die über den verfügt link:tenant-management-permissions.html["Managen aller Buckets oder Root-Zugriffsberechtigungen"]. Diese Berechtigungen überschreiben die Berechtigungseinstellungen in Gruppen- oder Bucket-Richtlinien bei der Konfiguration des Buckets mithilfe des Mandanten-Manager.
+
+
+.Über diese Aufgabe
+Nachdem Sie den Such-Integrationsservice für einen Quell-Bucket konfiguriert haben, werden beim Erstellen eines Objekts oder beim Aktualisieren der Metadaten oder Tags eines Objekts Objektmetadaten ausgelöst, die an den Ziel-Endpunkt gesendet werden. Wenn Sie den Suchintegrationsservice für einen Bucket aktivieren, der bereits Objekte enthält, werden Metadatenbenachrichtigungen nicht automatisch für vorhandene Objekte gesendet. Sie müssen diese vorhandenen Objekte aktualisieren, um sicherzustellen, dass ihre Metadaten dem Zielsuchindex hinzugefügt werden.
+
+.Schritte
+. Verwenden Sie einen Texteditor, um die XML-XML-Metadatenbenachrichtigung zu erstellen, die für die Integration der Suche erforderlich ist.
++
+** Informationen zur Integration der Suchfunktion finden Sie in den XML-Konfigurationsdaten.
+** Verwenden Sie beim Konfigurieren des XML den URN eines Endpunkt zur Integration der Suche als Ziel.
+
+
++
+[listing]
+----
+<MetadataNotificationConfiguration>
+ <Rule>
+    <Status>Enabled</Status>
+    <Prefix></Prefix>
+    <Destination>
+       <Urn>arn:aws:es:us-east-1:11111111111111:domain/mydomain/myindex/mytype</Urn>
+       </Destination>
+ </Rule>
+</MetadataNotificationConfiguration>
+----
+. Wählen Sie im Mandantenmanager *STORAGE (S3)* > *Buckets* aus.
+. Wählen Sie den Namen des Quell-Buckets aus.
++
+Die Seite mit den Bucket-Details wird angezeigt.
+
+. Wählen Sie *Plattform-Services* > *Integration suchen*
+. Aktivieren Sie das Kontrollkästchen *Enable search Integration*.
+. Fügen Sie die Konfiguration der Metadatenbenachrichtigung in das Textfeld ein, und wählen Sie *Änderungen speichern*.
++
+image::../media/tenant_bucket_search_integration_configuration.png[Screenshot des Dialogfelds für die Konfiguration der Suchintegration]
+
++
+
+NOTE: Plattformservices müssen für jedes Mandantenkonto von einem StorageGRID-Administrator aktiviert werden, der den Grid Manager oder die Management-API verwendet. Wenden Sie sich an Ihren StorageGRID-Administrator, wenn beim Speichern der Konfigurations-XML ein Fehler auftritt.
+
+. Überprüfen Sie, ob der Suchintegrationsdienst richtig konfiguriert ist:
++
+.. Fügen Sie dem Quell-Bucket ein Objekt hinzu, das die Anforderungen für das Auslösen einer Metadatenbenachrichtigung erfüllt, wie in der Konfigurations-XML angegeben.
++
+In dem zuvor gezeigten Beispiel lösen alle Objekte, die dem Bucket hinzugefügt wurden, eine Metadatenbenachrichtigung aus.
+
+.. Bestätigen Sie, dass ein JSON-Dokument, das die Metadaten und Tags des Objekts enthält, zum im Endpunkt angegebenen Suchindex hinzugefügt wurde.
+
+
+
+
+.Nachdem Sie fertig sind
+Bei Bedarf können Sie die Suchintegration für einen Bucket mithilfe einer der folgenden Methoden deaktivieren:
+
+* Wählen Sie *STORAGE (S3)* > *Buckets* und deaktivieren Sie das Kontrollkästchen *Enable search Integration*.
+* Wenn Sie die S3-API direkt verwenden, verwenden Sie eine Benachrichtigungsanforderung FÜR DELETE-Bucket-Metadaten. Anweisungen zur Implementierung von S3-Client-Applikationen finden Sie in der Anleitung.
+
+
+.Verwandte Informationen
+link:understanding-search-integration-service.html["Den Suchintegrations-Service verstehen"]
+
+link:configuration-xml-for-search-configuration.html["Konfigurations-XML für die Integration der Suche"]
+
+link:../s3/index.html["S3-REST-API VERWENDEN"]
+
+link:creating-platform-services-endpoint.html["Endpunkt für Plattformservices erstellen"]

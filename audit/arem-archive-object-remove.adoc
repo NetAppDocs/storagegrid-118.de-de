@@ -1,0 +1,51 @@
+---
+permalink: audit/arem-archive-object-remove.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, AREM, Archive Object Remove 
+summary: Die Meldung „Archiv Objekt entfernen“ zeigt an, dass ein Inhaltsblock erfolgreich oder nicht erfolgreich von einem Archiv-Knoten gelöscht wurde. Wenn das Ergebnis erfolgreich ist, hat der Archivknoten das externe Archivspeichersystem erfolgreich darüber informiert, dass StorageGRID einen Objektspeicherort freigegeben hat. Ob das Objekt aus dem externen Archivspeichersystem entfernt wird, hängt vom Systemtyp und dessen Konfiguration ab. 
+---
+= ARM: Archivobjekt Entfernen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Meldung „Archiv Objekt entfernen“ zeigt an, dass ein Inhaltsblock erfolgreich oder nicht erfolgreich von einem Archiv-Knoten gelöscht wurde. Wenn das Ergebnis erfolgreich ist, hat der Archivknoten das externe Archivspeichersystem erfolgreich darüber informiert, dass StorageGRID einen Objektspeicherort freigegeben hat. Ob das Objekt aus dem externen Archivspeichersystem entfernt wird, hängt vom Systemtyp und dessen Konfiguration ab.
+
+[cols="1a,1a,4a"]
+|===
+| Codieren | Feld | Beschreibung 
+
+
+ a| 
+CBID
+ a| 
+Inhaltsblock-ID
+ a| 
+Die eindeutige Kennung des Inhaltsblocks, der vom externen Archivmediensystem abgerufen werden soll.
+
+
+
+ a| 
+VLID
+ a| 
+Volume-Kennung
+ a| 
+Die Kennung des Volumes, auf dem die Objektdaten archiviert wurden.
+
+
+
+ a| 
+RSLT
+ a| 
+Ergebnis
+ a| 
+Der Abschlussstatus des Löschvorgangs für das Archiv:
+
+* ERFOLGREICH
+* ARUN: Fehlgeschlagen (externes Archiv-Storage-System nicht verfügbar)
+* GERR: Fehlgeschlagen (allgemeiner Fehler)
+
+
+|===

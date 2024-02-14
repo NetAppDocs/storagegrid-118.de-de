@@ -1,0 +1,71 @@
+---
+permalink: troubleshoot/troubleshooting-storage-status-alarm.html 
+sidebar: sidebar 
+keywords: how to troubleshoot storage status alarm, how to troubleshoot ssts alarm 
+summary: 'Der SSTS-Alarm (Storage Status) wird ausgelöst, wenn ein Speicherknoten über nicht genügend freien Speicherplatz für den Objektspeicher verfügt.' 
+---
+= Fehlersuche im SSTS-Alarm (Storage Status) durchführen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der SSTS-Alarm (Storage Status) wird ausgelöst, wenn ein Speicherknoten über nicht genügend freien Speicherplatz für den Objektspeicher verfügt.
+
+.Bevor Sie beginnen
+* Sie müssen mit einem beim Grid Manager angemeldet sein link:../admin/web-browser-requirements.html["Unterstützter Webbrowser"].
+* Das ist schon link:../admin/admin-group-permissions.html["Bestimmte Zugriffsberechtigungen"].
+
+
+.Über diese Aufgabe
+Der SSTS-Alarm (Speicherstatus) wird auf Notice-Ebene ausgelöst, wenn die Menge an freiem Speicherplatz auf jedem Volume in einem Speicherknoten unter den Wert des Speichervolumen-Soft-Read-Only-Wasserzeichens (*KONFIGURATION* > *System* > *Speicheroptionen*) fällt.
+
+image::../media/storage_watermarks.png[Überblick Über Die Storage-Optionen]
+
+Angenommen, das Speichervolumen-Soft-Read-Only-Wasserzeichen ist auf 10 GB gesetzt, das ist der Standardwert. Der SSTS-Alarm wird ausgelöst, wenn auf jedem Speicher-Volume im Storage-Node weniger als 10 GB nutzbarer Speicherplatz verbleibt. Wenn eines der Volumes über 10 GB oder mehr verfügbaren Speicherplatz verfügt, wird der Alarm nicht ausgelöst.
+
+Wenn ein SSTS-Alarm ausgelöst wurde, können Sie diese Schritte ausführen, um das Problem besser zu verstehen.
+
+.Schritte
+. Wählen Sie *SUPPORT* > *Alarme (alt)* > *Aktueller Alarm* aus.
+. Wählen Sie in der Spalte Service das Rechenzentrum, den Node und den Service aus, die dem SSTS-Alarm zugeordnet sind.
++
+Die Seite Grid Topology wird angezeigt. Auf der Registerkarte „Alarme“ werden die aktiven Alarme für den ausgewählten Knoten und Dienst angezeigt.
+
++
+image::../media/ssts_alarm.png[Registerkarte „Storage Node“ > „LDR“ > „Storage“ > „Alarme“]
+
++
+In diesem Beispiel wurden sowohl die SSTS-Alarme (Speicherstatus) als auch die SAVP (Total Usable Space (Prozent)) auf der Notice-Ebene ausgelöst.
+
++
+
+NOTE: Typischerweise werden sowohl der SSTS-Alarm als auch der SAVP-Alarm etwa gleichzeitig ausgelöst. Ob jedoch beide Alarme ausgelöst werden, hängt von der Wasserzeichen-Einstellung in GB und der SAVP-Alarmeinstellung in Prozent ab.
+
+. Um festzustellen, wie viel nutzbarer Speicherplatz tatsächlich verfügbar ist, wählen Sie *LDR* > *Storage* > *Übersicht* und suchen Sie das Attribut Total Usable Space (STAS).
++
+image::../media/storage_node_total_usable_space.png[Insgesamt Verwendbarer Speicherplatz]
+
++
+In diesem Beispiel bleiben nur 19.6 GB des 164 GB Speicherplatzes auf diesem Speicherknoten verfügbar. Beachten Sie, dass der Gesamtwert die Summe der *verfügbaren*-Werte für die drei Objektspeicher-Volumes ist. Der SSTS-Alarm wurde ausgelöst, weil jedes der drei Speicher-Volumes weniger als 10 GB verfügbaren Speicherplatz hatte.
+
+. Um zu verstehen, wie Speicher im Laufe der Zeit genutzt wurde, wählen Sie die Registerkarte *Berichte* und zeichnen den gesamten nutzbaren Speicherplatz in den letzten Stunden.
++
+In diesem Beispiel sank der gesamte nutzbare Speicherplatz von etwa 155 GB bei 12:00 auf 20 GB bei 12:35, was der Zeit entspricht, zu der der SSTS-Alarm ausgelöst wurde.
+
++
+image::../media/total_usable_space_chart.png[Gesamter Verwendbarer Speicherplatz - Diagramm]
+
+. Um zu verstehen, wie Speicher als Prozentsatz der Gesamtmenge genutzt wird, geben Sie den gesamten nutzbaren Speicherplatz (Prozent) in den letzten Stunden an.
++
+In diesem Beispiel sank der nutzbare Gesamtspeicherplatz von 95 % auf etwa 10 % zur selben Zeit.
+
++
+image::../media/total_usable_storage_percent_chart.png[Gesamter Verwendbarer Speicherplatz (Prozent) - Diagramm]
+
+. Nach Bedarf link:../expand/guidelines-for-adding-object-capacity.html["Ergänzen Sie die Speicherkapazität"].
++
+Siehe auch link:../admin/managing-full-storage-nodes.html["Management vollständiger Storage-Nodes"].
+
+

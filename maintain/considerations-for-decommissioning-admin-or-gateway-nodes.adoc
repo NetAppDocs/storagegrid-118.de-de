@@ -1,0 +1,64 @@
+---
+permalink: maintain/considerations-for-decommissioning-admin-or-gateway-nodes.html 
+sidebar: sidebar 
+keywords: storagegrid, decommission admin node, gateway node, archive node 
+summary: Prüfen Sie die Überlegungen für das Stilllegen eines Admin-Knotens, Gateway-Knotens oder Archivknoten. 
+---
+= Überlegungen bei der Stilllegung von Admin-, Gateway- oder Archivierungs-Nodes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Prüfen Sie die Überlegungen für das Stilllegen eines Admin-Knotens, Gateway-Knotens oder Archivknoten.
+
+
+
+== Überlegungen zu Admin-Knoten
+
+* Der primäre Admin-Node kann nicht stillgelegt werden.
+* Sie können einen Admin-Node nicht ausmustern, wenn eine seiner Netzwerkschnittstellen Teil einer HA-Gruppe (High Availability, Hochverfügbarkeit) ist. Sie müssen zuerst die Netzwerkschnittstellen aus der HA-Gruppe entfernen. Siehe Anweisungen für link:../admin/managing-high-availability-groups.html["Verwalten von HA-Gruppen"].
+* Bei Bedarf können Sie ILM-Richtlinien sicher ändern und gleichzeitig einen Admin-Node stilllegen.
+* Wenn Sie einen Admin-Node deaktivieren und Single Sign-On (SSO) für Ihr StorageGRID-System aktiviert ist, müssen Sie daran denken, das Vertrauen des Knotens zu entfernen, das auf die Grundlage von Active Directory Federation Services (AD FS) basiert.
+* Wenn Sie verwenden link:../admin/grid-federation-overview.html["Grid-Verbund"], Stellen Sie sicher, dass die IP-Adresse des Node, den Sie decommissionieren, nicht für eine Netzverbundverbindung angegeben wurde.
+* Wenn Sie einen getrennten Admin-Node stilllegen, verlieren Sie die Audit-Protokolle von diesem Node. Diese Protokolle sollten jedoch auch im primären Admin-Node vorhanden sein.
+
+
+
+
+== Überlegungen zu Gateway Node
+
+* Sie können einen Gateway-Node nicht stilllegen, wenn eine seiner Netzwerkschnittstellen Teil einer HA-Gruppe (High Availability, Hochverfügbarkeit) ist. Sie müssen zuerst die Netzwerkschnittstellen aus der HA-Gruppe entfernen. Siehe Anweisungen für link:../admin/managing-high-availability-groups.html["Verwalten von HA-Gruppen"].
+* Bei Bedarf können Sie ILM-Richtlinien sicher ändern und gleichzeitig einen Gateway Node stilllegen.
+* Wenn Sie verwenden link:../admin/grid-federation-overview.html["Grid-Verbund"], Stellen Sie sicher, dass die IP-Adresse des Node, den Sie decommissionieren, nicht für eine Netzverbundverbindung angegeben wurde.
+* Sie können einen Gateway-Node sicher außer Betrieb setzen, während er getrennt ist.
+
+
+
+
+== [[Überlegungen-für-Archive-Node]]Überlegungen zu Archive Node
+
+
+NOTE: Die Unterstützung für Archive Nodes und die Cloud Tiering – Simple Storage Service (S3) Option sind veraltet. Die Unterstützung für Archive Node wird in einem zukünftigen Release vollständig entfernt.
+
+* Sie können einen Archivknoten nicht stilllegen, wenn er noch mit dem Raster verbunden ist. Um einen Archivknoten zu entfernen, vergewissern Sie sich, dass der Knoten nicht mehr verwendet wird, Daten an einen anderen Speicherort migriert wurden und der Knoten ausgeschaltet ist. Verwenden Sie anschließend das Verfahren zur Deaktivierung getrennter Nodes.
+* Wenn der Archivknoten noch verwendet wird, stellen Sie sicher, dass Ihr Zeitplan genügend Zeit enthält, um vorhandene Daten in Storage-Nodes oder einen Cloud-Speicherpool zu verschieben. Das Verschieben der Daten von einem Archivknoten kann mehrere Tage oder Wochen dauern.
+
+
+.Schritte
+. Wenn Sie derzeit einen Archive Node mit der Option Cloud Tiering – Simple Storage Service (S3) verwenden, link:../admin/migrating-objects-from-cloud-tiering-s3-to-cloud-storage-pool.html["Migrieren Sie Ihre Objekte in einen Cloud-Storage-Pool"].
+. Vergewissern Sie sich, dass der Archive Node nicht mehr von ILM-Regeln in den aktiven ILM-Richtlinien verwendet wird.
++
+.. Gehen Sie zur Seite *ILM* > *Speicherpools*.
+.. Wählen Sie aus der Liste der Speicherpools alle Speicherpools aus, die nur Archivknoten enthalten.
+.. Wählen Sie die Registerkarte *ILM-Nutzung* aus.
+.. Wenn ILM-Regeln aufgeführt sind, prüfen Sie in der Spalte *in aktiver Richtlinie verwendet*, ob der Speicherpool des Archivknoten in einer aktiven Richtlinie verwendet wird.
+.. Wenn der Speicherpool verwendet wird, link:../ilm/creating-ilm-policy.html["Neue ILM-Richtlinie erstellen"] Der den Archive Node nicht mehr verwendet.
+.. Aktivieren Sie die neue Richtlinie.
+.. Warten Sie, bis alle Objekte aus dem Speicherpool Archive Node verschoben werden. Dies kann mehrere Tage oder Wochen dauern.
+
+
+. Nachdem Sie sicher sind, dass alle Objekte vom Archivknoten verschoben wurden, schalten Sie den Knoten aus.
+. Führen Sie die aus link:decommissioning-disconnected-grid-nodes.html["Verfahren zur Deaktivierung getrennter Nodes"].
+

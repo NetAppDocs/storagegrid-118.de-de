@@ -1,0 +1,177 @@
+---
+permalink: s3/head-object.html 
+sidebar: sidebar 
+keywords: HeadObject 
+summary: Sie können die S3 HeadObject-Anforderung verwenden, um Metadaten von einem Objekt abzurufen, ohne das Objekt selbst zurückzugeben. 
+---
+= HeadObject
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die S3 HeadObject-Anforderung verwenden, um Metadaten von einem Objekt abzurufen, ohne das Objekt selbst zurückzugeben. Wenn das Objekt in einem Cloud-Speicherpool gespeichert ist, können Sie HeadObject verwenden, um den Übergangsstatus des Objekts zu bestimmen.
+
+
+
+== HeadObject- und mehrteilige Objekte
+
+Sie können das verwenden `partNumber` Parameter anfordern, um Metadaten für einen bestimmten Teil eines mehrteiligen oder segmentierten Objekts abzurufen.  Der `x-amz-mp-parts-count` Das Antwortelement gibt an, wie viele Teile das Objekt hat.
+
+Sie können festlegen `partNumber` Zu 1 für segmentierte/mehrteilige Objekte und nicht segmentierte/nicht mehrteilige Objekte; jedoch die `x-amz-mp-parts-count` Antwortelement wird nur für segmentierte oder mehrteilige Objekte zurückgegeben.
+
+
+
+== UTF-8 Zeichen in Benutzermetadaten
+
+StorageGRID parst oder interpretiert die entgangenen UTF-8-Zeichen nicht in benutzerdefinierten Metadaten. HEAD-Anforderungen für ein Objekt mit ausbleibenden UTF-8-Zeichen in benutzerdefinierten Metadaten geben den nicht zurück `x-amz-missing-meta` Kopfzeile, wenn der Schlüsselname oder -Wert nicht druckbare Zeichen enthält.
+
+
+
+== Nicht unterstützte Anforderungsüberschrift
+
+Die folgende Anforderungsüberschrift wird nicht unterstützt und kehrt zurück `XNotImplemented`:
+
+* `x-amz-website-redirect-location`
+
+
+
+
+== Versionierung
+
+Wenn A `versionId` unterressource wird nicht angegeben. Der Vorgang ruft die aktuellste Version des Objekts in einem versionierten Bucket ab. Wenn es sich bei der aktuellen Version des Objekts um eine Löschmarkierung handelt, wird der Status „nicht gefunden“ mit dem zurückgegeben `x-amz-delete-marker` Antwortkopfzeile auf gesetzt `true`.
+
+
+
+== Kopfzeilen zur serverseitigen Verschlüsselung mit vom Kunden bereitgestellten Verschlüsselungsschlüsseln anfordern (SSE-C)
+
+Verwenden Sie alle drei dieser Kopfzeilen, wenn das Objekt mit einem eindeutigen Schlüssel verschlüsselt ist, den Sie angegeben haben.
+
+* `x-amz-server-side-encryption-customer-algorithm`: Angabe `AES256`.
+* `x-amz-server-side-encryption-customer-key`: Geben Sie Ihren Verschlüsselungsschlüssel für das Objekt an.
+* `x-amz-server-side-encryption-customer-key-MD5`: Geben Sie den MD5-Digest des Verschlüsselungsschlüssels des Objekts an.
+
+
+
+CAUTION: Die von Ihnen zur Verfügung gelegten Schlüssel werden niemals gespeichert. Wenn Sie einen Verschlüsselungsschlüssel verlieren, verlieren Sie das entsprechende Objekt. Bevor Sie vom Kunden bereitgestellte Schlüssel zum Schutz von Objektdaten verwenden, sollten Sie die Überlegungen in prüfen link:using-server-side-encryption.html["Serverseitige Verschlüsselung"].
+
+
+
+== HeadObject-Antworten für Cloud-Storage-Pool-Objekte
+
+Wenn das Objekt in einem gespeichert ist link:../ilm/what-cloud-storage-pool-is.html["Cloud-Storage-Pool"], Die folgenden Antwortheader werden zurückgegeben:
+
+* `x-amz-storage-class: GLACIER`
+* `x-amz-restore`
+
+
+Die Antwortheader liefern Informationen zum Status eines Objekts beim Verschieben in einen Cloud Storage Pool, beim Wechsel in einen nicht abrufbaren Zustand und wieder verfügbar.
+
+[cols="1a,1a"]
+|===
+| Status des Objekts | Antwort auf HeadObject 
+
+
+ a| 
+Objekt, das in StorageGRID aufgenommen wurde, durch ILM jedoch noch nicht evaluiert wurde, oder Objekt, das in einem herkömmlichen Storage-Pool gespeichert ist oder Erasure Coding verwendet
+ a| 
+`200 OK` (Es wird keine spezielle Antwortheader zurückgegeben.)
+
+
+
+ a| 
+Objekt in Cloud-Storage-Pool, ist aber noch nicht in einen Zustand übergegangen, der nicht abrufbar ist
+ a| 
+`200 OK`
+
+`x-amz-storage-class: GLACIER`
+
+`x-amz-restore: Laufend-request=„false“, expiry-date=„Sa, 23. Juli 20 2030 00:00:00 Uhr GMT“
+
+Bis das Objekt in einen nicht aufrufbaren Zustand überführt wird, wird der Wert für `expiry-date` Wird in der Zukunft auf eine ferne Zeit gesetzt. Die genaue Zeit der Transition wird nicht durch das StorageGRID System gesteuert.
+
+
+
+ a| 
+Das Objekt ist in den nicht aufrufbaren Zustand übergegangen, aber mindestens eine Kopie ist auch im Grid vorhanden
+ a| 
+`200 OK`
+
+`x-amz-storage-class: GLACIER`
+
+`x-amz-restore: Laufend-request=„false“, expiry-date=„Sa, 23. Juli 20 2030 00:00:00 Uhr GMT“
+
+Der Wert für `expiry-date` Wird in der Zukunft auf eine ferne Zeit gesetzt.
+
+*Hinweis*: Wenn die Kopie auf dem Raster nicht verfügbar ist (z. B. ist ein Storage Node ausgefallen), müssen Sie einen ausstellen link:post-object-restore.html["Objekt restoreObject"] Anforderung zur Wiederherstellung der Kopie aus dem Cloud-Storage-Pool, bevor Sie das Objekt erfolgreich abrufen können.
+
+
+
+ a| 
+Das Objekt wurde in einen nicht abrufbaren Zustand versetzt, und es ist keine Kopie im Grid vorhanden
+ a| 
+`200 OK`
+
+`x-amz-storage-class: GLACIER`
+
+
+
+ a| 
+Objekt wird aus einem nicht aufrufbaren Zustand wiederhergestellt
+ a| 
+`200 OK`
+
+`x-amz-storage-class: GLACIER`
+
+`x-amz-restore: Laufend-request=„wahr“
+
+
+
+ a| 
+Das Objekt wird im Cloud-Storage-Pool vollständig wiederhergestellt
+ a| 
+`200 OK`
+
+`x-amz-storage-class: GLACIER`
+
+`x-amz-restore: Laufend-request=„false“, expiry-date=„Sa, 23. Juli 20 2018 00:00:00 Uhr GMT“
+
+Der `expiry-date` Gibt an, wann das Objekt im Cloud Storage Pool wieder in einen Zustand zurückversetzt werden soll, der nicht abrufbar ist.
+
+|===
+
+
+=== Mehrteilige oder segmentierte Objekte in Cloud Storage Pool
+
+Wenn Sie ein mehrteilige Objekt hochgeladen StorageGRID oder ein großes Objekt in Segmente aufgeteilt haben, bestimmt StorageGRID, ob das Objekt im Cloud-Storage-Pool verfügbar ist, indem Sie eine Teilmenge der Teile oder Segmente des Objekts testen. In einigen Fällen gibt eine HeadObject-Anforderung fälschlicherweise `x-amz-restore: Laufend-request="false" zurück, wenn einige Teile des Objekts bereits in einen nicht abrufbaren Zustand überführt wurden oder wenn Teile des Objekts noch nicht wiederhergestellt wurden.
+
+
+
+== HeadObject- und Grid-übergreifende Replikation
+
+Wenn Sie verwenden link:../admin/grid-federation-overview.html["Grid-Verbund"] Und link:../tenant/grid-federation-manage-cross-grid-replication.html["Grid-übergreifende Replizierung"] Ist für einen Bucket aktiviert, kann der S3-Client den Replikationsstatus eines Objekts durch Ausgabe einer HeadObject-Anforderung überprüfen. Die Antwort bezieht sich auf das StorageGRID-spezifische `x-ntap-sg-cgr-replication-status` Antwortheader, der einen der folgenden Werte enthält:
+
+[cols="1a,2a"]
+|===
+| Raster | Replikationsstatus 
+
+
+ a| 
+Quelle
+ a| 
+* *SUCCESS*: Die Replikation war erfolgreich.
+* *AUSSTEHEND*: Das Objekt wurde noch nicht repliziert.
+* *FAILURE*: Die Replikation ist mit einem permanenten Fehler fehlgeschlagen. Ein Benutzer muss den Fehler beheben.
+
+
+
+
+ a| 
+Ziel
+ a| 
+*REPLIKAT*: Das Objekt wurde aus dem Quellraster repliziert.
+
+|===
+
+NOTE: StorageGRID unterstützt das nicht `x-amz-replication-status` Kopfzeile.

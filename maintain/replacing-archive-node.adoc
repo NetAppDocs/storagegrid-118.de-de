@@ -1,0 +1,42 @@
+---
+permalink: maintain/replacing-archive-node.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, archive node 
+summary: Um einen Archiv-Knoten wiederherzustellen, müssen Sie zuerst den Knoten ersetzen. 
+---
+= Archivknoten Ersetzen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Um einen Archiv-Knoten wiederherzustellen, müssen Sie zuerst den Knoten ersetzen.
+
+Sie müssen das Verfahren zum Ersetzen des Node für Ihre Plattform auswählen. Die Schritte zum Ersetzen eines Node sind für alle Typen von Grid-Nodes identisch.
+
+[cols="1a,2a"]
+|===
+| Plattform | Verfahren 
+
+
+ a| 
+VMware
+ a| 
+link:all-node-types-replacing-vmware-node.html["Einen VMware-Knoten ersetzen"]
+
+
+
+ a| 
+Linux
+ a| 
+link:all-node-types-replacing-linux-node.html["Ersetzen Sie einen Linux-Knoten"]
+
+
+
+ a| 
+OpenStack
+ a| 
+Die von NetApp bereitgestellten Festplattendateien und Skripte für Virtual Machines von OpenStack werden für Recovery-Vorgänge nicht mehr unterstützt. Wenn Sie einen Knoten wiederherstellen müssen, der in einer OpenStack-Implementierung ausgeführt wird, laden Sie die Dateien für Ihr Linux-Betriebssystem herunter. Befolgen Sie dann das Verfahren für link:all-node-types-replacing-linux-node.html["Ersetzen eines Linux-Knotens"].
+
+|===

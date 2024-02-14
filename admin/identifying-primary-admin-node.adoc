@@ -1,0 +1,28 @@
+---
+permalink: admin/identifying-primary-admin-node.html 
+sidebar: sidebar 
+keywords: cmn service, primary admin node, configuration management node 
+summary: Der primäre Admin-Node hostet den CMN-Service. Einige Wartungsarbeiten können nur mit dem primären Admin-Node durchgeführt werden. 
+---
+= Identifizieren Sie den primären Admin-Node
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der primäre Admin-Node hostet den CMN-Service. Einige Wartungsarbeiten können nur mit dem primären Admin-Node durchgeführt werden.
+
+.Bevor Sie beginnen
+* Sie sind mit einem bei Grid Manager angemeldet link:../admin/web-browser-requirements.html["Unterstützter Webbrowser"].
+* Das ist schon link:admin-group-permissions.html["Bestimmte Zugriffsberechtigungen"].
+
+
+.Schritte
+. Wählen Sie *SUPPORT* > *Tools* > *Grid-Topologie* aus.
+. Wählen Sie *_Site_* > *Admin-Node*, und wählen Sie dann aus image:../media/icon_plus_sign_black_on_white.gif["Plus-Zeichen"] So erweitern Sie die Topologiestruktur und zeigen die auf diesem Admin-Node gehosteten Services an.
++
+Der primäre Admin-Node hostet den CMN-Service.
+
+. Wenn dieser Admin-Node den CMN-Dienst nicht hostet, prüfen Sie die anderen Admin-Nodes.
+

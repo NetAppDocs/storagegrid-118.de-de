@@ -1,0 +1,48 @@
+---
+permalink: primer/what-archive-node-is.html 
+sidebar: sidebar 
+keywords: archive node 
+summary: Die Unterstützung für Archivknoten ist veraltet und wird in einer zukünftigen Version entfernt. 
+---
+= Was ist ein Archivknoten?
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Unterstützung für Archivknoten ist veraltet und wird in einer zukünftigen Version entfernt.
+
+[CAUTION]
+====
+Die Unterstützung für Archivknoten ist veraltet und wird in einer zukünftigen Version entfernt. Das Verschieben von Objekten vom Archiv-Node auf ein externes Archiv-Storage-System über die S3-API wurde durch ILM Cloud Storage-Pools ersetzt, die mehr Funktionen bieten.
+
+Die Option Cloud Tiering – Simple Storage Service (S3) ist auch veraltet. Wenn Sie derzeit einen Archivknoten mit dieser Option verwenden, link:../admin/migrating-objects-from-cloud-tiering-s3-to-cloud-storage-pool.html["Migrieren Sie Ihre Objekte in einen Cloud-Storage-Pool"] Stattdessen.
+
+Außerdem sollten Sie Archivknoten aus den aktiven ILM-Richtlinien in StorageGRID 11.7 oder früher entfernen. Das Entfernen von Objektdaten, die auf Archive Nodes gespeichert sind, vereinfacht zukünftige Upgrades. Siehe link:../ilm/working-with-ilm-rules-and-ilm-policies.html["Arbeiten mit ILM-Regeln und ILM-Richtlinien"].
+
+====
+
+
+== Primäre Services für Archiv-Nodes
+
+Die folgende Tabelle zeigt die primären Dienste für Archiv-Nodes. Diese Tabelle enthält jedoch nicht alle Node-Services.
+
+[cols="1a,2a"]
+|===
+| Service | Tastenfunktion 
+
+
+ a| 
+Archiv (ARC)
+ a| 
+Kommunikation mit einem externen Tape-Storage-System Tivoli Storage Manager (TSM)
+
+
+
+ a| 
+Server Status Monitor (SSM)
+ a| 
+Überwachung des Betriebssystems und der zugrunde liegenden Hardware
+
+|===

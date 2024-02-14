@@ -1,0 +1,26 @@
+---
+permalink: admin/configuring-network-settings.html 
+sidebar: sidebar 
+keywords: network settings, vlan interface, traffic classification 
+summary: Sie können verschiedene Netzwerkeinstellungen vom Grid Manager konfigurieren, um den Betrieb Ihres StorageGRID Systems zu optimieren. 
+---
+= Netzwerkeinstellungen konfigurieren: Übersicht
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können verschiedene Netzwerkeinstellungen vom Grid Manager konfigurieren, um den Betrieb Ihres StorageGRID Systems zu optimieren.
+
+
+
+== Konfigurieren Sie die VLAN-Schnittstellen
+
+Das können Sie link:configure-vlan-interfaces.html["Erstellung von Virtual LAN-Schnittstellen (VLAN"] Isolieren und partitionieren Sie den Datenverkehr für Sicherheit, Flexibilität und Performance. Jede VLAN-Schnittstelle ist einer oder mehreren übergeordneten Schnittstellen auf Admin-Nodes und Gateway-Nodes zugeordnet. Die VLAN-Schnittstellen können in HA-Gruppen und in Load Balancer Endpunkten eingesetzt werden, um den Client- oder Admin-Datenverkehr nach Applikation oder Mandanten zu trennen.
+
+
+
+== Richtlinien für die Verkehrsklassifizierung
+
+Verwenden Sie können link:managing-traffic-classification-policies.html["Richtlinien zur Verkehrsklassifizierung"] Zur Identifizierung und Verarbeitung verschiedener Arten von Netzwerkverkehr, einschließlich des Datenverkehrs in Bezug auf bestimmte Buckets, Mandanten, Client-Subnetze oder Lastausgleichsendpunkte. Diese Richtlinien unterstützen die Begrenzung und das Monitoring des Datenverkehrs.

@@ -1,0 +1,116 @@
+---
+permalink: admin/configuring-audit-client-access.html 
+sidebar: sidebar 
+keywords: audit client, ams, audit management service 
+summary: 'Der Admin-Knoten protokolliert über den Service Audit Management System (AMS) alle überprüften Systemereignisse in eine Protokolldatei, die über die Revisionsfreigabe verfügbar ist und die zu jedem Admin-Knoten bei der Installation hinzugefügt wird. Die Revisionsfreigabe wird automatisch als schreibgeschützte Freigabe aktiviert.' 
+---
+= Konfigurieren Sie den Client-Zugriff für die Prüfung für NFS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der Admin-Knoten protokolliert über den Service Audit Management System (AMS) alle überprüften Systemereignisse in eine Protokolldatei, die über die Revisionsfreigabe verfügbar ist und die zu jedem Admin-Knoten bei der Installation hinzugefügt wird. Die Revisionsfreigabe wird automatisch als schreibgeschützte Freigabe aktiviert.
+
+
+NOTE: Die Unterstützung für NFS wurde veraltet und wird in einem zukünftigen Release entfernt.
+
+Für den Zugriff auf Audit-Protokolle können Sie den Clientzugriff auf Audit-Freigaben für NFS konfigurieren. Sie können es auch link:../monitor/considerations-for-external-syslog-server.html["Verwenden Sie einen externen Syslog-Server"].
+
+Das StorageGRID System verwendet eine positive Bestätigung, um den Verlust von Audit-Meldungen zu verhindern, bevor sie in die Protokolldatei geschrieben werden. Eine Meldung bleibt an einem Dienst in der Warteschlange, bis der AMS-Dienst oder ein Zwischenaudit-Relaisdienst die Kontrolle über ihn bestätigt hat. Weitere Informationen finden Sie unter link:../audit/index.html["Prüfung von Audit-Protokollen"].
+
+.Bevor Sie beginnen
+* Sie haben die `Passwords.txt` Datei mit dem Root-/Admin-Passwort.
+* Sie haben die `Configuration.txt` Datei (verfügbar im Wiederherstellungspaket).
+* Der Audit-Client verwendet die NFS-Version 3 (NFSv3).
+
+
+.Über diese Aufgabe
+Führen Sie dieses Verfahren für jeden Admin-Knoten in einer StorageGRID-Bereitstellung durch, von der aus Sie Audit-Nachrichten abrufen möchten.
+
+.Schritte
+. Melden Sie sich beim primären Admin-Node an:
++
+.. Geben Sie den folgenden Befehl ein: `ssh admin@_primary_Admin_Node_IP_`
+.. Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
+.. Geben Sie den folgenden Befehl ein, um zum Root zu wechseln: `su -`
+.. Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
++
+Wenn Sie als root angemeldet sind, ändert sich die Eingabeaufforderung von `$` Bis `#`.
+
+
+
+. Vergewissern Sie sich, dass alle Dienste den Status „ausgeführt“ oder „verifiziert“ aufweisen. Geben Sie Ein: `storagegrid-status`
++
+Wenn Services nicht als „aktiv“ oder „geprüft“ aufgeführt sind, beheben Sie Probleme, bevor Sie fortfahren.
+
+. Zurück zur Kommandozeile. Drücken Sie *Strg*+*C*.
+. Starten Sie das NFS-Konfigurationsprogramm. Geben Sie Ein: `config_nfs.rb`
++
+[listing]
+----
+
+-----------------------------------------------------------------
+| Shares               | Clients              | Config          |
+-----------------------------------------------------------------
+| add-audit-share      | add-ip-to-share      | validate-config |
+| enable-disable-share | remove-ip-from-share | refresh-config  |
+|                      |                      | help            |
+|                      |                      | exit            |
+-----------------------------------------------------------------
+----
+. Fügen Sie den Audit-Client hinzu: `add-audit-share`
++
+.. Geben Sie bei entsprechender Aufforderung die IP-Adresse oder den IP-Adressbereich des Audit-Clients für die Revisionsfreigabe ein: `client_IP_address`
+.. Drücken Sie auf der entsprechenden Aufforderung *Enter*.
+
+
+. Wenn mehr als ein Audit-Client auf die Revisionsfreigabe zugreifen darf, fügen Sie die IP-Adresse des zusätzlichen Benutzers hinzu: `add-ip-to-share`
++
+.. Geben Sie die Nummer der Revisionsfreigabe ein: `_audit_share_number_`
+.. Geben Sie bei entsprechender Aufforderung die IP-Adresse oder den IP-Adressbereich des Audit-Clients für die Revisionsfreigabe ein: `_client_IP_address_`
+.. Drücken Sie auf der entsprechenden Aufforderung *Enter*.
++
+Das NFS-Konfigurationsprogramm wird angezeigt.
+
+.. Wiederholen Sie diese Teilschritte für jeden zusätzlichen Audit-Client, der Zugriff auf die Revisionsfreigabe hat.
+
+
+. Überprüfen Sie optional Ihre Konfiguration.
++
+.. Geben Sie Folgendes ein: `validate-config`
++
+Die Dienste werden überprüft und angezeigt.
+
+.. Drücken Sie auf der entsprechenden Aufforderung *Enter*.
++
+Das NFS-Konfigurationsprogramm wird angezeigt.
+
+.. Schließen Sie das NFS-Konfigurationsdienstprogramm: `exit`
+
+
+. Legen Sie fest, ob die Revisionsfreigaben an anderen Standorten aktiviert werden müssen.
++
+** Wenn es sich bei der StorageGRID-Implementierung um einen einzelnen Standort handelt, mit dem nächsten Schritt fortfahren.
+** Wenn die StorageGRID-Bereitstellung Admin-Nodes an anderen Standorten umfasst, aktivieren Sie die folgenden Audit-Freigaben nach Bedarf:
++
+... Remote-Anmeldung beim Admin-Node des Standorts:
++
+.... Geben Sie den folgenden Befehl ein: `ssh admin@_grid_node_IP_`
+.... Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
+.... Geben Sie den folgenden Befehl ein, um zum Root zu wechseln: `su -`
+.... Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
+
+
+... Wiederholen Sie diese Schritte, um die Revisionsfreigaben für jeden zusätzlichen Admin-Node zu konfigurieren.
+... Schließen Sie die sichere Remote-Shell-Anmeldung am Remote-Admin-Node. Geben Sie Ein: `exit`
+
+
+
+
+. Melden Sie sich aus der Befehlsshell ab: `exit`
++
+NFS-Audit-Clients erhalten auf Basis ihrer IP-Adresse Zugriff auf eine Revisionsfreigabe. Gewähren Sie einem neuen NFS-Audit-Client Zugriff auf die Revisionsfreigabe, indem Sie der Freigabe ihre IP-Adresse hinzufügen oder einen vorhandenen Audit-Client entfernen, indem Sie seine IP-Adresse entfernen.
+
+

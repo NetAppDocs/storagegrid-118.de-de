@@ -1,0 +1,60 @@
+---
+permalink: swift/recommendations-for-implementing-swift-rest-api.html 
+sidebar: sidebar 
+keywords: implement swift rest api 
+summary: Bei der Implementierung der Swift REST API zur Verwendung mit StorageGRID sollten Sie diese Empfehlungen beachten. 
+---
+= Empfehlungen für die Implementierung von Swift REST API
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bei der Implementierung der Swift REST API zur Verwendung mit StorageGRID sollten Sie diese Empfehlungen beachten.
+
+
+
+== Empfehlungen für Köpfe zu nicht vorhandenen Objekten
+
+Wenn Ihre Anwendung regelmäßig prüft, ob ein Objekt in einem Pfad vorhanden ist, in dem Sie nicht erwarten, dass das Objekt tatsächlich existiert, sollten Sie die Konsistenz „verfügbar“ verwenden. Sie sollten beispielsweise die Konsistenz „verfügbar“ verwenden, wenn Ihre Anwendung einen HAUPTVORGANG an einem Speicherort durchführt, bevor Sie einen PUT-Vorgang an diesem Speicherort durchführen.
+
+Andernfalls werden möglicherweise 500 Fehler des internen Servers angezeigt, wenn ein oder mehrere Speicherknoten nicht verfügbar sind.
+
+Sie können die Konsistenz für jeden Container mithilfe von festlegen link:put-container-consistency-request.html["PUT Container-Konsistenzanforderung"]. Sie können die Konsistenz „verfügbar“ für jeden Container mithilfe von anzeigen link:get-container-consistency-request.html["ABRUFEN der Container-Konsistenzanforderung"].
+
+
+
+== Empfehlungen für Objektnamen
+
+Bei Containern, die in StorageGRID 11.4 oder höher erstellt wurden, ist keine Beschränkung der Objektnamen auf die Performance-Best Practices mehr erforderlich. Sie können jetzt beispielsweise Zufallswerte für die ersten vier Zeichen von Objektnamen verwenden.
+
+Befolgen Sie bei Containern, die in Versionen vor StorageGRID 11.4 erstellt wurden, weiterhin diese Empfehlungen für Objektnamen:
+
+* Als die ersten vier Zeichen von Objektnamen sollten keine Zufallswerte verwendet werden. Dies steht im Gegensatz zu der früheren AWS Empfehlung für Namenspräfixe. Stattdessen sollten Sie nicht-zufällige, nicht-eindeutige Präfixe verwenden, wie z. B. `image`.
+* Wenn Sie die frühere Empfehlung von AWS befolgen, zufällige und eindeutige Zeichen in Namenspräfixen zu verwenden, sollten Sie die Objektnamen mit einem Verzeichnisnamen vorschreiben. Verwenden Sie dieses Format:
++
+[listing]
+----
+mycontainer/mydir/f8e3-image3132.jpg
+----
++
+Anstelle dieses Formats:
+
++
+[listing]
+----
+mycontainer/f8e3-image3132.jpg
+----
+
+
+
+
+== Empfehlungen für „Range Reads“
+
+Wenn der link:../admin/configuring-stored-object-compression.html["Globale Option zum Komprimieren gespeicherter Objekte"] Ist aktiviert, sollten Swift-Client-Anwendungen die Ausführung VON GET-Objektoperationen vermeiden, die einen Bereich von Bytes angeben, die zurückgegeben werden sollen. Diese Vorgänge beim Lesen von Range sind ineffizient, da StorageGRID Objekte effektiv dekomprimieren muss, um auf die angeforderten Bytes zuzugreifen. GET-Objektvorgänge, die einen kleinen Byte-Bereich von einem sehr großen Objekt anfordern, sind besonders ineffizient, beispielsweise ist es sehr ineffizient, einen Bereich von 10 MB von einem komprimierten 50-GB-Objekt zu lesen.
+
+Wenn Bereiche von komprimierten Objekten gelesen werden, können Client-Anforderungen eine Zeitdauer haben.
+
+
+NOTE: Wenn Sie Objekte komprimieren müssen und Ihre Client-Applikation Bereichslesevorgänge verwenden muss, erhöhen Sie die Zeitüberschreitung beim Lesen der Anwendung.

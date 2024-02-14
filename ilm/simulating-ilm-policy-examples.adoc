@@ -1,0 +1,113 @@
+---
+permalink: ilm/simulating-ilm-policy-examples.html 
+sidebar: sidebar 
+keywords: simulate ilm policy 
+summary: Die Beispiele für ILM-Richtliniensimulationen bieten Richtlinien zur Strukturierung und Änderung von Simulationen für Ihre Umgebung. 
+---
+= Beispiele für ILM-Richtliniensimulationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Beispiele für ILM-Richtliniensimulationen bieten Richtlinien zur Strukturierung und Änderung von Simulationen für Ihre Umgebung.
+
+
+
+== Beispiel 1: Überprüfung von Regeln bei der Simulation einer ILM-Richtlinie
+
+In diesem Beispiel wird beschrieben, wie Regeln bei der Simulation einer Richtlinie überprüft werden.
+
+In diesem Beispiel wird die *Beispiel ILM-Richtlinie* für die aufgenommene Objekte in zwei Buckets simuliert. Die Richtlinie umfasst drei Regeln:
+
+* Die erste Regel, *zwei Kopien, zwei Jahre für Eimer-A*, gilt nur für Objekte in Eimer-a.
+* Die zweite Regel, *EC-Objekte > 1 MB*, gilt für alle Buckets, aber für Filter auf Objekten größer als 1 MB.
+* Die dritte Regel, *zwei Kopien, zwei Rechenzentren*, ist die Standardregel. Er enthält keine Filter und verwendet keine nicht aktuelle Referenzzeit.
+
+
+Bestätigen Sie nach der Simulation der Richtlinie, dass jedes Objekt mit der richtigen Regel abgeglichen wurde.
+
+image::../media/simulate_policy_screen.png[Richtlinienergebnisse simulieren]
+
+In diesem Beispiel:
+
+* `bucket-a/bucket-a object.pdf` Die erste Regel, die nach Objekten in filtert, wurde richtig zugeordnet `bucket-a`.
+* `bucket-b/test object greater than 1 MB.pdf` Ist in `bucket-b`, So dass es nicht mit der ersten Regel. Stattdessen wurde sie durch die zweite Regel korrekt abgeglichen, die nach Objekten mit einer Größe von mehr als 1 MB filtert.
+* `bucket-b/test object less than 1 MB.pdf` Stimmt nicht mit den Filtern in den ersten beiden Regeln überein, so wird sie durch die Standardregel platziert, die keine Filter enthält.
+
+
+
+
+== Beispiel 2: Ordnen Sie Regeln bei der Simulation einer ILM-Richtlinie neu an
+
+Dieses Beispiel zeigt, wie Sie Regeln neu anordnen können, um die Ergebnisse bei der Simulation einer Richtlinie zu ändern.
+
+In diesem Beispiel wird die *Demo*-Richtlinie simuliert. Diese Richtlinie, die zum Auffinden von Objekten mit Metadaten für Benutzer der Serie=x-men bestimmt ist, enthält drei Regeln:
+
+* Die erste Regel, *PNGs*, filtert nach Schlüsselnamen, die enden `.png`.
+* Die zweite Regel, *X-Men*, gilt nur für Objekte für Mieter A und Filter für `series=x-men` Benutzer-Metadaten:
+* Die letzte Regel, *two copies two Data Centers*, ist die Standardregel, die allen Objekten entspricht, die nicht den ersten beiden Regeln entsprechen.
+
+
+.Schritte
+. Nachdem Sie die Regeln hinzugefügt und die Richtlinie gespeichert haben, wählen Sie *Simulieren*.
+. Geben Sie im Feld *Object* den S3-Bucket/Object-Key oder den Swift-Container/Object-Name für ein Testobjekt ein und wählen Sie *Simulate* aus.
++
+Die Simulationsergebnisse werden angezeigt und zeigen an, dass der `Havok.png` Das Objekt wurde durch die *PNGs*-Regel abgeglichen.
+
++
+image::../media/simulate_reorder_rules_pngs_result.png[Beispiel 2: Neuanordnung von Regeln bei der Simulation einer ILM-Richtlinie]
+
++
+Jedoch `Havok.png` Sollte die *X-Men*-Regel testen.
+
+. Um das Problem zu lösen, ordnen Sie die Regeln neu an.
++
+.. Wählen Sie *Finish*, um das Fenster ILM-Richtlinie simulieren zu schließen.
+.. Wählen Sie *Bearbeiten*, um die Richtlinie zu bearbeiten.
+.. Ziehen Sie die *X-Men*-Regel an den Anfang der Liste.
+.. Wählen Sie *Speichern*.
+
+
+. Wählen Sie *Simulieren*.
++
+Die zuvor getesteten Objekte werden anhand der aktualisierten Richtlinie neu bewertet und die neuen Simulationsergebnisse angezeigt. In dem Beispiel zeigt die Spalte „Regelabgleichung“, dass der `Havok.png` Das Objekt entspricht jetzt wie erwartet der X-Men-Metadatenregel. In der Spalte Vorheriger Abgleich wird angezeigt, dass die PNGs-Regel mit dem Objekt in der vorherigen Simulation übereinstimmt.
+
++
+image::../media/simulate_reorder_rules_correct_result.png[Beispiel 2: Neuanordnung von Regeln bei der Simulation einer ILM-Richtlinie]
+
+
+
+
+
+== Beispiel 3: Korrigieren Sie eine Regel bei der Simulation einer ILM-Richtlinie
+
+Dieses Beispiel zeigt, wie eine Richtlinie simuliert, eine Regel in der Richtlinie korrigiert und die Simulation fortgesetzt wird.
+
+In diesem Beispiel wird die *Demo*-Richtlinie simuliert. Diese Richtlinie dient zum Suchen von Objekten, die über solche verfügen `series=x-men` Benutzer-Metadaten: Bei der Simulation dieser Richtlinie gegen die traten jedoch unerwartete Ergebnisse auf `Beast.jpg` Objekt: Anstatt die X-Men-Metadatenregel zu entsprechen, kopiert das Objekt die Standardregel. Zwei Rechenzentren werden kopiert.
+
+image::../media/simulate_results_for_object_wrong_metadata.png[Beispiel 3: Korrigieren von Regeln bei der Simulation einer ILM-Richtlinie]
+
+Wenn ein Testobjekt nicht mit der erwarteten Regel in der Richtlinie übereinstimmt, müssen Sie jede Regel in der Richtlinie überprüfen und eventuelle Fehler korrigieren.
+
+.Schritte
+. Wählen Sie *Fertig*, um das Dialogfeld Richtlinie simulieren zu schließen. Wählen Sie auf der Detailseite für die Richtlinie *Aufbewahrungsdiagramm* aus. Wählen Sie dann *Alle erweitern* oder *Details anzeigen* für jede Regel nach Bedarf aus.
+. Prüfen Sie das Mandantenkonto der Regel, die Referenzzeit und die Filterkriterien.
++
+Angenommen, die Metadaten für die X-men-Regel wurden als „x-men01“ anstelle von „x-men“ eingegeben.
+
+. Um den Fehler zu beheben, korrigieren Sie die Regel wie folgt:
++
+** Wenn die Regel Teil der Richtlinie ist, können Sie entweder die Regel klonen oder die Regel aus der Richtlinie entfernen und sie dann bearbeiten.
+** Wenn die Regel Teil der aktiven Richtlinie ist, müssen Sie die Regel klonen. Sie können keine Regel aus der aktiven Richtlinie bearbeiten oder entfernen.
+
+
+. Führen Sie die Simulation erneut aus.
++
+In diesem Beispiel entspricht die korrigierte X-Men-Regel nun dem `Beast.jpg` Objekt auf Grundlage des `series=x-men` Benutzer-Metadaten, wie erwartet.
+
++
+image::../media/simulate_results_for_object_corrected_metadata.png[Beispiel 3: Korrigieren von Regeln bei der Simulation einer ILM-Richtlinie]
+
+

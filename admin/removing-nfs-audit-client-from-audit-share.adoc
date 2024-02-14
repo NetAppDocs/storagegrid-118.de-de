@@ -1,0 +1,82 @@
+---
+permalink: admin/removing-nfs-audit-client-from-audit-share.html 
+sidebar: sidebar 
+keywords: nfs audit client, remove audit client 
+summary: NFS-Audit-Clients erhalten auf Basis ihrer IP-Adresse Zugriff auf eine Revisionsfreigabe. Sie können einen vorhandenen Audit-Client entfernen, indem Sie seine IP-Adresse entfernen. 
+---
+= Entfernen Sie einen NFS-Audit-Client aus der Revisionsfreigabe
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+NFS-Audit-Clients erhalten auf Basis ihrer IP-Adresse Zugriff auf eine Revisionsfreigabe. Sie können einen vorhandenen Audit-Client entfernen, indem Sie seine IP-Adresse entfernen.
+
+.Bevor Sie beginnen
+* Sie haben die `Passwords.txt` Datei mit dem Passwort für das Root-/Administratorkonto.
+* Sie haben die `Configuration.txt` Datei (verfügbar im Wiederherstellungspaket).
+
+
+.Über diese Aufgabe
+Sie können die letzte IP-Adresse, die für den Zugriff auf die Überwachungsfreigabe zulässig ist, nicht entfernen.
+
+.Schritte
+. Melden Sie sich beim primären Admin-Node an:
++
+.. Geben Sie den folgenden Befehl ein: `ssh admin@_primary_Admin_Node_IP_`
+.. Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
+.. Geben Sie den folgenden Befehl ein, um zum Root zu wechseln: `su -`
+.. Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
++
+Wenn Sie als root angemeldet sind, ändert sich die Eingabeaufforderung von `$` Bis `#`.
+
+
+
+. Starten Sie das NFS-Konfigurationsprogramm: `config_nfs.rb`
++
+[listing]
+----
+
+-----------------------------------------------------------------
+| Shares               | Clients              | Config          |
+-----------------------------------------------------------------
+| add-audit-share      | add-ip-to-share      | validate-config |
+| enable-disable-share | remove-ip-from-share | refresh-config  |
+|                      |                      | help            |
+|                      |                      | exit            |
+-----------------------------------------------------------------
+----
+. Entfernen Sie die IP-Adresse aus der Revisionsfreigabe: `remove-ip-from-share`
++
+Eine nummerierte Liste der auf dem Server konfigurierten Audit-Freigaben wird angezeigt. Die Revisionsfreigabe ist wie folgt aufgelistet: `/var/local/log`
+
+. Geben Sie die Nummer für die Revisionsfreigabe ein: `_audit_share_number_`
++
+Eine nummerierte Liste mit IP-Adressen, die Zugriff auf die Revisionsfreigabe ermöglichen, wird angezeigt.
+
+. Geben Sie die Nummer für die IP-Adresse ein, die Sie entfernen möchten.
++
+Die Revisionsfreigabe wird aktualisiert, und der Zugriff ist von keinem Audit-Client mit dieser IP-Adresse mehr gestattet.
+
+. Drücken Sie auf der entsprechenden Aufforderung *Enter*.
++
+Das NFS-Konfigurationsprogramm wird angezeigt.
+
+. Schließen Sie das NFS-Konfigurationsdienstprogramm: `exit`
+. Wenn es sich bei Ihrer StorageGRID-Bereitstellung um mehrere Datacenter-Standortimplementierungen mit zusätzlichen Admin-Nodes an anderen Standorten handelt, deaktivieren Sie diese Revisionsfreigaben nach Bedarf:
++
+.. Remote-Anmeldung bei jedem Standort Admin-Node:
++
+... Geben Sie den folgenden Befehl ein: `ssh admin@_grid_node_IP_`
+... Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
+... Geben Sie den folgenden Befehl ein, um zum Root zu wechseln: `su -`
+... Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
+
+
+.. Wiederholen Sie diese Schritte, um die Revisionsfreigaben für jeden zusätzlichen Admin-Node zu konfigurieren.
+.. Schließen Sie die sichere Remote-Shell-Anmeldung am Remote-Admin-Node: `exit`
+
+
+. Melden Sie sich aus der Befehlsshell ab: `exit`
+

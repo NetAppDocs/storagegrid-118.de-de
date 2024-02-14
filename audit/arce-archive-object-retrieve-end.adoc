@@ -1,0 +1,54 @@
+---
+permalink: audit/arce-archive-object-retrieve-end.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, ARCE, Archive Object Retrieve End 
+summary: Diese Meldung wird erzeugt, wenn ein Versuch des Archiv-Knotens, Objektdaten von einem externen Archivspeichersystem abzurufen, abgeschlossen wird. Wenn die Meldung erfolgreich ist, zeigt die Meldung an, dass die angeforderten Objektdaten vollständig aus dem Archivverzeichnis gelesen und erfolgreich verifiziert wurden. Nachdem die Objektdaten abgerufen und verifiziert wurden, werden sie an den anfragenden Service geliefert. 
+---
+= ARCE: Archiv Objekt abrufen Ende
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Diese Meldung wird erzeugt, wenn ein Versuch des Archiv-Knotens, Objektdaten von einem externen Archivspeichersystem abzurufen, abgeschlossen wird. Wenn die Meldung erfolgreich ist, zeigt die Meldung an, dass die angeforderten Objektdaten vollständig aus dem Archivverzeichnis gelesen und erfolgreich verifiziert wurden. Nachdem die Objektdaten abgerufen und verifiziert wurden, werden sie an den anfragenden Service geliefert.
+
+[cols="1a,1a,4a"]
+|===
+| Codieren | Feld | Beschreibung 
+
+
+ a| 
+CBID
+ a| 
+Inhaltsblock-ID
+ a| 
+Die eindeutige Kennung des Inhaltsblocks, der vom externen Archivspeichersystem abgerufen werden soll.
+
+
+
+ a| 
+VLID
+ a| 
+Volume-Kennung
+ a| 
+Der Bezeichner des Volumes, auf dem die Daten archiviert wurden. Wenn kein Archivspeicherort für den Inhalt gefunden wird, wird eine Volume-ID von 0 zurückgegeben.
+
+
+
+ a| 
+RSLT
+ a| 
+Abrufergebnis
+ a| 
+Der Abschlussstatus des Archivabrufs:
+
+* ERFOLGREICH
+* VRFL: Fehlgeschlagen (Objektverifizierung fehlgeschlagen)
+* ARUN: Fehlgeschlagen (externes Archiv-Storage-System nicht verfügbar)
+* STORNO: Fehlgeschlagen (Abrufvorgang abgebrochen)
+* GERR: Fehlgeschlagen (allgemeiner Fehler)
+
+
+|===
+Wenn Sie diese Nachricht mit der entsprechenden ARCB-Nachricht abstimmen, können Sie die Zeit angeben, die für den Archivabruf benötigt wurde. Diese Meldung gibt an, ob der Abruf erfolgreich war, und im Falle eines Fehlers die Ursache für das Abrufen des Inhaltsblocks.

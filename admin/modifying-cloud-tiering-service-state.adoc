@@ -1,0 +1,34 @@
+---
+permalink: admin/modifying-cloud-tiering-service-state.html 
+sidebar: sidebar 
+keywords: cloud tiering 
+summary: Sie können die Fähigkeit des Archiv-Knotens lesen und schreiben auf das gezielte externe Archiv-Speichersystem, das über die S3-API verbindet, indem Sie den Status des Cloud-Tiering-Service. 
+---
+= Ändern Sie den Status des Cloud Tiering Service
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die Lese- und Schreibvorgänge des Archiv-Nodes auf das externe Archiv-Storage-System steuern, das über die S3 API verbunden ist, indem Sie den Status des Cloud Tiering Service ändern.
+
+.Bevor Sie beginnen
+* Sie müssen mit einem beim Grid Manager angemeldet sein link:../admin/web-browser-requirements.html["Unterstützter Webbrowser"].
+* Das ist schon link:admin-group-permissions.html["Bestimmte Zugriffsberechtigungen"].
+* Der Archivknoten muss konfiguriert sein.
+
+
+.Über diese Aufgabe
+Sie können den Archiv-Knoten effektiv offline setzen, indem Sie den Cloud-Tiering-Servicenstatus in *Lesen-Schreiben deaktiviert* ändern.
+
+.Schritte
+. Wählen Sie *SUPPORT* > *Tools* > *Grid-Topologie* aus.
+. Wählen Sie *_Archivknoten_* > *ARC* aus.
+. Wählen Sie *Konfiguration* > *Main*.
++
+image::../media/modifying_middleware_state.gif[Cloud Tiering Service-Status]
+
+. Wählen Sie einen *Cloud Tiering Service-Status* aus.
+. Wählen Sie *Änderungen Anwenden*.
+

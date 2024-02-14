@@ -1,0 +1,100 @@
+---
+permalink: maintain/powering-down-host.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, stop services, power down host, power off host 
+summary: Bevor Sie einen Host herunterfahren, müssen Sie Dienste auf allen Grid-Nodes auf diesem Host anhalten. 
+---
+= Schalten Sie den Host aus
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor Sie einen Host herunterfahren, müssen Sie Dienste auf allen Grid-Nodes auf diesem Host anhalten.
+
+.Schritte
+. Melden Sie sich beim Grid-Node an:
++
+.. Geben Sie den folgenden Befehl ein: `ssh admin@_grid_node_IP_`
+.. Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
+.. Geben Sie den folgenden Befehl ein, um zum Root zu wechseln: `su -`
+.. Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
+
+
++
+Wenn Sie als root angemeldet sind, ändert sich die Eingabeaufforderung von `$` Bis `#`.
+
+. Beenden Sie alle auf dem Knoten ausgeführten Services: `service servermanager stop`
++
+Die Dienste können bis zu 15 Minuten zum Herunterfahren dauern. Außerdem können Sie sich möglicherweise per Remote-Zugriff beim System anmelden, um den Shutdown-Prozess zu überwachen.
+
+. Wiederholen Sie die Schritte 1 und 2 für jeden Knoten auf dem Host.
+. Wenn Sie einen Linux-Host haben:
++
+.. Melden Sie sich beim Host-Betriebssystem an.
+.. Stoppen Sie den Knoten: `storagegrid node stop`
+.. Fahren Sie das Host-Betriebssystem herunter.
+
+
+. Wenn der Node auf einer virtuellen VMware-Maschine ausgeführt wird oder er ein Appliance-Node ist, geben Sie den Befehl zum Herunterfahren aus: `shutdown -h now`
++
+Führen Sie diesen Schritt unabhängig vom Ergebnis des aus `service servermanager stop` Befehl.
+
++
+
+NOTE: Nachdem Sie das ausstellen `shutdown -h now` Befehl auf einem Appliance-Node müssen Sie die Appliance aus- und wieder einschalten, um den Node neu zu starten.
+
++
+Bei diesem Befehl wird der Controller heruntergefahren, das Gerät ist jedoch weiterhin eingeschaltet. Sie müssen den nächsten Schritt abschließen.
+
+. Wenn Sie einen Appliance-Node herunterfahren, befolgen Sie die Schritte für Ihre Appliance.
++
+[role="tabbed-block"]
+====
+.SGF6112
+--
+.. Schalten Sie das Gerät aus.
+.. Warten Sie, bis die blaue Betriebs-LED erlischt.
+
+
+--
+.SG6000
+--
+.. Warten Sie, bis die grüne LED Cache Active auf der Rückseite der Storage Controller ausgeschaltet ist.
++
+Diese LED leuchtet, wenn zwischengespeicherte Daten auf die Laufwerke geschrieben werden müssen. Sie müssen warten, bis diese LED ausgeschaltet ist, bevor Sie den Strom ausschalten.
+
+.. Schalten Sie das Gerät aus und warten Sie, bis die blaue Strom-LED ausgeschaltet ist.
+
+
+--
+.SG5700
+--
+.. Warten Sie, bis die grüne LED Cache Active auf der Rückseite des Storage Controllers ausgeschaltet ist.
++
+Diese LED leuchtet, wenn zwischengespeicherte Daten auf die Laufwerke geschrieben werden müssen. Sie müssen warten, bis diese LED ausgeschaltet ist, bevor Sie den Strom ausschalten.
+
+.. Schalten Sie das Gerät aus und warten Sie, bis alle LED- und siebensegmentreichen Anzeigeaktivitäten angehalten sind.
+
+
+--
+.SG100 oder SG1000
+--
+.. Schalten Sie das Gerät aus.
+.. Warten Sie, bis die blaue Betriebs-LED erlischt.
+
+
+--
+====
+. Melden Sie sich aus der Befehlsshell ab: `exit`
+
+
+.Verwandte Informationen
+https://docs.netapp.com/us-en/storagegrid-appliances/sg6100/index.html["SGF6112 Storage Appliances"^]
+
+https://docs.netapp.com/us-en/storagegrid-appliances/sg6000/index.html["SG6000 Storage-Appliances"^]
+
+https://docs.netapp.com/us-en/storagegrid-appliances/sg5700/index.html["Storage Appliances der SG5700"^]
+
+https://docs.netapp.com/us-en/storagegrid-appliances/sg100-1000/index.html["SG100- und SG1000-Services-Appliances"^]

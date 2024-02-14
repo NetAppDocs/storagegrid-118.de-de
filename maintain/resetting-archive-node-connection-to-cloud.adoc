@@ -1,0 +1,27 @@
+---
+permalink: maintain/resetting-archive-node-connection-to-cloud.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, archive node connection, reset archive node connection, resetting archive node connection, reset cloud connection, resetting cloud connections 
+summary: 'Nachdem Sie einen Archiv-Node wiederhergestellt haben, der die Cloud über die S3-API anzielt, müssen Sie die Konfigurationseinstellungen ändern, um Verbindungen zurückzusetzen. Ein Alarm für ausgehenden Replikationsstatus \(ORSU\) wird ausgelöst, wenn der Archivknoten Objektdaten nicht abrufen kann.' 
+---
+= Die Verbindung mit dem Archivierungs-Node zur Cloud wird zurückgesetzt
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Nachdem Sie einen Archiv-Node wiederhergestellt haben, der die Cloud über die S3-API anzielt, müssen Sie die Konfigurationseinstellungen ändern, um Verbindungen zurückzusetzen. Ein ORSU-Alarm (Outbound Replication Status) wird ausgelöst, wenn der Archivknoten keine Objektdaten abrufen kann.
+
+
+NOTE: Wenn Ihr Archive Node über TSM Middleware eine Verbindung zu externem Speicher herstellt, wird der Node automatisch zurückgesetzt, und Sie müssen ihn nicht neu konfigurieren.
+
+.Bevor Sie beginnen
+Sie sind mit einem bei Grid Manager angemeldet link:../admin/web-browser-requirements.html["Unterstützter Webbrowser"].
+
+.Schritte
+. Wählen Sie *SUPPORT* > *Tools* > *Grid-Topologie* aus.
+. Wählen Sie *Archivknoten* > *ARC* > *Ziel*.
+. Bearbeiten Sie das Feld *Zugriffsschlüssel*, indem Sie einen falschen Wert eingeben und auf *Änderungen anwenden* klicken.
+. Bearbeiten Sie das Feld *Zugriffsschlüssel*, indem Sie den richtigen Wert eingeben und auf *Änderungen anwenden* klicken.
+

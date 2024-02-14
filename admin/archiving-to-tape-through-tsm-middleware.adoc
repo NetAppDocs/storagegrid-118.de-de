@@ -1,0 +1,33 @@
+---
+permalink: admin/archiving-to-tape-through-tsm-middleware.html 
+sidebar: sidebar 
+keywords: tivoli storage manager, tsm server, archive node, tape 
+summary: 'Sie können einen Archiv-Knoten so konfigurieren, dass er als Ziel für einen Tivoli Storage Manager \(TSM\)-Server dient, der eine logische Schnittstelle zum Speichern und Abrufen von Objektdaten an zufällig oder sequenziell zugängliche Speichergeräte, einschließlich Bandbibliotheken, bereitstellt.' 
+---
+= Archivierung auf Band über TSM Middleware
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können einen Archiv-Node so konfigurieren, dass er als Ziel für einen Tivoli Storage Manager (TSM)-Server dient, der eine logische Schnittstelle zum Speichern und Abrufen von Objektdaten an Random- oder Sequential-Access-Speichergeräten, einschließlich Tape Libraries, bereitstellt.
+
+Der ARC-Service des Archivknotens fungiert als Client zum TSM-Server und verwendet Tivoli Storage Manager als Middleware zur Kommunikation mit dem Archivspeichersystem.
+
+[CAUTION]
+====
+Die Unterstützung für Archivknoten ist veraltet und wird in einer zukünftigen Version entfernt. Das Verschieben von Objekten vom Archiv-Node auf ein externes Archiv-Storage-System über die S3-API wurde durch ILM Cloud Storage-Pools ersetzt, die mehr Funktionen bieten.
+
+Die Option Cloud Tiering – Simple Storage Service (S3) ist auch veraltet. Wenn Sie derzeit einen Archivknoten mit dieser Option verwenden, link:../admin/migrating-objects-from-cloud-tiering-s3-to-cloud-storage-pool.html["Migrieren Sie Ihre Objekte in einen Cloud-Storage-Pool"] Stattdessen.
+
+Außerdem sollten Sie Archivknoten aus der aktiven ILM-Richtlinie in StorageGRID 11.7 oder früher entfernen. Das Entfernen von Objektdaten, die auf Archive Nodes gespeichert sind, vereinfacht zukünftige Upgrades. Siehe link:../ilm/working-with-ilm-rules-and-ilm-policies.html["Arbeiten mit ILM-Regeln und ILM-Richtlinien"].
+
+====
+
+
+== TSM Management-Klassen
+
+Durch die TSM Middleware definierte Managementklassen beschreiben, wie die TSMʹs Backup- und Archivierungsvorgänge funktionieren und können verwendet werden, um Regeln für Inhalte festzulegen, die vom TSM-Server angewendet werden. Diese Regeln laufen unabhängig von der ILM-Richtlinie des StorageGRID Systems und müssen im Einklang mit der Anforderung des StorageGRID Systems stehen, dass Objekte dauerhaft gespeichert und für den Abruf durch den Archivierungs-Node immer verfügbar sind. Nachdem die Objektdaten vom Archiv-Node an einen TSM-Server gesendet wurden, werden die Regeln für den TSM Lebenszyklus und die Aufbewahrung angewendet, während die Objektdaten auf dem vom TSM-Server verwalteten Band gespeichert werden.
+
+Die TSM-Managementklasse wird vom TSM-Server verwendet, um Regeln für den Datenspeicherort oder die Aufbewahrung anzuwenden, nachdem Objekte vom Archiv-Node an den TSM-Server gesendet wurden. So können beispielsweise als Datenbank-Backups identifizierte Objekte (temporärer Content, der mit neueren Daten überschrieben werden kann) anders behandelt werden als Applikationsdaten (unveränderlicher Inhalt, der unendlich lange aufbewahrt werden muss).

@@ -1,0 +1,105 @@
+---
+permalink: swift/get-container-consistency-request.html 
+sidebar: sidebar 
+keywords: get container consistency request 
+summary: Konsistenzwerte bieten ein Gleichgewicht zwischen der Verfügbarkeit der Objekte und der Konsistenz dieser Objekte über verschiedene Storage Nodes und Standorte hinweg. Mit der GET-Container-Konsistenzanforderung können Sie die Konsistenz bestimmen, die auf einen bestimmten Container angewendet wird. 
+---
+= ABRUFEN der Container-Konsistenzanforderung
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Konsistenzwerte bieten ein Gleichgewicht zwischen der Verfügbarkeit der Objekte und der Konsistenz dieser Objekte über verschiedene Storage Nodes und Standorte hinweg. Mit der GET-Container-Konsistenzanforderung können Sie die Konsistenz bestimmen, die auf einen bestimmten Container angewendet wird.
+
+
+
+== Anfrage
+
+[cols="2a,4a"]
+|===
+| HTTP-Header anfordern | Beschreibung 
+
+
+| X-Auth-Token  a| 
+Gibt das Swift-Authentifizierungs-Token für das Konto an, das für die Anforderung verwendet werden soll.
+
+
+
+| X-ntap-sg-Konsistenz  a| 
+Gibt den Anforderungstyp an, wobei `true` = GET Containerkonsistenz, und `false` = get Container.
+
+
+
+| Host  a| 
+Der Hostname, auf den die Anforderung gerichtet ist.
+
+|===
+
+
+== Anforderungsbeispiel
+
+[listing]
+----
+GET /v1/28544923908243208806/Swift container
+X-Auth-Token: SGRD_3a877009a2d24cb1801587bfa9050f29
+x-ntap-sg-consistency: true
+Host: test.com
+----
+
+
+== Antwort
+
+[cols="2a,4a"]
+|===
+| HTTP-Kopfzeile für Antwort | Beschreibung 
+
+
+| Datum  a| 
+Datum und Uhrzeit der Antwort.
+
+
+
+| Verbindung  a| 
+Ob die Verbindung zum Server offen oder geschlossen ist.
+
+
+
+| X-Trans-ID  a| 
+Die eindeutige Transaktions-ID für die Anforderung.
+
+
+
+| Inhaltslänge  a| 
+Die Länge des Reaktionskörpers.
+
+
+
+| X-ntap-sg-Konsistenz  a| 
+Die Konsistenz, die auf den Container angewendet wird. Folgende Werte werden unterstützt:
+
+*All*: Alle Knoten erhalten die Daten sofort, oder die Anfrage schlägt fehl.
+
+*Strong-global*: Garantiert Lese-nach-Schreiben-Konsistenz für alle Client-Anfragen über alle Standorte hinweg.
+
+*Strong-site*: Garantiert Lese-nach-Schreiben Konsistenz für alle Client-Anfragen innerhalb einer Site.
+
+*Read-after-New-write*: (Standard) bietet Read-after-write-Konsistenz für neue Objekte und eventuelle Konsistenz für Objektaktualisierungen. Hochverfügbarkeit und garantierte Datensicherung Empfohlen für die meisten Fälle.
+
+*Verfügbar*: Bietet eventuelle Konsistenz für neue Objekte und Objekt-Updates. Verwenden Sie für S3-Buckets nur nach Bedarf (z. B. für einen Bucket mit Protokollwerten, die nur selten gelesen werden, oder für HEAD- oder GET-Vorgänge für nicht vorhandene Schlüssel). Nicht unterstützt für S3 FabricPool-Buckets.
+
+|===
+
+
+== Antwortbeispiel
+
+[listing]
+----
+HTTP/1.1 204 No Content
+Date: Sat, 29 Nov 2015 01:02:18 GMT
+Connection: CLOSE
+X-Trans-Id: 1936575373
+Content-Length: 0
+x-ntap-sg-consistency: strong-site
+----

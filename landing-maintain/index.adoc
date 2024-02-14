@@ -1,0 +1,13 @@
+---
+layout: landing-page 
+sidebar: sidebar 
+permalink: landing-maintain/index.html 
+summary: Sie können Nodes oder Standorte hinzufügen, um die Kapazität oder Funktionalität Ihres Systems zu erweitern. Sie können zudem verschiedene Wartungsverfahren zur Wiederherstellung nach Ausfällen oder zur Aktualisierung und effizienten Performance Ihres StorageGRID Systems durchführen. 
+---
+= Wartung eines StorageGRID Systems
+:hardbreaks:
+:allow-uri-read: 
+:linkattrs: 
+:imagesdir: ./media/
+
+

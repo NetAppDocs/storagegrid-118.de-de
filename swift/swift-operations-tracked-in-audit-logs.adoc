@@ -1,0 +1,48 @@
+---
+permalink: swift/swift-operations-tracked-in-audit-logs.html 
+sidebar: sidebar 
+keywords: swift options request 
+summary: Alle erfolgreichen Vorgänge zum LÖSCHEN, ABRUFEN, NACHFÜHREN, POSTEN und PUT werden im StorageGRID Audit-Protokoll verfolgt. Fehler und Info-, auth- oder OPTIONS-Anforderungen werden nicht protokolliert. 
+---
+= In den Audit-Protokollen werden Swift-Vorgänge nachverfolgt
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Alle erfolgreichen Vorgänge zum LÖSCHEN, ABRUFEN, NACHFÜHREN, POSTEN und PUT werden im StorageGRID Audit-Protokoll verfolgt. Fehler und Info-, auth- oder OPTIONS-Anforderungen werden nicht protokolliert.
+
+
+
+== Konto-Operationen
+
+* link:account-operations.html["GET Konto"]
+* link:account-operations.html["HAUPTKONTO"]
+
+
+
+
+== Container-Operationen
+
+* link:container-operations.html["Container LÖSCHEN"]
+* link:container-operations.html["GET Container"]
+* link:container-operations.html["KOPF Behälter"]
+* link:container-operations.html["Legen Sie den Behälter"]
+
+
+
+
+== Objekt-Operationen
+
+* link:object-operations.html["Delete Objekt"]
+* link:object-operations.html["GET Objekt"]
+* link:object-operations.html["HEAD-Objekt"]
+* link:object-operations.html["PUT Objekt"]
+
+
+.Verwandte Informationen
+* link:../audit/accessing-audit-log-file.html["Zugriff auf die Audit-Log-Datei"]
+* link:../audit/client-write-audit-messages.html["Audit-Meldungen des Clients schreiben"]
+* link:../audit/client-read-audit-messages.html["Client liest Audit-Meldungen"]
+

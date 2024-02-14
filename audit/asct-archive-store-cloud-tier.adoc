@@ -1,0 +1,64 @@
+---
+permalink: audit/asct-archive-store-cloud-tier.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, ASCT, Archive Store Cloud-Tier 
+summary: Diese Meldung wird generiert, wenn archivierte Objektdaten in einem externen Storage-System gespeichert werden, das eine Verbindung mit StorageGRID über die S3-API herstellt. 
+---
+= ASCT: Archivspeicher Cloud-Tier
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Diese Meldung wird generiert, wenn archivierte Objektdaten in einem externen Storage-System gespeichert werden, das eine Verbindung mit StorageGRID über die S3-API herstellt.
+
+[cols="1a,1a,4a"]
+|===
+| Codieren | Feld | Beschreibung 
+
+
+ a| 
+CBID
+ a| 
+Inhaltsblock-ID
+ a| 
+Die eindeutige Kennung für den abgerufenen Inhaltsblock.
+
+
+
+ a| 
+CSIZ
+ a| 
+Inhaltsgröße
+ a| 
+Die Größe des Objekts in Byte.
+
+
+
+ a| 
+RSLT
+ a| 
+Ergebniscode
+ a| 
+Gibt erfolgreich (SUCS) oder den Fehler zurück, der vom Backend gemeldet wurde.
+
+
+
+ a| 
+SUID
+ a| 
+Eindeutige Kennung Für Speicher
+ a| 
+Unique Identifier (UUID) des Cloud-Tiers, in dem der Inhalt gespeichert wurde.
+
+
+
+ a| 
+ZEIT
+ a| 
+Zeit
+ a| 
+Gesamtbearbeitungszeit für die Anfrage in Mikrosekunden.
+
+|===

@@ -1,0 +1,74 @@
+---
+permalink: admin/configuring-connection-settings-for-s3-api.html 
+sidebar: sidebar 
+keywords: archive node connection to s3, arc service 
+summary: Wenn Sie über die S3-Schnittstelle eine Verbindung zu einem Archiv-Node herstellen, müssen Sie die Verbindungseinstellungen für die S3-API konfigurieren. Bis diese Einstellungen konfiguriert sind, bleibt der ARC-Dienst in einem wichtigen Alarmzustand, da er nicht mit dem externen Archivspeichersystem kommunizieren kann. 
+---
+= Konfigurieren Sie die Verbindungseinstellungen für die S3-API
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie über die S3-Schnittstelle eine Verbindung zu einem Archiv-Node herstellen, müssen Sie die Verbindungseinstellungen für die S3-API konfigurieren. Bis diese Einstellungen konfiguriert sind, bleibt der ARC-Dienst in einem wichtigen Alarmzustand, da er nicht mit dem externen Archivspeichersystem kommunizieren kann.
+
+[CAUTION]
+====
+Die Unterstützung für Archivknoten ist veraltet und wird in einer zukünftigen Version entfernt. Das Verschieben von Objekten vom Archiv-Node auf ein externes Archiv-Storage-System über die S3-API wurde durch ILM Cloud Storage-Pools ersetzt, die mehr Funktionen bieten.
+
+Die Option Cloud Tiering – Simple Storage Service (S3) ist auch veraltet. Wenn Sie derzeit einen Archivknoten mit dieser Option verwenden, link:../admin/migrating-objects-from-cloud-tiering-s3-to-cloud-storage-pool.html["Migrieren Sie Ihre Objekte in einen Cloud-Storage-Pool"] Stattdessen.
+
+Außerdem sollten Sie Archivknoten aus der aktiven ILM-Richtlinie in StorageGRID 11.7 oder früher entfernen. Das Entfernen von Objektdaten, die auf Archive Nodes gespeichert sind, vereinfacht zukünftige Upgrades. Siehe link:../ilm/working-with-ilm-rules-and-ilm-policies.html["Arbeiten mit ILM-Regeln und ILM-Richtlinien"].
+
+====
+.Bevor Sie beginnen
+* Sie sind mit einem bei Grid Manager angemeldet link:../admin/web-browser-requirements.html["Unterstützter Webbrowser"].
+* Das ist schon link:admin-group-permissions.html["Bestimmte Zugriffsberechtigungen"].
+* Sie haben auf dem Ziel-Archiv-Storage-System einen Bucket erstellt:
++
+** Der Bucket ist einem einzelnen Archiv-Node zugewiesen. Sie kann nicht von anderen Archivierungs-Knoten oder anderen Anwendungen verwendet werden.
+** Der Bucket hat die für Ihren Standort ausgewählte Region.
+** Der Bucket sollte mit der Versionierung als ausgesetzt konfiguriert werden.
+
+
+* Objektsegmentierung ist aktiviert, und die maximale Segmentgröße beträgt weniger als oder gleich 4.5 gib (4,831,838,208 Byte). S3-API-Anfragen, die diesen Wert überschreiten, schlagen fehl, wenn S3 als externes Archiv-Storage-System verwendet wird.
+
+
+.Schritte
+. Wählen Sie *SUPPORT* > *Tools* > *Grid-Topologie* aus.
+. Wählen Sie *Archivknoten* > *ARC* > *Ziel*.
+. Wählen Sie *Konfiguration* > *Main*.
++
+image::../media/archive_node_s3_middleware.gif[Konfigurationsseite für einen Archiv-Node]
+
+. Wählen Sie in der Dropdown-Liste Zieltyp * Cloud Tiering - Simple Storage Service (S3)* aus.
++
+
+NOTE: Konfigurationseinstellungen sind erst verfügbar, wenn Sie einen Zieltyp auswählen.
+
+. Konfigurieren Sie das Cloud-Tiering-Konto (S3), über das der Archive-Node eine Verbindung zum externen S3-fähigen Archiv-Storage-System herstellen soll.
++
+Die meisten Felder auf dieser Seite sind selbsterklärend. Im folgenden werden die Felder beschrieben, für die Sie möglicherweise Hinweise benötigen.
+
++
+** *Region*: Nur verfügbar, wenn *AWS verwenden* ausgewählt ist. Die ausgewählte Region muss mit der Region des Buckets übereinstimmen.
+** *Endpunkt* und *AWS verwenden*: Für Amazon Web Services (AWS) wählen Sie *AWS verwenden*. *Endpunkt* wird dann automatisch mit einer Endpunkt-URL auf der Grundlage der Attribute Bucket-Name und Region ausgefüllt. Beispiel:
++
+`\https://bucket.region.amazonaws.com`
+
++
+Geben Sie bei einem nicht von AWS stammenden Ziel die URL des Systems ein, das den Bucket hostet, einschließlich der Portnummer. Beispiel:
+
++
+`\https://system.com:1080`
+
+** *Endpunktauthentifizierung*: Standardmäßig aktiviert. Wenn das Netzwerk zum externen Archivspeichersystem vertrauenswürdig ist, können Sie das Kontrollkästchen deaktivieren, um die Überprüfung von SSL-Zertifikaten und Hostnamen für das Zielspeichersystem für die externe Archivierung zu deaktivieren. Wenn eine andere Instanz eines StorageGRID-Systems das Archiv-Zielspeichergerät ist und das System mit öffentlich signierten Zertifikaten konfiguriert ist, können Sie das Kontrollkästchen aktivieren.
+** *Speicherklasse*: Wählen Sie *Standard (Standard)* für die normale Lagerung. Wählen Sie *reduzierte Redundanz* nur für Objekte, die einfach neu erstellt werden können. *Reduzierte Redundanz* bietet kostengünstige Speicherung mit weniger Zuverlässigkeit. Wenn das zielgerichtete Archivspeichersystem eine weitere Instanz des StorageGRID-Systems ist, steuert *Speicherklasse*, wie viele Zwischenkopien des Objekts bei der Aufnahme auf das Zielsystem erstellt werden, wenn bei Aufnahme von Objekten Dual Commit verwendet wird.
+
+
+. Wählen Sie *Änderungen Anwenden*.
++
+Die angegebenen Konfigurationseinstellungen werden validiert und auf Ihr StorageGRID System angewendet. Nachdem die Einstellungen angewendet wurden, kann das Ziel nicht mehr geändert werden.
+
+

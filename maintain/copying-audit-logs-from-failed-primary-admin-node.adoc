@@ -1,0 +1,58 @@
+---
+permalink: maintain/copying-audit-logs-from-failed-primary-admin-node.html 
+sidebar: sidebar 
+keywords: storagegrid, audit log, copy audit log, copying audit log, primary admin node, primary admin node 
+summary: Wenn Sie in der Lage sind, Audit-Protokolle vom fehlgeschlagenen primären Administrator-Knoten zu kopieren, sollten Sie diese beibehalten, um die Aufzeichnung der Systemaktivität und -Nutzung des Rasters zu erhalten. Sie können die erhaltenen Audit-Protokolle nach dem wiederhergestellten primären Admin-Knoten wiederherstellen, nachdem er in Betrieb ist. 
+---
+= Prüfprotokolle vom fehlgeschlagenen primären Admin-Node kopieren
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie Audit-Protokolle vom fehlgeschlagenen primären Admin-Node kopieren können, sollten Sie diese beibehalten, um den Datensatz der Systemaktivität und -Nutzung des Rasters beizubehalten. Sie können die erhaltenen Audit-Protokolle nach dem wiederhergestellten primären Admin-Knoten wiederherstellen, nachdem er in Betrieb ist.
+
+.Über diese Aufgabe
+Mit diesem Verfahren werden die Audit-Log-Dateien vom fehlgeschlagenen Admin-Node in einen temporären Speicherort auf einem separaten Grid-Node kopiert. Diese erhaltenen Audit-Protokolle können dann in den Ersatz-Admin-Node kopiert werden. Audit-Protokolle werden nicht automatisch auf den neuen Admin-Node kopiert.
+
+Je nach Art des Fehlers können Sie unter Umständen keine Prüfprotokolle von einem fehlgeschlagenen Admin-Knoten kopieren. Wenn die Bereitstellung nur über einen Admin-Node verfügt, startet der wiederhergestellte Admin-Knoten die Aufzeichnung von Ereignissen zum Audit-Protokoll in einer neuen leeren Datei und zuvor aufgezeichnete Daten gehen verloren. Wenn die Bereitstellung mehr als einen Admin-Node enthält, können Sie die Audit-Protokolle von einem anderen Admin-Node wiederherstellen.
+
+
+NOTE: Wenn die Überwachungsprotokolle jetzt nicht auf den fehlgeschlagenen Admin-Knoten zugreifen können, können Sie möglicherweise später darauf zugreifen, z. B. nach der Host-Wiederherstellung.
+
+.Schritte
+. Melden Sie sich nach Möglichkeit beim fehlgeschlagenen Admin-Knoten an. Melden Sie sich andernfalls beim primären Admin-Node oder einem anderen Admin-Node an, falls verfügbar.
++
+.. Geben Sie den folgenden Befehl ein: `ssh admin@_grid_node_IP_`
+.. Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
+.. Geben Sie den folgenden Befehl ein, um zum Root zu wechseln: `su -`
+.. Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
++
+Wenn Sie als root angemeldet sind, ändert sich die Eingabeaufforderung von `$` Bis `#`.
+
+
+
+. Stoppen Sie den AMS-Dienst, um zu verhindern, dass eine neue Protokolldatei erstellt wird:``service ams stop``
+. Navigieren Sie zum Verzeichnis für den Audit-Export:
++
+`cd /var/local/log`
+
+. Benennen Sie die Quelle um `audit.log` Datei zu einem eindeutigen nummerierten Dateinamen. Benennen Sie beispielsweise die Datei audit.log in um `2023-10-25.txt.1`.
++
+[listing]
+----
+ls -l
+mv audit.log 2023-10-25.txt.1
+----
+. AMS-Dienst neu starten: `service ams start`
+. Erstellen Sie das Verzeichnis, um alle Audit-Log-Dateien in einen temporären Speicherort auf einem separaten Grid-Knoten zu kopieren: `ssh admin@_grid_node_IP_ mkdir -p /var/local/tmp/saved-audit-logs`
++
+Geben Sie bei der entsprechenden Eingabeaufforderung das Passwort für den Administrator ein.
+
+. Kopieren Sie alle Audit-Log-Dateien in den temporären Speicherort: `scp -p * admin@_grid_node_IP_:/var/local/tmp/saved-audit-logs`
++
+Geben Sie bei der entsprechenden Eingabeaufforderung das Passwort für den Administrator ein.
+
+. Melden Sie sich als Root an: `exit`
+

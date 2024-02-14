@@ -1,0 +1,35 @@
+---
+section: swift
+title: Swift REST API verwenden (veraltet)
+entries:
+- title: Überblick
+  pdf-filename: Nutzen Sie Swift mit StorageGRID
+  url: "/swift/index.html"
+  entries:
+  - title: Geschichte der Unterstützung von Swift API in StorageGRID
+    url: "/swift/history-of-swift-api-support-in-storagegrid.html"
+  - title: So implementiert StorageGRID Swift REST API
+    url: "/swift/how-storagegrid-implements-swift-rest-api.html"
+  - title: Empfehlungen für die Implementierung von Swift REST API
+    url: "/swift/recommendations-for-implementing-swift-rest-api.html"
+- title: Testen Sie die Swift REST API-Verbindung
+  url: "/swift/configuring-tenant-accounts-and-connections.html"
+- title: Von Swift UNTERSTÜTZTE REST-API-Operationen
+  url: "/swift/swift-rest-api-supported-operations.html"
+  entries:
+  - title: Unterstützte Swift-API-Endpunkte
+    url: "/swift/supported-swift-api-endpoints.html"
+  - title: Konto-Operationen
+    url: "/swift/account-operations.html"
+  - title: Container-Operationen
+    url: "/swift/container-operations.html"
+  - title: Objekt-Operationen
+    url: "/swift/object-operations.html"
+  - title: OPTIONEN anfordern
+    url: "/swift/options-request.html"
+  - title: Fehlerantworten bei Swift-API-Operationen
+    url: "/swift/error-responses-to-swift-api-operations.html"
+- title: StorageGRID Swift REST-API-Operationen
+  url: "/swift/storagegrid-swift-rest-api-operations.html"
+- title: In den Audit-Protokollen werden Swift-Vorgänge nachverfolgt
+  url: "/swift/swift-operations-tracked-in-audit-logs.html"

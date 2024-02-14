@@ -1,0 +1,35 @@
+---
+permalink: upgrade/impact-of-upgrade-on-groups-and-user-accounts.html 
+sidebar: sidebar 
+keywords: upgrade, permissions 
+summary: Möglicherweise müssen Sie Gruppen und Benutzerkonten nach Abschluss des Upgrades entsprechend aktualisieren. 
+---
+= Auswirkungen eines Upgrades auf Gruppen und Benutzerkonten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Möglicherweise müssen Sie Gruppen und Benutzerkonten nach Abschluss des Upgrades entsprechend aktualisieren.
+
+
+
+== Änderungen an Gruppenberechtigungen und -Optionen
+
+Nach dem Upgrade auf StorageGRID 11.8 weisen Sie den Benutzergruppen der Mandanten optional die folgenden neuen Berechtigungen zu.
+
+[cols="1a,2a,2a"]
+|===
+| Berechtigung | Beschreibung | Details 
+
+
+ a| 
+Alle Buckets anzeigen
+ a| 
+Ermöglicht Benutzern die Anzeige aller Buckets und Bucket-Konfigurationen.
+ a| 
+Die Berechtigung Alle Buckets verwalten ersetzt die Berechtigung Alle Buckets anzeigen.
+
+|===
+Siehe link:../tenant/tenant-management-permissions.html["Mandantenmanagement-Berechtigungen"].

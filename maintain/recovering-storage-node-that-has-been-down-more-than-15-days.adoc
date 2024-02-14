@@ -1,0 +1,95 @@
+---
+permalink: maintain/recovering-storage-node-that-has-been-down-more-than-15-days.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, storage node failure 
+summary: Wenn ein einzelner Storage-Node länger als 15 Tage offline war und nicht mit anderen Storage-Nodes verbunden ist, müssen Sie Cassandra auf dem Node neu aufbauen. 
+---
+= Stellen Sie Storage Node länger als 15 Tage wieder her
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn ein einzelner Storage-Node länger als 15 Tage offline war und nicht mit anderen Storage-Nodes verbunden ist, müssen Sie Cassandra auf dem Node neu aufbauen.
+
+.Bevor Sie beginnen
+* Sie haben überprüft, dass keine Ausmusterung von Storage-Nodes ausgeführt wird oder Sie den Vorgang zur Deaktivierung eines Node angehalten haben. (Wählen Sie im Grid Manager *MAINTENANCE* > *Tasks* > *Decommission*.)
+* Sie haben überprüft, dass keine Erweiterung ausgeführt wird. (Wählen Sie im Grid Manager *MAINTENANCE* > *Tasks* > *Expansion*.)
+
+
+.Über diese Aufgabe
+Storage-Nodes verfügen über eine Cassandra Datenbank mit Objekt-Metadaten. Wenn ein Storage-Node seit mehr als 15 Tagen nicht mit anderen Storage-Nodes kommunizieren kann, geht StorageGRID davon aus, dass die Cassandra-Datenbank des Node veraltet ist. Der Speicher-Node kann erst wieder dem Grid beitreten, wenn Cassandra mithilfe von Informationen aus anderen Speicher-Nodes neu erstellt wurde.
+
+Verwenden Sie dieses Verfahren, um Cassandra nur dann neu aufzubauen, wenn ein einzelner Storage-Node ausfällt. Wenden Sie sich an den technischen Support, wenn weitere Storage-Nodes offline sind oder wenn Cassandra innerhalb der letzten 15 Tage auf einem anderen Storage-Node neu erstellt wurde. Dazu gehört beispielsweise das Verfahren zur Wiederherstellung ausgefallener Storage-Volumes oder zur Wiederherstellung eines ausgefallenen Storage-Nodes.
+
+
+CAUTION: Wenn mehrere Speicherknoten ausgefallen sind (oder offline ist), wenden Sie sich an den technischen Support. Führen Sie das folgende Wiederherstellungsverfahren nicht durch. Es kann zu Datenverlusten kommen.
+
+
+CAUTION: Falls dies der zweite Ausfall des Storage-Nodes in weniger als 15 Tagen nach Ausfall oder Wiederherstellung eines Storage-Nodes ist, wenden Sie sich an den technischen Support. Führen Sie das folgende Wiederherstellungsverfahren nicht durch. Es kann zu Datenverlusten kommen.
+
+
+NOTE: Wenn mehr als ein Speicherknoten an einem Standort ausgefallen ist, ist möglicherweise ein Verfahren zur Standortwiederherstellung erforderlich. Siehe link:how-site-recovery-is-performed-by-technical-support.html["Wie der technische Support eine Site wiederherstellt"].
+
+.Schritte
+. Schalten Sie ggf. den Storage-Node ein, der wiederhergestellt werden muss.
+. Melden Sie sich beim Grid-Node an:
++
+.. Geben Sie den folgenden Befehl ein: `ssh admin@_grid_node_IP_`
+.. Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
+.. Geben Sie den folgenden Befehl ein, um zum Root zu wechseln: `su -`
+.. Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
++
+Wenn Sie als root angemeldet sind, ändert sich die Eingabeaufforderung von `$` Bis `#`.+
+
++
+
+NOTE: Wenn Sie sich beim Grid-Node nicht anmelden können, ist die Systemfestplatte möglicherweise nicht intakt. Gehen Sie zum Verfahren für  link:recovering-from-system-drive-failure.html["Wiederherstellung nach einem Systemausfall"].
+
+
+
+. Führen Sie die folgenden Prüfungen auf dem Speicherknoten durch:
++
+.. Geben Sie diesen Befehl ein: `nodetool status`
++
+Die Ausgabe sollte sein `Connection refused`
+
+.. Wählen Sie im Grid Manager *SUPPORT* > *Tools* > *Grid-Topologie* aus.
+.. Wählen Sie *_Site_* > *Storage Node* > *SSM* > *Services*. Vergewissern Sie sich, dass der Cassandra-Service angezeigt wird `Not Running`.
+.. Wählen Sie *Storage Node* > *SSM* > *Resources*. Vergewissern Sie sich, dass im Abschnitt Volumes kein Fehlerstatus vorhanden ist.
+.. Geben Sie diesen Befehl ein: `grep -i Cassandra /var/local/log/servermanager.log`
++
+Die folgende Meldung sollte in der Ausgabe angezeigt werden:
+
++
+[listing]
+----
+Cassandra not started because it has been offline for more than 15 day grace period - rebuild Cassandra
+----
+
+
+. Geben Sie diesen Befehl ein, und überwachen Sie die Skriptausgabe: `check-cassandra-rebuild`
++
+** Wenn der Cassandra-Service, abhängig von Volume 0, ausgeführt wird, werden Sie aufgefordert, ihn zu beenden. Geben Sie ein: *Y*
++
+
+NOTE: Wenn der Cassandra-Dienst bereits angehalten wurde, werden Sie nicht dazu aufgefordert. Der Cassandra-Service wird nur für Volume 0 angehalten.
+
+** Überprüfen Sie die Warnungen im Skript. Wenn keine dieser Möglichkeiten gelten, bestätigen Sie, dass Sie Cassandra neu aufbauen möchten. Geben Sie ein: *Y*
++
+
+NOTE: Einige StorageGRID-Wiederherstellungsverfahren verwenden Reaper für die Bearbeitung von Cassandra-Reparaturen. Reparaturen werden automatisch ausgeführt, sobald die entsprechenden oder erforderlichen Services gestartet wurden. Sie können die Skriptausgabe bemerken, die „Reaper“ oder „Cassandra Repair“ erwähnt. Wenn eine Fehlermeldung angezeigt wird, dass die Reparatur fehlgeschlagen ist, führen Sie den Befehl aus, der in der Fehlermeldung angezeigt wird.
+
+
+
+. Führen Sie nach Abschluss der Neuerstellung die folgenden Prüfungen durch:
++
+.. Wählen Sie im Grid Manager *SUPPORT* > *Tools* > *Grid-Topologie* aus.
+.. Wählen Sie *_Site_* > *Recovered Storage Node* > *SSM* > *Services*.
+.. Vergewissern Sie sich, dass alle Dienste ausgeführt werden.
+.. Wählen Sie *DDS* > *Data Store*.
+.. Vergewissern Sie sich, dass der Status des *Data Store* auf „up“ und der Status des *Data Store* auf „Normal“ gesetzt ist.
+
+
+

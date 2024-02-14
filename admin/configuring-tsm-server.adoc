@@ -1,0 +1,22 @@
+---
+permalink: admin/configuring-tsm-server.html 
+sidebar: sidebar 
+keywords: tsm server, tivoli storage manager 
+summary: Dieser Abschnitt enthält Beispielanweisungen für die Vorbereitung eines TSM-Servers gemäß den TSM Best Practices. 
+---
+= Konfigurieren Sie den TSM-Server
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dieser Abschnitt enthält Beispielanweisungen für die Vorbereitung eines TSM-Servers gemäß den TSM Best Practices.
+
+Die folgenden Anweisungen führen Sie durch den Prozess von:
+
+* Definieren eines Festplatten-Speicherpools und eines Bandspeicherpools (falls erforderlich) auf dem TSM-Server
+* Definieren einer Domänenrichtlinie, die die TSM-Managementklasse für die Daten verwendet, die im Knoten Archiv gespeichert sind, und Registrieren eines Knotens für diese Domänenrichtlinie
+
+
+Diese Anweisungen dienen nur zu Ihrer Orientierung; sie sind nicht als Ersatz für die TSM-Dokumentation gedacht oder als vollständige und umfassende Anweisungen, die für alle Konfigurationen geeignet sind. Eine Anleitung zur Implementierung sollte von einem TSM-Administrator bereitgestellt werden, der sowohl mit Ihren detaillierten Anforderungen als auch mit dem vollständigen Satz der TSM-Server-Dokumentation vertraut ist.

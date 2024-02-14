@@ -1,0 +1,157 @@
+---
+permalink: s3/get-object.html 
+sidebar: sidebar 
+keywords: get object 
+summary: Sie können die S3-GET-Objektanfrage verwenden, um ein Objekt aus einem S3-Bucket abzurufen. 
+---
+= GetObject
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mithilfe der S3-GetObject-Anforderung können Sie ein Objekt aus einem S3-Bucket abrufen.
+
+
+
+== GetObject- und mehrteilige Objekte
+
+Sie können das verwenden `partNumber` Parameter anfordern, um einen bestimmten Teil eines mehrteiligen oder segmentierten Objekts abzurufen.  Der `x-amz-mp-parts-count` Das Antwortelement gibt an, wie viele Teile das Objekt hat.
+
+Sie können festlegen `partNumber` Zu 1 für segmentierte/mehrteilige Objekte und nicht segmentierte/nicht mehrteilige Objekte; jedoch die `x-amz-mp-parts-count` Antwortelement wird nur für segmentierte oder mehrteilige Objekte zurückgegeben.
+
+
+
+== UTF-8 Zeichen in Benutzermetadaten
+
+StorageGRID parst oder interpretiert die entgangenen UTF-8-Zeichen nicht in benutzerdefinierten Metadaten. GET Requests for an object with escaped UTF-8 characters in user-defined metadata don't return the `x-amz-missing-meta` Kopfzeile, wenn der Schlüsselname oder -Wert nicht druckbare Zeichen enthält.
+
+
+
+== Nicht unterstützte Anforderungsüberschrift
+
+Die folgende Anforderungsüberschrift wird nicht unterstützt und kehrt zurück `XNotImplemented`:
+
+* `x-amz-website-redirect-location`
+
+
+
+
+== Versionierung
+
+Wenn A `versionId` unterressource wird nicht angegeben. Der Vorgang ruft die aktuellste Version des Objekts in einem versionierten Bucket ab. Wenn es sich bei der aktuellen Version des Objekts um eine Löschmarkierung handelt, wird der Status „nicht gefunden“ mit dem zurückgegeben `x-amz-delete-marker` Antwortkopfzeile auf gesetzt `true`.
+
+
+
+== Kopfzeilen zur serverseitigen Verschlüsselung mit vom Kunden bereitgestellten Verschlüsselungsschlüsseln anfordern (SSE-C)
+
+Verwenden Sie alle drei Kopfzeilen, wenn das Objekt mit einem eindeutigen Schlüssel verschlüsselt ist, den Sie angegeben haben.
+
+* `x-amz-server-side-encryption-customer-algorithm`: Angabe `AES256`.
+* `x-amz-server-side-encryption-customer-key`: Geben Sie Ihren Verschlüsselungsschlüssel für das Objekt an.
+* `x-amz-server-side-encryption-customer-key-MD5`: Geben Sie den MD5-Digest des Verschlüsselungsschlüssels des Objekts an.
+
+
+
+CAUTION: Die von Ihnen zur Verfügung gelegten Schlüssel werden niemals gespeichert. Wenn Sie einen Verschlüsselungsschlüssel verlieren, verlieren Sie das entsprechende Objekt. Bevor Sie vom Kunden bereitgestellte Schlüssel zum Schutz von Objektdaten verwenden, sollten Sie die Überlegungen in prüfen link:using-server-side-encryption.html["Serverseitige Verschlüsselung"].
+
+
+
+== Verhalten von GetObject for Cloud Storage Pool Objects
+
+Wenn ein Objekt in einem gespeichert wurde link:../ilm/what-cloud-storage-pool-is.html["Cloud-Storage-Pool"]Das Verhalten einer GetObject-Anfrage hängt vom Zustand des Objekts ab. Siehe link:head-object.html["HeadObject"] Entnehmen.
+
+
+NOTE: Wenn ein Objekt in einem Cloud Storage-Pool gespeichert ist und eine oder mehrere Kopien des Objekts ebenfalls im Raster vorhanden sind, versucht GetObject Requests, die Daten aus dem Raster abzurufen, bevor sie aus dem Cloud Storage-Pool abgerufen werden.
+
+[cols="1a,1a"]
+|===
+| Status des Objekts | Verhalten von GetObject 
+
+
+ a| 
+Objekt, das in StorageGRID aufgenommen wurde, durch ILM jedoch noch nicht evaluiert wurde, oder Objekt, das in einem herkömmlichen Storage-Pool gespeichert ist oder Erasure Coding verwendet
+ a| 
+`200 OK`
+
+Eine Kopie des Objekts wird abgerufen.
+
+
+
+ a| 
+Objekt in Cloud-Storage-Pool, ist aber noch nicht in einen Zustand übergegangen, der nicht abrufbar ist
+ a| 
+`200 OK`
+
+Eine Kopie des Objekts wird abgerufen.
+
+
+
+ a| 
+Das Objekt wurde in einen nicht aufrufbaren Zustand überführt
+ a| 
+`403 Forbidden`, `InvalidObjectState`
+
+Verwenden Sie A link:post-object-restore.html["Objekt restoreObject"] Anforderung zur Wiederherstellung des Objektstatus in einem abrufbaren Zustand.
+
+
+
+ a| 
+Objekt wird aus einem nicht aufrufbaren Zustand wiederhergestellt
+ a| 
+`403 Forbidden`, `InvalidObjectState`
+
+Warten Sie, bis die Anforderung „RestoreObject“ abgeschlossen ist.
+
+
+
+ a| 
+Das Objekt wird im Cloud-Storage-Pool vollständig wiederhergestellt
+ a| 
+`200 OK`
+
+Eine Kopie des Objekts wird abgerufen.
+
+|===
+
+
+=== Mehrteilige oder segmentierte Objekte in einem Cloud Storage-Pool
+
+Wenn Sie ein mehrteilige Objekt hochgeladen StorageGRID oder ein großes Objekt in Segmente aufgeteilt haben, bestimmt StorageGRID, ob das Objekt im Cloud-Storage-Pool verfügbar ist, indem Sie eine Teilmenge der Teile oder Segmente des Objekts testen. In einigen Fällen kann eine GetObject-Anforderung falsch zurückgegeben werden `200 OK` Wenn bereits Teile des Objekts in einen nicht aufrufbaren Zustand überführt wurden oder Teile des Objekts noch nicht wiederhergestellt wurden.
+
+In diesen Fällen:
+
+* Die GetObject-Anforderung gibt möglicherweise einige Daten zurück, hält jedoch während der Übertragung an.
+* Eine nachfolgende GetObject-Anforderung kann zurückgegeben werden `403 Forbidden`.
+
+
+
+
+== GetObject- und Grid-übergreifende Replikation
+
+Wenn Sie verwenden link:../admin/grid-federation-overview.html["Grid-Verbund"] Und link:../tenant/grid-federation-manage-cross-grid-replication.html["Grid-übergreifende Replizierung"] Ist für einen Bucket aktiviert, kann der S3-Client den Replikationsstatus eines Objekts durch Ausgabe einer GetObject-Anforderung überprüfen. Die Antwort bezieht sich auf das StorageGRID-spezifische `x-ntap-sg-cgr-replication-status` Antwortheader, der einen der folgenden Werte enthält:
+
+[cols="1a,2a"]
+|===
+| Raster | Replikationsstatus 
+
+
+ a| 
+Quelle
+ a| 
+* *SUCCESS*: Die Replikation war erfolgreich.
+* *AUSSTEHEND*: Das Objekt wurde noch nicht repliziert.
+* *FAILURE*: Die Replikation ist mit einem permanenten Fehler fehlgeschlagen. Ein Benutzer muss den Fehler beheben.
+
+
+
+
+ a| 
+Ziel
+ a| 
+*REPLIKAT*: Das Objekt wurde aus dem Quellraster repliziert.
+
+|===
+
+NOTE: StorageGRID unterstützt das nicht `x-amz-replication-status` Kopfzeile.

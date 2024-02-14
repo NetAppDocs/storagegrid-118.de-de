@@ -1,0 +1,82 @@
+---
+permalink: upgrade/linux-installing-rpm-or-deb-package-on-all-hosts.html 
+sidebar: sidebar 
+keywords: upgrade, linux, rpm, deb, 
+summary: Wenn StorageGRID-Knoten auf Linux-Hosts bereitgestellt werden, installieren Sie auf jedem dieser Hosts ein zusätzliches RPM- oder DEB-Paket, bevor Sie mit dem Upgrade beginnen. 
+---
+= Linux: Laden Sie das RPM- oder DEB-Paket herunter und installieren Sie es auf allen Hosts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn StorageGRID-Knoten auf Linux-Hosts bereitgestellt werden, laden Sie ein zusätzliches RPM- oder DEB-Paket herunter, und installieren Sie es auf jedem dieser Hosts, bevor Sie mit dem Upgrade beginnen.
+
+
+
+== Laden Sie Upgrade-, Linux- und Hotfix-Dateien herunter
+
+Wenn Sie ein StorageGRID-Upgrade über den Grid-Manager durchführen, werden Sie aufgefordert, das Upgrade-Archiv und den erforderlichen Hotfix als ersten Schritt herunterzuladen. Wenn Sie jedoch Dateien herunterladen müssen, um Linux-Hosts zu aktualisieren, können Sie Zeit sparen, indem Sie alle erforderlichen Dateien im Voraus herunterladen.
+
+.Schritte
+. Gehen Sie zu https://mysupport.netapp.com/site/products/all/details/storagegrid/downloads-tab["NetApp Downloads: StorageGRID"^].
+. Wählen Sie die Schaltfläche zum Herunterladen der neuesten Version, oder wählen Sie eine andere Version aus dem Dropdown-Menü aus und wählen Sie *Go*.
++
+Die StorageGRID-Softwareversionen haben dieses Format: 11._x.y_. StorageGRID-Hotfixes haben dieses Format: 11._x. y.y.z_.
+
+. Melden Sie sich mit Ihrem Benutzernamen und Passwort für Ihr NetApp Konto an.
+. Wenn ein Warnhinweis/MustRead angezeigt wird, notieren Sie sich die Hotfix-Nummer, und aktivieren Sie das Kontrollkästchen.
+. Lesen Sie die Endbenutzer-Lizenzvereinbarung, aktivieren Sie das Kontrollkästchen und wählen Sie dann *Akzeptieren und fortfahren* aus.
++
+Die Download-Seite für die ausgewählte Version wird angezeigt. Die Seite enthält drei Spalten.
+
+. Laden Sie in der zweiten Spalte (*Upgrade StorageGRID*) zwei Dateien herunter:
++
+** Das Upgrade-Archiv für die neueste Version (dies ist die Datei im Abschnitt *VMware, SG1000 oder SG100 Primary Admin Node*). Diese Datei wird zwar erst benötigt, wenn Sie das Upgrade durchführen, aber das Herunterladen spart jetzt Zeit.
+** Ein RPM- oder DEB-Archiv in beiden `.tgz` Oder `.zip` Formatieren. Wählen Sie die aus `.zip` Datei, wenn Windows auf dem Service-Laptop ausgeführt wird.
++
+*** Red Hat Enterprise Linux +
+`StorageGRID-Webscale-_version_-RPM-_uniqueID_.zip` +
+`StorageGRID-Webscale-_version_-RPM-_uniqueID_.tgz`
+*** Ubuntu oder Debian +
+`StorageGRID-Webscale-_version_-DEB-_uniqueID_.zip` +
+`StorageGRID-Webscale-_version_-DEB-_uniqueID_.tgz`
+
+
+
+
+. Wenn Sie aufgrund eines erforderlichen Hotfix einem Warnhinweis/MustRead zustimmen müssen, laden Sie den Hotfix herunter:
++
+.. Gehen Sie zurück zu https://mysupport.netapp.com/site/products/all/details/storagegrid/downloads-tab["NetApp Downloads: StorageGRID"^].
+.. Wählen Sie die Hotfix-Nummer aus der Dropdown-Liste aus.
+.. Stimmen Sie den Vorsichtshinweis und EULA erneut zu.
+.. Laden Sie den Hotfix und dessen README herunter und speichern Sie ihn.
++
+Sie werden aufgefordert, die Hotfix-Datei auf der StorageGRID-Upgrade-Seite hochzuladen, wenn Sie mit dem Upgrade beginnen.
+
+
+
+
+
+
+
+== Installieren Sie Archive auf allen Linux-Hosts
+
+Führen Sie diese Schritte aus, bevor Sie die StorageGRID Software aktualisieren.
+
+.Schritte
+. Extrahieren Sie die RPM- oder DEB-Pakete aus der Installationsdatei.
+. Installieren Sie die RPM- oder DEB-Pakete auf allen Linux-Hosts.
++
+Siehe die Schritte zum Installieren von StorageGRID-Hostdiensten in der Installationsanleitung:
+
++
+** link:../rhel/installing-storagegrid-webscale-host-service.html["Red hat Enterprise Linux: Installieren Sie StorageGRID-Hostservices"]
+** link:../ubuntu/installing-storagegrid-webscale-host-services.html["Ubuntu oder Debian: Installieren Sie StorageGRID-Hostdienste"]
+
+
++
+Die neuen Pakete werden als zusätzliche Pakete installiert. Entfernen Sie nicht die vorhandenen Pakete.
+
+

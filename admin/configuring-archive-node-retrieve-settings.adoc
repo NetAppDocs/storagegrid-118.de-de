@@ -1,0 +1,41 @@
+---
+permalink: admin/configuring-archive-node-retrieve-settings.html 
+sidebar: sidebar 
+keywords: archive node, retrieve settings 
+summary: Sie können die Einstellungen für den Abruf eines Archiv-Knotens so konfigurieren, dass der Status auf Online oder Offline gesetzt wird, oder die Fehleranzahl, die für die zugehörigen Alarme nachverfolgt wird, zurücksetzen. 
+---
+= Konfigurieren Sie die Einstellungen für den Abruf von Archivknoten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die Einstellungen für den Abruf eines Archiv-Knotens so konfigurieren, dass der Status auf Online oder Offline gesetzt wird, oder die Fehleranzahl, die für die zugehörigen Alarme nachverfolgt wird, zurücksetzen.
+
+.Bevor Sie beginnen
+* Sie sind mit einem bei Grid Manager angemeldet link:../admin/web-browser-requirements.html["Unterstützter Webbrowser"].
+* Das ist schon link:admin-group-permissions.html["Bestimmte Zugriffsberechtigungen"].
+
+
+.Schritte
+. Wählen Sie *SUPPORT* > *Tools* > *Grid-Topologie* aus.
+. Wählen Sie *Archivknoten* > *ARC* > *Abruf*.
+. Wählen Sie *Konfiguration* > *Main*.
++
+image::../media/archive_node_retreive.gif[Konfigurationsseite für einen Archiv-Knoten > Einstellungen abrufen]
+
+. Ändern Sie bei Bedarf die folgenden Einstellungen:
++
+** *Retrieve Status*: Den Komponentenzustand auf entweder einstellen:
++
+*** Online: Der Grid-Node ist verfügbar, um Objektdaten vom Archivierungsmedium abzurufen.
+*** Offline: Der Grid-Node ist zum Abrufen von Objektdaten nicht verfügbar.
+
+
+** Anzahl der fehlgeschlagenen Anfragen zurücksetzen: Aktivieren Sie das Kontrollkästchen, um den Zähler für Anforderungsfehler zurückzusetzen. Dieser kann verwendet werden, um den ARRF-Alarm (Request Failures) zu löschen.
+** Anzahl der fehlgeschlagenen Verifizierungen zurücksetzen: Aktivieren Sie das Kontrollkästchen, um den Zähler für Überprüfungsfehler bei abgerufenen Objektdaten zurückzusetzen. Dies kann verwendet werden, um den ARRV-Alarm (Verifizierungsfehler) zu löschen.
+
+
+. Wählen Sie *Änderungen Anwenden*.
+

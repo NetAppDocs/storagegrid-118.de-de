@@ -1,0 +1,30 @@
+---
+permalink: ilm/what-storage-pool-is.html 
+sidebar: sidebar 
+keywords: what is a storage pool 
+summary: Ein Speicherpool ist eine logische Gruppierung von Storage-Nodes oder Archiv-Nodes. 
+---
+= Was ist ein Speicherpool?
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ein Speicherpool ist eine logische Gruppierung von Storage-Nodes oder Archiv-Nodes.
+
+Bei der Installation von StorageGRID wird automatisch ein Speicherpool pro Standort erstellt. Sie können zusätzliche Speicherpools je nach Bedarf konfigurieren.
+
+
+NOTE: Storage-Nodes können während der Installation so konfiguriert werden, dass sie Objektdaten und Objektmetadaten oder nur Objektmetadaten enthalten. Nur Metadaten-Storage-Nodes können nicht in Storage-Pools verwendet werden. Weitere Informationen finden Sie unter link:../primer/what-storage-node-is.html#types-of-storage-nodes["Typen von Storage-Nodes"].
+
+
+NOTE: Die Unterstützung für Archivknoten ist veraltet und wird in einer zukünftigen Version entfernt. Das Verschieben von Objekten vom Archiv-Node auf ein externes Archiv-Storage-System über die S3-API wurde durch ILM Cloud Storage-Pools ersetzt, die mehr Funktionen bieten.
+
+Storage-Pools haben zwei Attribute:
+
+* *Speicherklasse*: Für Storage-Nodes, die relative Performance beim Sichern von Speicher.
+* *Standort*: Das Rechenzentrum, in dem Objekte gespeichert werden.
+
+
+Storage-Pools werden in ILM-Regeln verwendet, um zu bestimmen, wo Objektdaten gespeichert werden und welcher Storage-Typ verwendet wird. Wenn Sie ILM-Regeln für die Replikation konfigurieren, wählen Sie einen oder mehrere Storage-Pools aus, die entweder Storage-Nodes oder Archiv-Nodes enthalten. Wenn Sie Profile für die Erasure Coding erstellen, wählen Sie einen Storage-Pool aus, der Storage-Nodes umfasst.

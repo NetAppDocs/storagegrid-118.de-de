@@ -1,0 +1,86 @@
+---
+permalink: swift/configuring-tenant-accounts-and-connections.html 
+sidebar: sidebar 
+keywords: swift test connection, cli, python-swiftclient 
+summary: Sie können die Swift CLI verwenden, um die Verbindung zum StorageGRID System zu testen und zu überprüfen, ob Objekte gelesen und geschrieben werden können. 
+---
+= Testen der REST API-Konfiguration von Swift
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die Swift CLI verwenden, um die Verbindung zum StorageGRID System zu testen und zu überprüfen, ob Objekte gelesen und geschrieben werden können.
+
+.Bevor Sie beginnen
+* Sie haben den Swift-Befehlszeilenclient heruntergeladen und installiert: https://platform.swiftstack.com/docs/integration/python-swiftclient.html["SwiftStack: python-wiftclient"^]
+* Optional haben Sie link:../admin/configuring-load-balancer-endpoints.html["Ein Load Balancer-Endpunkt wurde erstellt"]. Andernfalls kennen Sie die IP-Adresse des zu verbindenden Storage-Node und die zu verwendende Port-Nummer. Siehe link:../admin/summary-ip-addresses-and-ports-for-client-connections.html["IP-Adressen und Ports für Client-Verbindungen"].
+* Das ist schon link:../admin/creating-tenant-account.html["Swift Mandantenkonto erstellt"].
+* Sie haben sich beim Mandantenkonto angemeldet und mindestens eine Gruppe und einen Benutzer erstellt. Siehe link:../tenant/creating-groups-for-swift-tenant.html["Erstellen von Gruppen für einen Swift Mandanten"].
++
+
+NOTE: Swift-Mandanten-Benutzer müssen über die Administratorgruppe verfügen, um sich bei der Swift-REST-API authentifizieren zu können.
+
+
+
+.Über diese Aufgabe
+Wenn Sie keine Sicherheit konfiguriert haben, müssen Sie die hinzufügen `--insecure` Flag auf jeden dieser Befehle.
+
+.Schritte
+. Fragen Sie die Info-URL für Ihre StorageGRID Swift Implementierung:
++
+[listing]
+----
+swift
+-U <Tenant_Account_ID:Account_User_Name>
+-K <User_Password>
+-A https://<FQDN | IP>:<Port>/info
+capabilities
+----
++
+Dies reicht aus, um zu testen, ob Ihre Swift-Implementierung funktionsfähig ist. Um die Kontenkonfiguration durch Speichern eines Objekts weiter zu testen, fahren Sie mit den zusätzlichen Schritten fort.
+
+. Legen Sie ein Objekt in den Container:
++
+[listing]
+----
+touch test_object
+swift
+-U <Tenant_Account_ID:Account_User_Name>
+-K <User_Password>
+-A https://<FQDN | IP>:<Port>/auth/v1.0
+upload test_container test_object
+--object-name test_object
+----
+. Holen Sie sich den Container, um das Objekt zu überprüfen:
++
+[listing]
+----
+swift
+-U <Tenant_Account_ID:Account_User_Name>
+-K <User_Password>
+-A https://<FQDN | IP>:<Port>/auth/v1.0
+list test_container
+----
+. Löschen Sie das Objekt:
++
+[listing]
+----
+swift
+-U <Tenant_Account_ID:Account_User_Name>
+-K <User_Password>
+-A https://<FQDN | IP>:<Port>/auth/v1.0
+delete test_container test_object
+----
+. Löschen Sie den Container:
++
+[listing]
+----
+swift
+-U `<_Tenant_Account_ID:Account_User_Name_>`
+-K `<_User_Password_>`
+-A `\https://<_FQDN_ | _IP_>:<_Port_>/auth/v1.0'
+delete test_container
+----
+

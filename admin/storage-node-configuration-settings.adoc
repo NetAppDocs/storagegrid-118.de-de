@@ -1,0 +1,269 @@
+---
+permalink: admin/storage-node-configuration-settings.html 
+sidebar: sidebar 
+keywords: storage node, configuration settings, counters 
+summary: 'Jeder Speicher-Node verwendet mehrere Konfigurationseinstellungen und Zähler. Möglicherweise müssen Sie die aktuellen Einstellungen anzeigen oder Zähler zurücksetzen, um Alarme \(Legacy System\) zu löschen.' 
+---
+= Konfigurationseinstellungen für Storage-Nodes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Jeder Speicher-Node verwendet mehrere Konfigurationseinstellungen und Zähler. Möglicherweise müssen Sie die aktuellen Einstellungen anzeigen oder Zähler zurücksetzen, um Alarme zu löschen (Legacy-System).
+
+
+CAUTION: Mit Ausnahme der in der Dokumentation ausdrücklich enthaltenen Anweisungen sollten Sie sich mit dem technischen Support in Verbindung setzen, bevor Sie die Konfigurationseinstellungen für den Storage-Node ändern. Nach Bedarf können Sie Ereigniszähler zurücksetzen, um ältere Alarme zu löschen.
+
+Führen Sie die folgenden Schritte aus, um auf die Konfigurationseinstellungen und -Zähler eines Storage Node zuzugreifen.
+
+.Schritte
+. Wählen Sie *SUPPORT* > *Tools* > *Grid-Topologie* aus.
+. Wählen Sie *_site_* > *_Storage Node_* aus.
+. Erweitern Sie den Speicherknoten, und wählen Sie den Dienst oder die Komponente aus.
+. Wählen Sie die Registerkarte *Konfiguration*.
+
+
+In den folgenden Tabellen sind die Konfigurationseinstellungen für Storage Node zusammengefasst.
+
+
+
+== LDR
+
+[cols="2a,1a,3a"]
+|===
+| Attributname | Codieren | Beschreibung 
+
+
+ a| 
+HTTP-Status
+ a| 
+HSTE
+ a| 
+Der aktuelle Status von HTTP für S3, Swift und anderen internen StorageGRID-Datenverkehr:
+
+* Offline: Es sind keine Vorgänge zulässig. Jede Client-Anwendung, die versucht, eine HTTP-Sitzung für den LDR-Dienst zu öffnen, erhält eine Fehlermeldung. Aktive Sitzungen werden ordnungsgemäß geschlossen.
+* Online: Der Vorgang wird normal fortgesetzt
+
+
+
+
+ a| 
+Automatisches Starten von HTTP
+ a| 
+HTAS
+ a| 
+* Wenn diese Option ausgewählt ist, hängt der Zustand des Systems beim Neustart vom Status der Komponente *LDR* > *Storage* ab. Wenn die Komponente *LDR* > *Storage* beim Neustart schreibgeschützt ist, ist auch die HTTP-Schnittstelle schreibgeschützt. Wenn die Komponente *LDR* > *Speicherung* Online ist, ist HTTP auch Online. Andernfalls bleibt die HTTP-Schnittstelle im Status Offline.
+* Wenn diese Option nicht aktiviert ist, bleibt die HTTP-Schnittstelle offline, bis sie explizit aktiviert ist.
+
+
+|===
+
+
+== LDR > Datenspeicher
+
+[cols="2a,1a,3a"]
+|===
+| Attributname | Codieren | Beschreibung 
+
+
+ a| 
+Anzahl Verlorener Objekte Zurücksetzen
+ a| 
+RCOR
+ a| 
+Setzen Sie den Zähler für die Anzahl der verlorenen Objekte dieses Dienstes zurück.
+
+|===
+
+
+== LDR > Storage
+
+[cols="2a,1a,3a"]
+|===
+| Attributname | Codieren | Beschreibung 
+
+
+ a| 
+Storage-Zustand - Gewünscht
+ a| 
+SSDS
+ a| 
+Eine vom Benutzer konfigurierbare Einstellung für den gewünschten Status der Speicherkomponente. Der LDR-Dienst liest diesen Wert und versucht, den durch dieses Attribut angegebenen Status zu entsprechen. Der Wert wird bei Neustarts dauerhaft verwendet.
+
+Mit dieser Einstellung können Sie beispielsweise dazu zwingen, dass Speicher schreibgeschützt wird, selbst wenn genügend Speicherplatz vorhanden ist. Dies kann bei der Fehlerbehebung hilfreich sein.
+
+Das Attribut kann einen der folgenden Werte annehmen:
+
+* Offline: Wenn der gewünschte Status Offline ist, schaltet der LDR-Dienst die *LDR* > *Storage*-Komponente offline.
+* Schreibgeschützt: Wenn der gewünschte Status schreibgeschützt ist, verschiebt der LDR-Dienst den Speicherstatus in schreibgeschützt und akzeptiert keine neuen Inhalte mehr. Der LDR-Service akzeptiert jedoch weiterhin S3- oder ILM-gesteuerte Bereinigungs- und Löschanforderungen. Beachten Sie, dass Inhalte möglicherweise noch für kurze Zeit im Speicherknoten gespeichert werden, bis offene Sitzungen geschlossen sind.
+* Online: Den Wert bei Online während des normalen Systembetriebs belassen. Der Speicherstatus – der aktuelle Status der Speicherkomponente wird durch den Service dynamisch festgelegt, basierend auf dem Zustand des LDR-Service, z. B. der Menge des verfügbaren Objektspeicherspeichers. Wenn der Speicherplatz knapp ist, ist die Komponente schreibgeschützt.
+
+
+
+
+ a| 
+Zeitüberschreitung Bei Der Integritätsprüfung
+ a| 
+SHCT
+ a| 
+Die Zeitgrenze in Sekunden, innerhalb derer ein Integritätstest abgeschlossen werden muss, damit ein Speichervolumen als ordnungsgemäß angesehen wird. Ändern Sie diesen Wert nur, wenn Sie dazu vom Support aufgefordert werden.
+
+|===
+
+
+== LDR > Verifizierung
+
+[cols="2a,1a,3a"]
+|===
+| Attributname | Codieren | Beschreibung 
+
+
+ a| 
+Fehlende Objekte Zurücksetzen Anzahl
+ a| 
+VCMI
+ a| 
+Setzt die Anzahl der erkannten fehlenden Objekte zurück (OMIS). Nur nach Abschluss der Objektprüfung verwenden. Fehlende replizierte Objektdaten werden vom StorageGRID System automatisch wiederhergestellt.
+
+
+
+ a| 
+Verifizierungsrate
+ a| 
+VPRI
+ a| 
+Legen Sie die Geschwindigkeit fest, mit der die Hintergrundüberprüfung durchgeführt wird. Weitere Informationen zur Konfiguration der Hintergrundüberprüfung finden Sie unter.
+
+
+
+ a| 
+Anzahl Der Beschädigten Objekte Zurücksetzen
+ a| 
+VCCR
+ a| 
+Setzen Sie den Zähler für beschädigte, replizierte Objektdaten zurück, die während der Hintergrundüberprüfung gefunden wurden. Mit dieser Option können Sie den Alarmzustand der beschädigten Objekte löschen, die erkannt wurden (OCOR).
+
+
+
+ a| 
+Objekte In Quarantäne Löschen
+ a| 
+OQRT
+ a| 
+Löschen Sie beschädigte Objekte aus dem Quarantäneverzeichnis, setzen Sie die Anzahl der isolierten Objekte auf Null zurück und löschen Sie den Alarm „Quarantäne Objekte erkannt“ (OQRT). Diese Option wird verwendet, nachdem beschädigte Objekte vom StorageGRID-System automatisch wiederhergestellt wurden.
+
+Wenn ein Alarm „Lost Objects“ ausgelöst wird, kann der technische Support auf die isolierten Objekte zugreifen. In manchen Fällen können isolierte Objekte für die Datenwiederherstellung oder das Debuggen der zugrunde liegenden Probleme, die die beschädigten Objektkopien verursacht haben, nützlich sein.
+
+|===
+
+
+== LDR > Erasure Coding
+
+[cols="2a,1a,3a"]
+|===
+| Attributname | Codieren | Beschreibung 
+
+
+ a| 
+Zurücksetzen Der Fehleranzahl Für Schreibvorgänge
+ a| 
+RWF.
+ a| 
+Setzen Sie den Zähler auf Schreibfehler von Objektdaten mit Erasure-Coding-Verfahren auf den Storage-Node zurück.
+
+
+
+ a| 
+Anzahl Der Fehlgeschlagene Lesevorgänge Zurücksetzen
+ a| 
+RSRF
+ a| 
+Setzen Sie den Zähler für Leseausfälle von Objektdaten mit Erasure-Coding-Verfahren vom Storage-Node zurück.
+
+
+
+ a| 
+Zurücksetzen Löschen Fehleranzahl
+ a| 
+RSDF
+ a| 
+Setzen Sie den Zähler für Löschfehler von Objektdaten mit Erasure-Coding-Verfahren vom Storage-Node zurück.
+
+
+
+ a| 
+Beschädigte Kopien Erkannte Anzahl Zurücksetzen
+ a| 
+RSCC
+ a| 
+Setzen Sie den Zähler für die Anzahl beschädigter Kopien von Objektdaten, die nach dem Erasure-Coding-Verfahren codiert wurden, auf dem Storage-Node zurück.
+
+
+
+ a| 
+Beschädigte Fragmente Erkannte Anzahl Zurücksetzen
+ a| 
+RCD
+ a| 
+Setzen Sie den Zähler auf beschädigte Fragmente von Objektdaten mit Erasure-Coding-Verfahren auf dem Storage-Node zurück.
+
+
+
+ a| 
+Fehlende Fragmente Erkannt Anzahl Zurücksetzen
+ a| 
+RSMD
+ a| 
+Setzen Sie den Zähler auf fehlende Fragmente von Objektdaten mit Erasure-Coding-Verfahren auf dem Storage Node zurück. Nur nach Abschluss der Objektprüfung verwenden.
+
+|===
+
+
+== LDR > Replikation
+
+[cols="2a,1a,3a"]
+|===
+| Attributname | Codieren | Beschreibung 
+
+
+ a| 
+Fehleranzahl Inbound Replication Zurücksetzen
+ a| 
+RICR
+ a| 
+Setzen Sie den Zähler auf Fehler bei eingehender Replikation zurück. Dies kann verwendet werden, um den RIRF-Alarm (Inbound Replication -- failed) zu löschen.
+
+
+
+ a| 
+Fehleranzahl Für Ausgehende Replikation Zurücksetzen
+ a| 
+ROCR
+ a| 
+Setzen Sie den Zähler auf Fehler bei ausgehenden Replikationen zurück. Dies kann verwendet werden, um den RORF-Alarm (ausgehende Replikationen -- fehlgeschlagen) zu löschen.
+
+
+
+ a| 
+Deaktivieren Sie Inbound Replication
+ a| 
+DSIR
+ a| 
+Wählen Sie diese Option aus, um die eingehende Replikation im Rahmen eines Wartungs- oder Testverfahrens zu deaktivieren. Während des normalen Betriebs nicht aktiviert lassen.
+
+Wenn die eingehende Replikation deaktiviert ist, können Objekte vom Speicherknoten abgerufen werden, um sie an andere Speicherorte im StorageGRID-System zu kopieren. Objekte können jedoch nicht von anderen Speicherorten auf diesen Speicherknoten kopiert werden: Der LDR-Dienst ist schreibgeschützt.
+
+
+
+ a| 
+Deaktivieren Sie Ausgehende Replikation
+ a| 
+DSOR
+ a| 
+Wählen Sie diese Option aus, um die ausgehende Replikation (einschließlich Inhaltsanforderungen für HTTP-Abrufvorgänge) im Rahmen eines Wartungs- oder Testverfahrens zu deaktivieren. Während des normalen Betriebs nicht aktiviert lassen.
+
+Wenn die ausgehende Replikation deaktiviert ist, können Objekte auf diesen Speicherknoten kopiert werden. Objekte können jedoch nicht vom Speicherknoten abgerufen werden, um sie an andere Speicherorte im StorageGRID-System zu kopieren. Der LDR-Service ist schreibgeschützt.
+
+|===

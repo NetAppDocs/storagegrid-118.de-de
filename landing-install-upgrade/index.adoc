@@ -1,0 +1,13 @@
+---
+layout: landing-page 
+sidebar: sidebar 
+permalink: landing-install-upgrade/index.html 
+summary: Ein StorageGRID System besteht aus individuellen Hardware- und softwarebasierten Nodes. Sie installieren zuerst die Hardware für jeden Appliance-Node und konfigurieren jeden Linux- oder VMware-Host. Anschließend installieren Sie die StorageGRID Software auf jedem Appliance- oder Software-Host und verbinden die Nodes mit einem Grid. 
+---
+= Installation, Upgrade und Hotfix-StorageGRID
+:hardbreaks:
+:allow-uri-read: 
+:linkattrs: 
+:imagesdir: ./media/
+
+

@@ -1,0 +1,54 @@
+---
+permalink: audit/atce-archive-object-store-begin.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, ATCE, Archive Object Store Begin 
+summary: Diese Meldung weist darauf hin, dass das Schreiben eines Inhaltsblocks in einen externen Archivspeicher gestartet wurde. 
+---
+= ATCE: Archiv-Objektspeicher beginnen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Diese Meldung weist darauf hin, dass das Schreiben eines Inhaltsblocks in einen externen Archivspeicher gestartet wurde.
+
+[cols="1a,1a,4a"]
+|===
+| Codieren | Feld | Beschreibung 
+
+
+ a| 
+CBID
+ a| 
+Inhaltsblock-ID
+ a| 
+Die eindeutige Kennung des zu archivierenden Inhaltsblocks.
+
+
+
+ a| 
+VLID
+ a| 
+Volume-Kennung
+ a| 
+Die eindeutige Kennung des Volumes, auf das der Inhaltsblock geschrieben wird. Wenn der Vorgang fehlschlägt, wird eine Volume-ID von 0 zurückgegeben.
+
+
+
+ a| 
+RSLT
+ a| 
+Ergebnis
+ a| 
+Gibt das Ergebnis der Übertragung des Inhaltsblocks an. Aktuell definierte Werte sind:
+
+* ERFOLGREICH (Inhaltsblock erfolgreich gespeichert)
+* EXIS: Ignoriert (Inhaltsblock wurde bereits gespeichert)
+* ISFD: Fehlgeschlagen (nicht genügend Speicherplatz)
+* STER: Fehlgeschlagen (Fehler beim Speichern der CBID)
+* OFFL: Fehlgeschlagen (Archivierung ist offline)
+* GERR: Fehlgeschlagen (allgemeiner Fehler)
+
+
+|===

@@ -1,0 +1,75 @@
+---
+permalink: tenant/object-metadata-included-in-metadata-notifications.html 
+sidebar: sidebar 
+keywords: object metadata notification 
+summary: In der Tabelle sind alle Felder aufgeführt, die im JSON-Dokument enthalten sind, die beim Aktivierung der Suchintegration an den Zielendpunkt gesendet werden. 
+---
+= Objektmetadaten sind in Metadaten-Benachrichtigungen enthalten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+In der Tabelle sind alle Felder aufgeführt, die im JSON-Dokument enthalten sind, die beim Aktivierung der Suchintegration an den Zielendpunkt gesendet werden.
+
+Der Dokumentname umfasst, falls vorhanden, den Bucket-Namen, den Objektnamen und die Version-ID.
+
+[cols="1a,2a"]
+|===
+| Typ | Elementname und -Beschreibung 
+
+
+ a| 
+Bucket- und Objektinformationen
+ a| 
+`bucket`: Name des Eimers
+
+
+
+ a| 
+`key`: Objektschlüsselname
+
+
+
+ a| 
+`versionID`: Objektversion, für Objekte in versionierten Buckets
+
+
+
+ a| 
+`region`: Eimer-Region, zum Beispiel `us-east-1`
+
+
+
+ a| 
+System-Metadaten
+ a| 
+`size`: Objektgröße (in Bytes) als sichtbar für einen HTTP-Client
+
+
+
+ a| 
+`md5`: Objekt-Hash
+
+
+
+ a| 
+Benutzer-Metadaten
+ a| 
+`metadata`: Alle Benutzer-Metadaten für das Objekt, als Schlüssel-Wert-Paare
+
+`key:value`
+
+
+
+ a| 
+Tags
+ a| 
+`tags`: Alle für das Objekt definierten Objekttags, als Schlüsselwert-Paare
+
+`key:value`
+
+|===
+
+NOTE: Für Tags und Benutzer-Metadaten gibt StorageGRID Daten und Nummern an Elasticsearch als Strings oder als S3-Ereignisbenachrichtigungen weiter. Um Elasticsearch so zu konfigurieren, dass diese Strings als Daten oder Zahlen interpretiert werden, befolgen Sie die Elasticsearch-Anweisungen für die dynamische Feldzuordnung und die Zuordnung von Datumsformaten. Sie müssen die dynamischen Feldzuordnungen im Index aktivieren, bevor Sie den Suchintegrationsdienst konfigurieren. Nachdem ein Dokument indiziert wurde, können Sie die Feldtypen des Dokuments im Index nicht mehr bearbeiten.

@@ -1,0 +1,38 @@
+---
+permalink: audit/arcb-archive-object-retrieve-begin.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, ARCB, Archive Object Retrieve Begin 
+summary: Diese Meldung wird erzeugt, wenn eine Anfrage zum Abrufen der archivierten Objektdaten gestellt wird und der Abrufvorgang beginnt. Abrufanfragen werden sofort bearbeitet, können jedoch neu geordnet werden, um die Effizienz des Abrufs von linearen Medien wie z. B. Bandmedien zu verbessern. 
+---
+= ARCB: Archiv Objekt abrufen beginnen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Diese Meldung wird erzeugt, wenn eine Anfrage zum Abrufen der archivierten Objektdaten gestellt wird und der Abrufvorgang beginnt. Abrufanfragen werden sofort bearbeitet, können jedoch neu geordnet werden, um die Effizienz des Abrufs von linearen Medien wie z. B. Bandmedien zu verbessern.
+
+[cols="1a,1a,4a"]
+|===
+| Codieren | Feld | Beschreibung 
+
+
+ a| 
+CBID
+ a| 
+Inhaltsblock-ID
+ a| 
+Die eindeutige Kennung des Inhaltsblocks, der vom externen Archivspeichersystem abgerufen werden soll.
+
+
+
+ a| 
+RSLT
+ a| 
+Ergebnis
+ a| 
+Zeigt das Ergebnis des Speicherabrufs an. Aktuell definierter Wert ist:SUCS: Die Inhaltsanforderung wurde empfangen und zum Abruf in die Warteschlange gestellt.
+
+|===
+Diese Überwachungsmeldung markiert den Zeitpunkt eines Archivabrufs. Damit können Sie die Nachricht mit einer entsprechenden ARCE-End-Nachricht abgleichen, um die Dauer des Archivabrufs zu bestimmen und ob der Vorgang erfolgreich war.

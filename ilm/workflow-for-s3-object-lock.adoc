@@ -1,0 +1,40 @@
+---
+permalink: ilm/workflow-for-s3-object-lock.html 
+sidebar: sidebar 
+keywords: object lock workflow 
+summary: Als Grid-Administrator müssen Sie sich eng mit den Mandantenbenutzern abstimmen, um sicherzustellen, dass die Objekte so geschützt sind, dass sie ihren Aufbewahrungsanforderungen entsprechen. 
+---
+= Workflow für S3 Objektsperre
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Als Grid-Administrator müssen Sie sich eng mit den Mandantenbenutzern abstimmen, um sicherzustellen, dass die Objekte so geschützt sind, dass sie ihren Aufbewahrungsanforderungen entsprechen.
+
+Das Workflow-Diagramm zeigt die grundlegenden Schritte zur Verwendung der S3-Objektsperre. Die Schritte werden vom Grid-Administrator und von Mandantenbenutzern durchgeführt.
+
+image::../media/s3_object_lock_workflow_gm.png[S3 Object Lock-Workflow für Grid Manager]
+
+
+
+== Grid Administrator-Aufgaben
+
+Wie das Workflow-Diagramm zeigt, muss ein Grid-Administrator zwei übergeordnete Aufgaben durchführen, bevor S3-Mandanten S3-Objektsperre verwenden können:
+
+. Erstellen Sie mindestens eine konforme ILM-Regel und setzen Sie diese Regel als Standardregel in einer aktiven ILM-Richtlinie fest.
+. Aktivieren Sie die globale S3-Objektsperre für das gesamte StorageGRID-System.
+
+
+
+
+== Aufgaben für Mandanten
+
+Nach Aktivierung der globalen S3-Objektsperre können Mandanten die folgenden Aufgaben ausführen:
+
+. Erstellen Sie Buckets, für die S3-Objektsperre aktiviert ist.
+. Optional können Sie Standardaufbewahrungseinstellungen für den Bucket festlegen. Alle Standard-Bucket-Einstellungen werden nur auf neue Objekte angewendet, die keine eigenen Aufbewahrungseinstellungen haben.
+. Fügen Sie diesen Buckets Objekte hinzu und geben Sie optional Aufbewahrungszeiträume auf Objektebene und Einstellungen für Legal Hold an.
+. Aktualisieren Sie nach Bedarf die Standardaufbewahrung für den Bucket oder aktualisieren Sie die Aufbewahrungsfrist oder die Legal Hold-Einstellung für ein einzelnes Objekt.
+

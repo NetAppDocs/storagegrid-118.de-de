@@ -1,0 +1,229 @@
+---
+permalink: admin/configuring-custom-server-certificate-for-storage-node.html 
+sidebar: sidebar 
+keywords: global S3 and Swift API certificate 
+summary: Sie können das Serverzertifikat ersetzen oder wiederherstellen, das für S3- oder Swift-Clientverbindungen zu Storage Nodes oder zu Load Balancer-Endpunkten verwendet wird. Das benutzerdefinierte Ersatzserverzertifikat ist speziell für Ihr Unternehmen bestimmt. 
+---
+= Konfigurieren von S3- und Swift-API-Zertifikaten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können das Serverzertifikat ersetzen oder wiederherstellen, das für S3- oder Swift-Clientverbindungen zu Storage Nodes oder zu Load Balancer-Endpunkten verwendet wird. Das benutzerdefinierte Ersatzserverzertifikat ist speziell für Ihr Unternehmen bestimmt.
+
+.Über diese Aufgabe
+Standardmäßig wird jeder Speicherknoten ein X.509-Serverzertifikat ausgestellt, das von der Grid-CA signiert wurde. Diese CA-signierten Zertifikate können durch ein einziges allgemeines benutzerdefiniertes Serverzertifikat und den entsprechenden privaten Schlüssel ersetzt werden.
+
+Für alle Speicherknoten wird ein einzelnes benutzerdefiniertes Serverzertifikat verwendet. Sie müssen daher das Zertifikat als Platzhalter- oder Multidomain-Zertifikat angeben, wenn Clients den Hostnamen bei der Verbindung mit dem Speicherendpunkt überprüfen müssen. Definieren Sie das benutzerdefinierte Zertifikat, sodass es mit allen Speicherknoten im Raster übereinstimmt.
+
+Nach Abschluss der Konfiguration auf dem Server müssen Sie möglicherweise auch das Grid CA-Zertifikat im S3- oder Swift-API-Client installieren, über den Sie je nach der von Ihnen verwendeten Root-Zertifizierungsstelle (CA) auf das System zugreifen können.
+
+
+NOTE: Um sicherzustellen, dass der Betrieb nicht durch ein fehlerhaftes Serverzertifikat unterbrochen wird, wird die Warnung *Ablauf des globalen Serverzertifikats für S3 und Swift API* ausgelöst, wenn das Stammserverzertifikat abläuft. Wenn erforderlich, können Sie anzeigen, wann das aktuelle Zertifikat abläuft, indem Sie *KONFIGURATION* > *Sicherheit* > *Zertifikate* und das Ablaufdatum für das S3- und Swift-API-Zertifikat auf der Registerkarte Global auswählen.
+
+Sie können ein benutzerdefiniertes S3- und Swift-API-Zertifikat hochladen oder erstellen.
+
+
+
+== Fügen Sie ein benutzerdefiniertes S3- und Swift-API-Zertifikat hinzu
+
+.Schritte
+. Wählen Sie *KONFIGURATION* > *Sicherheit* > *Zertifikate*.
+. Wählen Sie auf der Registerkarte *Global* *S3 und Swift API Zertifikat*.
+. Wählen Sie *Benutzerdefiniertes Zertifikat verwenden*.
+. Hochladen oder Generieren des Zertifikats
++
+[role="tabbed-block"]
+====
+.Zertifikat hochladen
+--
+Laden Sie die erforderlichen Serverzertifikatdateien hoch.
+
+.. Wählen Sie *Zertifikat hochladen*.
+.. Laden Sie die erforderlichen Serverzertifikatdateien hoch:
++
+*** *Server-Zertifikat*: Die benutzerdefinierte Server-Zertifikatdatei (PEM-codiert).
+*** *Zertifikat privater Schlüssel*: Die benutzerdefinierte Server Zertifikat private Schlüssel Datei (`.key`).
++
+
+NOTE: Private EC-Schlüssel müssen 224 Bit oder größer sein. RSA Private Keys müssen mindestens 2048 Bit groß sein.
+
+*** *CA-Paket*: Eine einzelne optionale Datei, die die Zertifikate jeder Intermediate-Zertifizierungsstelle enthält. Die Datei sollte alle PEM-kodierten CA-Zertifikatdateien enthalten, die in der Reihenfolge der Zertifikatskette verkettet sind.
+
+
+.. Wählen Sie die Zertifikatsdetails aus, um die Metadaten und PEM für jedes benutzerdefinierte S3- und Swift-API-Zertifikat anzuzeigen, das hochgeladen wurde. Wenn Sie ein optionales CA-Paket hochgeladen haben, wird jedes Zertifikat auf seiner eigenen Registerkarte angezeigt.
++
+*** Wählen Sie *Zertifikat herunterladen*, um die Zertifikatdatei zu speichern, oder wählen Sie *CA-Paket herunterladen*, um das Zertifikatspaket zu speichern.
++
+Geben Sie den Namen der Zertifikatdatei und den Speicherort für den Download an. Speichern Sie die Datei mit der Erweiterung `.pem`.
+
++
+Beispiel: `storagegrid_certificate.pem`
+
+*** Wählen Sie *Zertifikat kopieren PEM* oder *CA-Paket kopieren PEM* aus, um den Zertifikatinhalt zum Einfügen an eine andere Stelle zu kopieren.
+
+
+.. Wählen Sie *Speichern*.
++
+Das benutzerdefinierte Serverzertifikat wird für nachfolgende neue S3- und Swift-Client-Verbindungen verwendet.
+
+
+
+--
+.Zertifikat wird generiert
+--
+Erstellen Sie die Serverzertifikatdateien.
+
+.. Wählen Sie *Zertifikat erstellen*.
+.. Geben Sie die Zertifikatsinformationen an:
++
+[cols="1a,3a"]
+|===
+| Feld | Beschreibung 
+
+
+ a| 
+Domain-Name
+ a| 
+Mindestens ein vollständig qualifizierter Domänenname, der in das Zertifikat aufgenommen werden soll. Verwenden Sie ein * als Platzhalter, um mehrere Domain-Namen darzustellen.
+
+
+
+ a| 
+IP
+ a| 
+Mindestens eine IP-Adresse, die in das Zertifikat aufgenommen werden soll.
+
+
+
+ a| 
+Betreff (optional)
+ a| 
+X.509 Subject oder Distinguished Name (DN) des Zertifikateigentümers.
+
+Wenn in diesem Feld kein Wert eingegeben wird, verwendet das generierte Zertifikat den ersten Domänennamen oder die IP-Adresse als allgemeinen Studienteilnehmer (CN).
+
+
+
+ a| 
+Tage gültig
+ a| 
+Anzahl der Tage nach Erstellung, nach denen das Zertifikat abläuft.
+
+
+
+ a| 
+Fügen Sie wichtige Nutzungserweiterungen hinzu
+ a| 
+Wenn diese Option ausgewählt ist (Standard und empfohlen), werden die Schlüsselnutzung und die erweiterten Schlüsselnutzungserweiterungen dem generierten Zertifikat hinzugefügt.
+
+Diese Erweiterungen definieren den Zweck des Schlüssels, der im Zertifikat enthalten ist.
+
+*Hinweis*: Lassen Sie dieses Kontrollkästchen aktiviert, es sei denn, Sie haben Verbindungsprobleme mit älteren Clients, wenn Zertifikate diese Erweiterungen enthalten.
+
+|===
+.. Wählen Sie *Erzeugen*.
+.. Wählen Sie *Zertifikatdetails* aus, um die Metadaten und das PEM für das benutzerdefinierte S3- und Swift-API-Zertifikat anzuzeigen, das erstellt wurde.
++
+*** Wählen Sie *Zertifikat herunterladen*, um die Zertifikatdatei zu speichern.
++
+Geben Sie den Namen der Zertifikatdatei und den Speicherort für den Download an. Speichern Sie die Datei mit der Erweiterung `.pem`.
+
++
+Beispiel: `storagegrid_certificate.pem`
+
+*** Wählen Sie *Zertifikat kopieren PEM* aus, um den Zertifikatinhalt zum Einfügen an eine andere Stelle zu kopieren.
+
+
+.. Wählen Sie *Speichern*.
++
+Das benutzerdefinierte Serverzertifikat wird für nachfolgende neue S3- und Swift-Client-Verbindungen verwendet.
+
+
+
+--
+====
+. Wählen Sie eine Registerkarte aus, um Metadaten für das Standard-StorageGRID-Serverzertifikat, ein Zertifikat mit einer Zertifizierungsstelle, das hochgeladen wurde, oder ein benutzerdefiniertes Zertifikat anzuzeigen, das erstellt wurde.
++
+
+NOTE: Nachdem Sie ein Zertifikat hochgeladen oder generiert haben, lassen Sie sich bis zu einen Tag lang alle damit verbundenen Warnmeldungen zum Ablauf des Zertifikats löschen.
+
+. Aktualisieren Sie die Seite, um sicherzustellen, dass der Webbrowser aktualisiert wird.
+. Nachdem Sie ein benutzerdefiniertes S3- und Swift-API-Zertifikat hinzugefügt haben, zeigt die S3- und Swift-API-Zertifikatsseite detaillierte Zertifikatsinformationen für das verwendete S3- und Swift-API-Zertifikat an. +
+Sie können das Zertifikat PEM nach Bedarf herunterladen oder kopieren.
+
+
+
+
+== Stellen Sie das S3- und Swift-API-Standardzertifikat wieder her
+
+Sie können die Wiederherstellung auf die Verwendung des standardmäßigen S3- und Swift-API-Zertifikats für S3- und Swift-Client-Verbindungen zu Storage Nodes durchführen. Sie können jedoch nicht das standardmäßige S3- und Swift-API-Zertifikat für einen Load Balancer-Endpunkt verwenden.
+
+.Schritte
+. Wählen Sie *KONFIGURATION* > *Sicherheit* > *Zertifikate*.
+. Wählen Sie auf der Registerkarte *Global* *S3 und Swift API Zertifikat*.
+. Wählen Sie *Standard-Zertifikat verwenden*.
++
+Wenn Sie die Standardversion des globalen S3- und Swift-API-Zertifikats wiederherstellen, werden die von Ihnen konfigurierten benutzerdefinierten Serverzertifikatdateien gelöscht und können nicht vom System wiederhergestellt werden. Das standardmäßige S3- und Swift-API-Zertifikat wird für nachfolgende neue S3- und Swift-Client-Verbindungen zu Storage-Nodes verwendet.
+
+. Wählen Sie *OK*, um die Warnung zu bestätigen und das Standard-S3- und Swift-API-Zertifikat wiederherzustellen.
++
+Wenn Sie über Root-Zugriffsberechtigungen verfügen und das benutzerdefinierte S3- und Swift-API-Zertifikat für Endpoint-Verbindungen für den Load Balancer verwendet wurde, wird eine Liste mit Endpunkten für Load Balancer angezeigt, auf die über das Standard-S3- und Swift-API-Zertifikat nicht mehr zugegriffen werden kann. Gehen Sie zu link:../admin/configuring-load-balancer-endpoints.html["Konfigurieren von Load Balancer-Endpunkten"] Zum Bearbeiten oder Entfernen der betroffenen Endpunkte.
+
+. Aktualisieren Sie die Seite, um sicherzustellen, dass der Webbrowser aktualisiert wird.
+
+
+
+
+== Laden Sie das S3- und Swift-API-Zertifikat herunter oder kopieren Sie es
+
+Sie können Inhalte des S3- und Swift-API-Zertifikats zur anderen Verwendung speichern oder kopieren.
+
+.Schritte
+. Wählen Sie *KONFIGURATION* > *Sicherheit* > *Zertifikate*.
+. Wählen Sie auf der Registerkarte *Global* *S3 und Swift API Zertifikat*.
+. Wählen Sie die Registerkarte *Server* oder *CA Bundle* aus und laden Sie das Zertifikat herunter oder kopieren Sie es.
++
+[role="tabbed-block"]
+====
+.Laden Sie die Zertifikatdatei oder das CA-Paket herunter
+--
+Laden Sie das Zertifikat oder das CA-Paket herunter `.pem` Datei: Wenn Sie ein optionales CA-Bundle verwenden, wird jedes Zertifikat im Paket auf seiner eigenen Unterregisterkarte angezeigt.
+
+.. Wählen Sie *Zertifikat herunterladen* oder *CA-Paket herunterladen*.
++
+Wenn Sie ein CA-Bundle herunterladen, werden alle Zertifikate in den sekundären Registerkarten des CA-Pakets als einzelne Datei heruntergeladen.
+
+.. Geben Sie den Namen der Zertifikatdatei und den Speicherort für den Download an. Speichern Sie die Datei mit der Erweiterung `.pem`.
++
+Beispiel: `storagegrid_certificate.pem`
+
+
+
+--
+.Zertifikat oder CA-Bundle-PEM kopieren
+--
+Kopieren Sie den Zertifikatstext, um ihn an eine andere Stelle einzufügen. Wenn Sie ein optionales CA-Bundle verwenden, wird jedes Zertifikat im Paket auf seiner eigenen Unterregisterkarte angezeigt.
+
+.. Wählen Sie *Zertifikat kopieren PEM* oder *CA-Paket kopieren PEM*.
++
+Wenn Sie ein CA-Bundle kopieren, kopieren alle Zertifikate in den sekundären Registerkarten des CA-Bundles zusammen.
+
+.. Fügen Sie das kopierte Zertifikat in einen Texteditor ein.
+.. Speichern Sie die Textdatei mit der Erweiterung `.pem`.
++
+Beispiel: `storagegrid_certificate.pem`
+
+
+
+--
+====
+
+
+.Verwandte Informationen
+* link:../s3/index.html["S3-REST-API VERWENDEN"]
+* link:../swift/index.html["Nutzen Sie die Swift REST API"]
+* link:configuring-s3-api-endpoint-domain-names.html["Konfigurieren Sie die Domänennamen des S3-Endpunkts"]
+

@@ -1,0 +1,42 @@
+---
+permalink: maintain/troubleshooting-node-decommissioning.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, decommission, troubleshoot 
+summary: Wenn der Node aufgrund eines Fehlers deaktiviert wird, können Sie spezifische Schritte zum Beheben des Problems durchführen. 
+---
+= Fehlerbehebung bei der Ausmusterung von Nodes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn der Node aufgrund eines Fehlers deaktiviert wird, können Sie spezifische Schritte zum Beheben des Problems durchführen.
+
+.Bevor Sie beginnen
+Sie sind mit einem bei Grid Manager angemeldet link:../admin/web-browser-requirements.html["Unterstützter Webbrowser"].
+
+.Über diese Aufgabe
+Wenn Sie den stillgelegten Grid-Node herunterfahren, wird die Aufgabe angehalten, bis der Grid-Node neu gestartet wird. Der Grid-Node muss sich online sein.
+
+.Schritte
+. Wählen Sie *SUPPORT* > *Tools* > *Grid-Topologie* aus.
+. Erweitern Sie in der Struktur Grid Topology jeden Storage Node-Eintrag und überprüfen Sie, ob die DDS- und LDR-Dienste online sind.
++
+Um eine Ausmusterung von Storage-Nodes durchzuführen, müssen alle Nodes und alle Services zu Beginn der Deaktivierung eines Online-Nodes/Standorts in einem ordnungsgemäßen Zustand sein.
+
+. Um die aktiven Grid-Aufgaben anzuzeigen, wählen Sie *Primary Admin Node* > *CMN* > *Grid Tasks* > *Übersicht*.
+. Überprüfen Sie den Status der Task „Stilllegen“.
++
+.. Wenn der Status der Aufgabe des Decommissioning Grid auf ein Problem beim Speichern von Grid-Task-Bundles hinweist, wählen Sie *primary Admin Node* > *CMN* > *Events* > *Übersicht* aus.
+.. Prüfen Sie die Anzahl der verfügbaren Audit-Relais.
++
+Wenn das Attribut Available Audit Relay ein oder größer ist, ist der CMN-Dienst mit mindestens einem ADC-Dienst verbunden. ADC-Dienste fungieren als Überwachungsrelais.
+
++
+Der CMN-Dienst muss mit mindestens einem ADC-Dienst verbunden sein, und eine Mehrheit (50 Prozent plus einer) der ADC-Dienste des StorageGRID-Systems muss verfügbar sein, damit eine Grid-Aufgabe von einer Phase der Stilllegung in eine andere und zum Abschluss verschoben werden kann.
+
+.. Wenn der CMN-Dienst nicht mit genügend ADC-Diensten verbunden ist, stellen Sie sicher, dass Storage-Nodes online sind, und überprüfen Sie die Netzwerkverbindung zwischen dem primären Admin-Node und Storage-Nodes.
+
+
+

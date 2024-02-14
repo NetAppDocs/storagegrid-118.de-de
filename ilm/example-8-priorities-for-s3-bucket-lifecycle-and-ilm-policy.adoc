@@ -1,0 +1,128 @@
+---
+permalink: ilm/example-8-priorities-for-s3-bucket-lifecycle-and-ilm-policy.html 
+sidebar: sidebar 
+keywords: retention priority, example S3 bucket lifecycle, example ILM policy 
+summary: Je nach Lifecycle-Konfiguration folgen Objekte den Aufbewahrungseinstellungen entweder des S3 Bucket-Lebenszyklus oder einer ILM-Richtlinie. 
+---
+= Beispiel 8: Prioritäten für den S3-Bucket-Lebenszyklus und die ILM-Richtlinie
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Je nach Lifecycle-Konfiguration folgen Objekte den Aufbewahrungseinstellungen entweder des S3 Bucket-Lebenszyklus oder einer ILM-Richtlinie.
+
+
+
+== Beispiel für einen Bucket-Lebenszyklus, der Priorität gegenüber der ILM-Richtlinie hat
+
+ILM-Richtlinie::
++
+--
+* Regel basiert auf nicht aktueller Zeitreferenz: An Tag 0, bewahren Sie X Kopien 20 Tage lang auf
+* Regel basierend auf Referenz zur Aufnahmezeit (Standard): An Tag 0 sollten X Kopien 50 Tage lang aufbewahrt werden
+
+
+--
+Bucket-Lebenszyklus::
++
+--
+* `Filter: {Prefix: "docs/"}, Expiration: Days: 100, NoncurrentVersionExpiration: Days: 5`
+
+
+--
+Ergebnis::
++
+--
+* Ein Objekt namens „docs/Text“ wird aufgenommen. Es entspricht dem Bucket-Lebenszyklusfilter des Präfixes „docs/“.
++
+** Nach 100 Tagen wird eine Löschmarkierung erstellt und "docs/Text" wird nicht mehr aktuell.
+** Nach 5 Tagen, insgesamt 105 Tage seit Aufnahme, wird "docs/Text" gelöscht.
+
+
+* Ein Objekt namens „Video/Film“ wird aufgenommen. Er stimmt nicht mit dem Filter überein und verwendet die ILM-Aufbewahrungsrichtlinie.
++
+** Nach 50 Tagen wird eine Löschmarkierung erstellt und "Video/Film" wird nicht mehr aktuell.
+** Nach 20 Tagen, insgesamt 70 Tage seit der Aufnahme, "Video/Film" wird gelöscht.
+
+
+
+
+--
+
+
+
+
+== Beispiel für den Bucket-Lebenszyklus, der implizit dauerhaft hält
+
+ILM-Richtlinie::
++
+--
+* Regel basiert auf nicht aktueller Zeitreferenz: An Tag 0, bewahren Sie X Kopien 20 Tage lang auf
+* Regel basierend auf Referenz zur Aufnahmezeit (Standard): An Tag 0 sollten X Kopien 50 Tage lang aufbewahrt werden
+
+
+--
+Bucket-Lebenszyklus::
++
+--
+* `Filter: {Prefix: "docs/"}, Expiration: ExpiredObjectDeleteMarker: true`
+
+
+--
+Ergebnis::
++
+--
+* Ein Objekt namens „docs/Text“ wird aufgenommen. Es entspricht dem Bucket-Lebenszyklusfilter des Präfixes „docs/“.
++
+Der `Expiration` Aktion gilt nur für abgelaufene Löschmarkierungen, was bedeutet, dass alles andere für immer (beginnend mit "docs/").
+
++
+Löschmarkierungen, die mit „docs/“ beginnen, werden entfernt, wenn sie abgelaufen sind.
+
+* Ein Objekt namens „Video/Film“ wird aufgenommen. Er stimmt nicht mit dem Filter überein und verwendet die ILM-Aufbewahrungsrichtlinie.
++
+** Nach 50 Tagen wird eine Löschmarkierung erstellt und "Video/Film" wird nicht mehr aktuell.
+** Nach 20 Tagen, insgesamt 70 Tage seit der Aufnahme, "Video/Film" wird gelöscht.
+
+
+
+
+--
+
+
+
+
+== Beispiel für die Verwendung von Bucket-Lebenszyklus zur Duplizierung von ILM und zur Bereinigung abgelaufener Löschmarkierungen
+
+ILM-Richtlinie::
++
+--
+* Regel basiert auf nicht aktueller Zeitreferenz: An Tag 0, bewahren Sie X Kopien 20 Tage lang auf
+* Regel basierend auf Referenz zur Aufnahmezeit (Standard): An Tag 0 sollten X Kopien 50 Tage lang aufbewahrt werden
+
+
+--
+Bucket-Lebenszyklus::
++
+--
+* `Filter: {}, Expiration: Days: 50, NoncurrentVersionExpiration: Days: 20`
+
+
+--
+Ergebnis::
++
+--
+* Die ILM-Richtlinie wird im Bucket-Lebenszyklus dupliziert.
+* Ein Objekt wird aufgenommen. Kein Filter bedeutet, dass der Bucket-Lebenszyklus auf alle Objekte angewendet und die ILM-Aufbewahrungseinstellungen außer Kraft gesetzt wird.
++
+** Nach 50 Tagen wird ein delete-Marker erstellt und das Objekt wird nicht mehr aktuell.
+** Nach 20 Tagen, also insgesamt 70 Tagen seit der Aufnahme, wird das nicht aktuelle Objekt gelöscht und die Löschmarkierung ist abgelaufen.
+** Nach 30 Tagen, also insgesamt 100 Tagen seit der Aufnahme, wird die abgelaufene Löschmarkierung gelöscht.
+
+
+
+
+--
+

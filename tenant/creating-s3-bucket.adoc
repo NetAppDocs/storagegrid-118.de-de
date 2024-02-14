@@ -1,0 +1,140 @@
+---
+permalink: tenant/creating-s3-bucket.html 
+sidebar: sidebar 
+keywords: how to create S3 bucket 
+summary: Sie können im Mandanten-Manager S3-Buckets für Objektdaten erstellen. 
+---
+= Erstellen eines S3-Buckets
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können im Mandanten-Manager S3-Buckets für Objektdaten erstellen.
+
+.Bevor Sie beginnen
+* Sie sind mit einem beim Mandantenmanager angemeldet link:../admin/web-browser-requirements.html["Unterstützter Webbrowser"].
+* Sie gehören einer Benutzergruppe an, die über den Root-Zugriff oder Alle Buckets verwalten verfügt link:tenant-management-permissions.html["Berechtigung"]. Diese Berechtigungen überschreiben die Berechtigungseinstellungen in Gruppen- oder Bucket-Richtlinien.
++
+
+NOTE: Berechtigungen zum Festlegen oder Ändern der S3-Objektsperreigenschaften von Buckets oder Objekten können von erteilt werden link:../s3/bucket-and-group-access-policies.html["Bucket-Richtlinie oder Gruppenrichtlinie"].
+
+* Wenn Sie die S3-Objektsperrung für einen Bucket aktivieren möchten, hat ein Grid-Administrator die globale S3-Objektsperrung für das StorageGRID-System aktiviert, und Sie haben die Anforderungen für S3-Objektsperrbuckets und -Objekte geprüft. Siehe link:using-s3-object-lock.html["Verwenden Sie S3 Objektsperre, um Objekte beizubehalten"].
+
+
+
+
+== Greifen Sie auf den Assistenten zu
+
+.Schritte
+. Wählen Sie *View Buckets* aus dem Dashboard, oder wählen Sie *STORAGE (S3)* > *Buckets*.
+. Wählen Sie *Eimer erstellen*.
+
+
+
+
+== Geben Sie Details ein
+
+.Schritte
+. Geben Sie Details für den Bucket ein.
++
+[cols="1a,3a"]
+|===
+| Feld | Beschreibung 
+
+
+ a| 
+Bucket-Name
+ a| 
+Ein Name für den Bucket, der die folgenden Regeln erfüllt:
+
+** Jedes StorageGRID System muss eindeutig sein (nicht nur innerhalb des Mandantenkontos).
+** Muss DNS-konform sein.
+** Darf mindestens 3 und nicht mehr als 63 Zeichen enthalten.
+** Jedes Etikett muss mit einem Kleinbuchstaben oder einer Zahl beginnen und enden. Es können nur Kleinbuchstaben, Ziffern und Bindestriche verwendet werden.
+** Perioden sollten nicht in Anforderungen im virtuellen gehosteten Stil verwendet werden. Perioden verursachen Probleme bei der Überprüfung des Server-Platzhalterzertifikats.
+
+
+Weitere Informationen finden Sie im https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html["Dokumentation der Amazon Web Services (AWS) zu den Bucket-Benennungsregeln"^].
+
+*Hinweis*: Sie können den Bucket-Namen nicht ändern, nachdem Sie den Bucket erstellt haben.
+
+
+
+ a| 
+Region
+ a| 
+Der Bereich des Eimers.
+
+Der StorageGRID-Administrator managt die verfügbaren Regionen. Die Regionen eines Buckets können die Datensicherungsrichtlinie, die auf Objekte angewendet wird, beeinflussen. Standardmäßig werden alle Buckets im erstellt `us-east-1` Werden.
+
+*Hinweis*: Sie können die Region nicht ändern, nachdem Sie den Bucket erstellt haben.
+
+|===
+. Wählen Sie *Weiter*.
+
+
+
+
+== Verwalten von Objekteinstellungen
+
+.Schritte
+. Aktivieren Sie optional die Objektversionierung für den Bucket.
++
+Aktivieren Sie die Objektversionierung, wenn Sie jede Version jedes Objekts in diesem Bucket speichern möchten. Sie können dann nach Bedarf frühere Versionen eines Objekts abrufen. Sie müssen die Objektversionierung aktivieren, wenn der Bucket für die Grid-übergreifende Replizierung verwendet wird.
+
+. Wenn die globale S3 Object Lock-Einstellung aktiviert ist, können Sie optional S3 Object Lock für den Bucket aktivieren, um Objekte mithilfe eines WORM-Modells (Write-Once-Read-Many) zu speichern.
++
+Aktivieren Sie die S3-Objektsperre für einen Bucket nur, wenn Objekte z. B. für eine bestimmte Zeit aufbewahrt werden müssen, um bestimmte gesetzliche Vorgaben zu erfüllen. S3 Object Lock ist eine permanente Einstellung, mit der Sie verhindern können, dass Objekte für einen festgelegten Zeitraum oder für einen unbegrenzten Zeitraum gelöscht oder überschrieben werden.
+
++
+
+CAUTION: Nachdem die S3-Objektsperrung für einen Bucket aktiviert ist, kann sie nicht deaktiviert werden. Jeder mit den richtigen Berechtigungen kann diesem Bucket Objekte hinzufügen, die nicht geändert werden können. Sie können diese Objekte oder den Bucket selbst möglicherweise nicht löschen.
+
++
+Wenn Sie S3 Object Lock für einen Bucket aktivieren, wird die Bucket-Versionierung automatisch aktiviert.
+
+. Wenn Sie *S3 Object Lock aktivieren* ausgewählt haben, aktivieren Sie optional *Default Retention* für diesen Bucket.
++
+Wenn *Default Retention* aktiviert ist, werden neue Objekte, die dem Bucket hinzugefügt werden, automatisch vor dem Löschen oder Überschreiben geschützt. Die Einstellung *Default Retention* gilt nicht für Objekte mit eigenen Aufbewahrungsfristen.
+
++
+.. Wenn *Default Retention* aktiviert ist, geben Sie einen *Default Retention Mode* für den Bucket an.
++
+[cols="1a,2a"]
+|===
+| Standardaufbewahrungsmodus | Beschreibung 
+
+
+ a| 
+Compliance
+ a| 
+*** Das Objekt kann erst gelöscht werden, wenn das Aufbewahrungsdatum erreicht ist.
+*** Das Aufbewahrungsdatum des Objekts kann erhöht, aber nicht verringert werden.
+*** Das Aufbewahrungsdatum des Objekts kann erst entfernt werden, wenn dieses Datum erreicht ist.
+
+
+
+
+ a| 
+Governance
+ a| 
+*** Benutzer mit `s3:BypassGovernanceRetention` Berechtigung kann den verwenden `x-amz-bypass-governance-retention: true` Kopfzeile anfordern, um Aufbewahrungseinstellungen zu umgehen.
+*** Diese Benutzer können eine Objektversion löschen, bevor das Aufbewahrungsdatum erreicht ist.
+*** Diese Benutzer können das Aufbewahrungsdatum eines Objekts erhöhen, verringern oder entfernen.
+
+
+|===
+.. Wenn *Default Retention* aktiviert ist, geben Sie die *Default Retention Period* für den Bucket an.
++
+Die *Default Retention Period* gibt an, wie lange neue Objekte zu diesem Bucket hinzugefügt werden sollen, beginnend mit dem Zeitpunkt, zu dem sie aufgenommen werden. Geben Sie einen Wert zwischen 1 und 36,500 Tagen oder zwischen 1 und 100 Jahren an, einschließlich.
+
+
+
+. Wählen Sie *Eimer erstellen*.
++
+Der Bucket wird erstellt und der Tabelle auf der Seite Buckets hinzugefügt.
+
+. Wählen Sie optional *Gehe zur Seite mit den Bucket-Details* zu link:viewing-s3-bucket-details.html["Bucket-Details anzeigen"] Und zusätzliche Konfiguration durchführen.
+

@@ -1,0 +1,13 @@
+---
+layout: landing-page 
+sidebar: sidebar 
+permalink: landing-use/index.html 
+summary: Nach Abschluss der Erstkonfiguration können StorageGRID-Mandantenkonten Buckets erstellen und S3-Client-Applikationen verwenden, um Objekte aufzunehmen, abzurufen und zu löschen. 
+---
+= Nutzung von StorageGRID Mandanten und Clients
+:hardbreaks:
+:allow-uri-read: 
+:linkattrs: 
+:imagesdir: ./media/
+
+

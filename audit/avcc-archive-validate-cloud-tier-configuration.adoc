@@ -1,0 +1,37 @@
+---
+permalink: audit/avcc-archive-validate-cloud-tier-configuration.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, AVCC, Archive Validate Cloud-Tier Configuration 
+summary: 'Diese Meldung wird generiert, wenn die Konfigurationseinstellungen für einen Cloud Tiering - Simple Storage Service \(S3\)-Zieltyp validiert werden.' 
+---
+= AVCC: Archiv Validierung der Cloud-Tier-Konfiguration
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Diese Meldung wird generiert, wenn die Konfigurationseinstellungen für einen Cloud Tiering – Simple Storage Service (S3)-Zieltyp validiert werden.
+
+[cols="1a,1a,4a"]
+|===
+| Codieren | Feld | Beschreibung 
+
+
+ a| 
+RSLT
+ a| 
+Ergebniscode
+ a| 
+Gibt erfolgreich (SUCS) oder den Fehler zurück, der vom Backend gemeldet wurde.
+
+
+
+ a| 
+SUID
+ a| 
+Eindeutige Kennung Für Speicher
+ a| 
+UUID, die dem validierten externen Archivspeichersystem zugeordnet ist.
+
+|===

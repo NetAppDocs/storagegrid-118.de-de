@@ -1,0 +1,59 @@
+---
+permalink: admin/configuring-connections-to-tsm-middleware.html 
+sidebar: sidebar 
+keywords: archive node connection to tsm, tivoli storage manager 
+summary: 'Bevor der Archive Node mit der Tivoli Storage Manager \(TSM\) Middleware kommunizieren kann, müssen Sie mehrere Einstellungen konfigurieren.' 
+---
+= Konfigurieren Sie Verbindungen zur TSM Middleware
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bevor der Archive Node mit der Tivoli Storage Manager (TSM) Middleware kommunizieren kann, müssen Sie mehrere Einstellungen konfigurieren.
+
+.Bevor Sie beginnen
+* Sie sind mit einem bei Grid Manager angemeldet link:../admin/web-browser-requirements.html["Unterstützter Webbrowser"].
+* Das ist schon link:admin-group-permissions.html["Bestimmte Zugriffsberechtigungen"].
+
+
+.Über diese Aufgabe
+Bis diese Einstellungen konfiguriert sind, bleibt der ARC-Dienst in einem wichtigen Alarmzustand, da er nicht mit dem Tivoli Storage Manager kommunizieren kann.
+
+.Schritte
+. Wählen Sie *SUPPORT* > *Tools* > *Grid-Topologie* aus.
+. Wählen Sie *_Archivknoten_* > *ARC* > *Ziel* aus.
+. Wählen Sie *Konfiguration* > *Main*.
++
+image::../media/configuring_tsm_middleware.gif[TSM Zielkonto]
+
+. Wählen Sie aus der Dropdown-Liste *Zieltyp* die Option *Tivoli Storage Manager (TSM)* aus.
+. Wählen Sie für den *Tivoli Storage Manager State* *Offline* aus, um Rückrufe vom TSM Middleware-Server zu verhindern.
++
+Standardmäßig ist der Status von Tivoli Storage Manager auf Online eingestellt, was bedeutet, dass der Archive Node Objektdaten vom TSM Middleware-Server abrufen kann.
+
+. Geben Sie die folgenden Informationen an:
++
+** *Server IP oder Hostname*: Geben Sie die IP-Adresse oder den vollqualifizierten Domänennamen des TSM Middleware-Servers an, der vom ARC-Dienst verwendet wird. Die Standard-IP-Adresse ist 127.0.0.1.
+** *Server-Port*: Geben Sie die Portnummer auf dem TSM Middleware-Server an, mit dem der ARC-Dienst eine Verbindung herstellen wird. Der Standardwert ist 1500.
+** *Knotenname*: Geben Sie den Namen des Archiv-Knotens an. Sie müssen den Namen (Arc‐user) eingeben, den Sie auf dem TSM Middleware-Server registriert haben.
+** *Benutzername*: Geben Sie den Benutzernamen an, den der ARC-Dienst zur Anmeldung am TSM-Server verwendet. Geben Sie den Standardbenutzernamen (Arc‐user) oder den administrativen Benutzer ein, den Sie für den Archiv-Node angegeben haben.
+** *Passwort*: Geben Sie das Passwort an, das der ARC-Dienst zur Anmeldung am TSM-Server verwendet.
+** *Managementklasse*: Geben Sie die Standardverwaltungsklasse an, die verwendet werden soll, wenn beim Speichern des Objekts auf dem StorageGRID-System keine Managementklasse angegeben ist oder die angegebene Managementklasse nicht auf dem TSM Middleware-Server definiert ist.
+** *Anzahl der Sitzungen*: Geben Sie die Anzahl der Bandlaufwerke auf dem TSM Middleware-Server an, die dem Archiv-Knoten gewidmet sind. Der Archivknoten erstellt gleichzeitig maximal eine Sitzung pro Bereitstellungspunkt plus eine kleine Anzahl zusätzlicher Sitzungen (weniger als fünf).
++
+Sie müssen diesen Wert ändern, um den für MAXNUMMP festgelegten Wert (maximale Anzahl von Mount-Punkten) zu erhalten, wenn der Archivknoten registriert oder aktualisiert wurde. (Im Register-Befehl ist der Standardwert von MAXNUMMP verwendet 1, wenn kein Wert festgelegt ist.)
+
++
+Außerdem müssen Sie den Wert von MAXSESSIONS für den TSM-Server auf eine Zahl ändern, die mindestens so groß ist wie die Anzahl der Sitzungen, die für den ARC-Dienst festgelegt wurden. Der Standardwert von MAXSESSIONS auf dem TSM-Server ist 25.
+
+** *Maximum Retrieve Sessions*: Geben Sie die maximale Anzahl von Sitzungen an, die der ARC-Dienst für den TSM Middleware-Server für Abrufvorgänge öffnen kann. In den meisten Fällen ist der entsprechende Wert die Anzahl der Sitzungen abzüglich der maximalen Speichersitzungen. Wenn Sie ein Bandlaufwerk für die Speicherung und den Abruf freigeben möchten, geben Sie einen Wert an, der der Anzahl der Sitzungen entspricht.
+** *Maximum Store Sessions*: Geben Sie die maximale Anzahl gleichzeitiger Sitzungen an, die der ARC-Dienst für den TSM Middleware-Server für Archivierungsvorgänge öffnen kann.
++
+Dieser Wert sollte auf eins gesetzt werden, außer wenn das gezielte Archivspeichersystem voll ist und nur Abrufvorgänge durchgeführt werden können. Setzen Sie diesen Wert auf Null, um alle Sitzungen für Abrufvorgänge zu verwenden.
+
+
+
+. Wählen Sie *Änderungen Anwenden*.
+

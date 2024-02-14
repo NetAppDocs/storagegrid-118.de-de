@@ -1,0 +1,39 @@
+---
+permalink: rhel/installing-linux.html 
+sidebar: sidebar 
+keywords: how to install on red hat linux 
+summary: Sie müssen StorageGRID auf allen Red hat Enterprise Linux Grid-Hosts installieren. Eine Liste der unterstützten Versionen finden Sie im NetApp Interoperabilitäts-Matrix-Tool. 
+---
+= Installieren Sie Linux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen StorageGRID auf allen Red hat Enterprise Linux Grid-Hosts installieren. Eine Liste der unterstützten Versionen finden Sie im NetApp Interoperabilitäts-Matrix-Tool.
+
+
+NOTE: Stellen Sie sicher, dass Ihr Betriebssystem auf Linux Kernel 4.15 oder höher aktualisiert wird.
+
+.Schritte
+. Installieren Sie Linux auf allen physischen oder virtuellen Grid-Hosts gemäß den Anweisungen des Distributors oder dem Standardverfahren.
++
+
+NOTE: Wenn Sie das Standard-Linux-Installationsprogramm verwenden, empfiehlt NetApp die Auswahl der Softwarekonfiguration „Compute Node“, falls verfügbar, oder der Basisumgebung „Minimal Install“. Installieren Sie keine grafischen Desktop-Umgebungen.
+
+. Stellen Sie sicher, dass alle Hosts Zugriff auf Paket-Repositorys haben, einschließlich des Extras-Kanals.
++
+Möglicherweise benötigen Sie diese zusätzlichen Pakete später in diesem Installationsvorgang.
+
+. Wenn Swap aktiviert ist:
++
+.. Führen Sie den folgenden Befehl aus: `$ sudo swapoff --all`
+.. Entfernen Sie alle Swap-Einträge aus `/etc/fstab` Um die Einstellungen zu erhalten.
+
+
++
+
+NOTE: Wenn Sie den Auslagerungsaustausch nicht vollständig deaktivieren, kann die Leistung erheblich gesenkt werden.
+
+

@@ -1,0 +1,135 @@
+---
+permalink: admin/defining-tsm-tape-and-disk-storage-pools.html 
+sidebar: sidebar 
+keywords: archive node, tsm, tape storage pool, tivoli storage manager 
+summary: Der Archivknoten schreibt in einen Festplatten-Speicherpool. Um Inhalte auf Band zu archivieren, müssen Sie den Festplatten-Speicherpool konfigurieren, um Inhalte in einen Bandspeicher-Pool zu verschieben. 
+---
+= Definieren Sie TSM Tape- und Festplatten-Storage-Pools
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der Archivknoten schreibt in einen Festplatten-Speicherpool. Um Inhalte auf Band zu archivieren, müssen Sie den Festplatten-Speicherpool konfigurieren, um Inhalte in einen Bandspeicher-Pool zu verschieben.
+
+.Über diese Aufgabe
+Bei einem TSM-Server müssen Sie einen Bandspeicher-Pool und einen Festplatten-Speicherpool in Tivoli Storage Manager definieren. Erstellen Sie nach Definition des Laufwerk-Pools ein Laufwerk-Volume und weisen Sie es dem Laufwerk-Pool zu. Ein Bandpool‐nicht erforderlich, wenn Ihr TSM-Server nur Festplatten-Storage verwendet.
+
+Sie müssen mehrere Schritte auf dem TSM-Server durchführen, bevor Sie einen Bandspeicherpool erstellen können. (Erstellen Sie eine Bandbibliothek und mindestens ein Laufwerk in der Bandbibliothek. Definieren Sie einen Pfad vom Server zur Bibliothek und vom Server zu den Laufwerken und definieren Sie dann eine Geräteklasse für die Laufwerke.) Die Details dieser Schritte können je nach Hardwarekonfiguration und Storage-Anforderungen des Standorts variieren. Weitere Informationen finden Sie in der TSM-Dokumentation.
+
+Die folgenden Anweisungen veranschaulichen den Prozess. Sie sollten beachten, dass die Anforderungen an Ihren Standort je nach Bereitstellungsanforderungen unterschiedlich sein können. Weitere Informationen zur Konfiguration und zu Anweisungen finden Sie in der TSM-Dokumentation.
+
+
+NOTE: Sie müssen sich beim Server mit Administratorrechten anmelden und das dsmadmc-Tool verwenden, um die folgenden Befehle auszuführen.
+
+.Schritte
+. Erstellen einer Tape Library
++
+`define library _tapelibrary_ libtype=_scsi_`
+
++
+Wo `_tapelibrary_` Ist ein willkürlicher Name, der für die Bandbibliothek und den Wert von ausgewählt wurde `libtype` Je nach Art der Tape Library kann es variieren.
+
+. Definieren Sie einen Pfad vom Server zur Bandbibliothek.
++
+`define path _servername tapelibrary_ srctype=server desttype=library device=_lib-devicename_`
+
++
+** `_servername_` Ist der Name des TSM-Servers
+** `_tapelibrary_` Ist der von Ihnen definierte Bandbibliothek
+** `_lib-devicename_` Ist der Gerätename für die Bandbibliothek
+
+
+. Legen Sie ein Laufwerk für die Bibliothek fest.
++
+`define drive _tapelibrary_ _drivename_`
+
++
+** `_drivename_` Ist der Name, den Sie für das Laufwerk angeben möchten
+** `_tapelibrary_` Ist der von Ihnen definierte Bandbibliothek
++
+Je nach Hardwarekonfiguration möchten Sie möglicherweise ein zusätzliches Laufwerk oder weitere Laufwerke konfigurieren. (Wenn beispielsweise der TSM-Server mit einem Fibre Channel-Switch verbunden ist, der über zwei Eingaben aus einer Bandbibliothek verfügt, sollten Sie für jede Eingabe möglicherweise ein Laufwerk definieren.)
+
+
+
+. Definieren Sie einen Pfad vom Server zum Laufwerk, das Sie definiert haben.
++
+`define path _servername_ drivename srctype=server desttype=drive library=_tapelibrary_ device=_drive-dname_`
+
++
+** `_drive-dname_` Ist der Gerätename für das Laufwerk
+** `_tapelibrary_` Ist der von Ihnen definierte Bandbibliothek
++
+Wiederholen Sie diesen Vorgang für jedes Laufwerk, das Sie für die Bandbibliothek definiert haben, mit einem separaten Laufwerk `_drivename_` Und `_drive-dname_` Für jedes Laufwerk.
+
+
+
+. Definieren Sie eine Geräteklasse für die Laufwerke.
++
+`define devclass _DeviceClassName_ devtype=_lto_ library=_tapelibrary_ format=_tapetype_`
+
++
+** `_DeviceClassName_` Ist der Name der Geräteklasse
+** `_lto_` Ist der Laufwerkstyp, der mit dem Server verbunden ist
+** `_tapelibrary_` Ist der von Ihnen definierte Bandbibliothek
+** `_tapetype_` Ist der Tape-Typ, z. B. ultrium3
+
+
+. Fügen Sie dem Bestand der Bibliothek Bandvolumen hinzu.
++
+`checkin libvolume _tapelibrary_`
+
++
+`_tapelibrary_` Ist der von Ihnen definierte Bandbibliothek.
+
+. Erstellen Sie den primären Bandspeicherpool.
++
+`define stgpool _SGWSTapePool_ _DeviceClassName_ description=_description_ _collocate=filespace_ maxscratch=_XX_`
+
++
+** `_SGWSTapePool_` Ist der Name des Bandspeicherpools des Archiv-Nodes. Sie können einen beliebigen Namen für den Bandspeicher-Pool auswählen (sofern der Name die vom TSM-Server erwarteten Syntaxkonventionen verwendet).
+** `_DeviceClassName_` Ist der Name des Klassennamens für die Bandbibliothek.
+** `_description_` Ist eine Beschreibung des Speicherpools, der mithilfe des auf dem TSM-Server angezeigt werden kann `query stgpool` Befehl. Beispiel: „Bandspeicher-Pool für den Archive Node“.
+** `_collocate=filespace_` Gibt an, dass der TSM-Server Objekte aus demselben Dateispeicher auf ein einzelnes Band schreiben soll.
+** `XX` Ist eine der folgenden Optionen:
++
+*** Die Anzahl der leeren Bänder in der Bandbibliothek (falls der Archivknoten die einzige Anwendung ist, die die Bibliothek verwendet).
+*** Die Anzahl der vom StorageGRID System zugewiesenen Tapes (in Fällen, in denen die Tape-Bibliothek gemeinsam genutzt wird).
+
+
+
+
+. Erstellen Sie auf einem TSM-Server einen Festplatten-Speicherpool. Geben Sie an der Administrationskonsole des TSM-Servers ein
++
+`define stgpool _SGWSDiskPool_ disk description=_description_ maxsize=_maximum_file_size nextstgpool=SGWSTapePool_ highmig=_percent_high_ lowmig=_percent_low_`
+
++
+** `_SGWSDiskPool_` Ist der Name des Festplatten-Pools des Archiv-Nodes. Sie können einen beliebigen Namen für den Festplatten-Speicherpool auswählen (sofern der Name die vom TSM erwarteten Syntaxkonventionen verwendet).
+** `_description_` Ist eine Beschreibung des Speicherpools, der mithilfe des auf dem TSM-Server angezeigt werden kann `query stgpool` Befehl. Beispiel: „Disk Storage Pool for the Archive Node“.
+**  `_maximum_file_size_` Zwingt das Schreiben von Objekten, die größer sind als diese Größe, direkt auf Tape, statt im Festplatten-Pool gespeichert zu werden. Es wird empfohlen, die Einstellung festzulegen `_maximum_file_size_` Bis 10 GB.
+** `_nextstgpool=SGWSTapePool_` Bezeichnet den Festplatten-Speicherpool auf den für den Archiv-Node definierten Bandspeicher-Pool.
+**  `_percent_high_` Legt den Wert fest, mit dem der Laufwerk-Pool seine Inhalte in den Bandpool migriert. Es wird empfohlen, die Einstellung festzulegen `_percent_high_` Zu 0, sodass sofort die Datenmigration beginnt
+**  `_percent_low_` Legt den Wert fest, mit dem die Migration zum Bandpool angehalten wird. Es wird empfohlen, die Einstellung festzulegen `_percent_low_` Zu 0, um den Laufwerk-Pool zu löschen.
+
+
+. Erstellen Sie auf einem TSM-Server ein Festplatten-Volume (oder Volumes) und weisen Sie es dem Festplatten-Pool zu.
++
+`define volume _SGWSDiskPool_ _volume_name_ formatsize=_size_`
+
++
+** `_SGWSDiskPool_` Ist der Name des Disk-Pools.
+** `_volume_name_` Ist der vollständige Pfad zum Speicherort des Volumes (z. B. `/var/local/arc/stage6.dsm`) Auf dem TSM-Server, wo er den Inhalt des Laufwerk-Pools in Vorbereitung für die Übertragung auf Band schreibt.
+** `_size_` Ist die Größe des Datenträgers in MB.
++
+Wenn Sie beispielsweise ein einzelnes Laufwerk-Volume so erstellen möchten, dass der Inhalt eines Festplattenpools ein einzelnes Band enthält, setzen Sie den Wert der Größe auf 200000, wenn das Bandvolumen 200 GB hat.
+
++
+Es könnte jedoch wünschenswert sein, mehrere Festplatten-Volumes einer kleineren Größe zu erstellen, da der TSM-Server auf jedes Volume im Festplatten-Pool schreiben kann. Wenn die Bandgröße beispielsweise 250 GB beträgt, erstellen Sie 25 Festplatten-Volumes mit jeweils 10 GB (10000).
+
++
+Der TSM-Server weist im Verzeichnis für das Festplatten-Volume vorab Speicherplatz zu. Dies kann einige Zeit in Anspruch nehmen (mehr als drei Stunden für ein 200-GB-Laufwerk).
+
+
+
+

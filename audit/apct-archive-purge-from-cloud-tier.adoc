@@ -1,0 +1,55 @@
+---
+permalink: audit/apct-archive-purge-from-cloud-tier.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, APCT, Archive Purge from Cloud-Tier 
+summary: Diese Meldung wird erzeugt, wenn archivierte Objektdaten aus einem externen Storage-System gelöscht werden, das eine Verbindung zur StorageGRID über die S3-API herstellt. 
+---
+= APCT: Löschen von Archiven aus der Cloud-Ebene
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Diese Meldung wird erzeugt, wenn archivierte Objektdaten aus einem externen Storage-System gelöscht werden, das eine Verbindung zur StorageGRID über die S3-API herstellt.
+
+[cols="1a,1a,4a"]
+|===
+| Codieren | Feld | Beschreibung 
+
+
+ a| 
+CBID
+ a| 
+Inhaltsblock-ID
+ a| 
+Die eindeutige Kennung für den gelöschten Inhaltsblock.
+
+
+
+ a| 
+CSIZ
+ a| 
+Inhaltsgröße
+ a| 
+Die Größe des Objekts in Byte. Gibt immer 0 zurück.
+
+
+
+ a| 
+RSLT
+ a| 
+Ergebniscode
+ a| 
+Gibt erfolgreich (SUCS) oder den Fehler zurück, der vom Backend gemeldet wurde.
+
+
+
+ a| 
+SUID
+ a| 
+Eindeutige Kennung Für Speicher
+ a| 
+Eindeutige Kennung (UUID) des Cloud-Tiers, aus dem das Objekt gelöscht wurde.
+
+|===

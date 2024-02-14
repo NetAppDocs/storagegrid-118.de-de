@@ -1,0 +1,137 @@
+---
+permalink: swift/container-operations.html 
+sidebar: sidebar 
+keywords: swift container operations 
+summary: StorageGRID unterstützt maximal 1,000 Container pro Swift Konto. Die folgenden Swift-API-Vorgänge werden auf Containern durchgeführt. 
+---
+= Container-Operationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID unterstützt maximal 1,000 Container pro Swift Konto. Die folgenden Swift-API-Vorgänge werden auf Containern durchgeführt.
+
+
+
+== Container LÖSCHEN
+
+Durch diesen Vorgang wird ein leerer Container aus einem Swift-Konto in einem StorageGRID-System entfernt.
+
+Die folgenden Anfrageparameter sind erforderlich:
+
+* `Account`
+* `Container`
+
+
+Die folgende Anfrageüberschrift ist erforderlich:
+
+* `X-Auth-Token`
+
+
+Eine erfolgreiche Ausführung gibt die folgenden Kopfzeilen mit einer HTTP/1.1 204 No Content-Antwort zurück:
+
+* `Content-Length`
+* `Content-Type`
+* `Date`
+* `X-Trans-Id`
+
+
+
+
+== GET Container
+
+Dieser Vorgang ruft die dem Container zugeordnete Objektliste sowie die Containerstatistiken und Metadaten in einem StorageGRID System ab.
+
+Die folgenden Anfrageparameter sind erforderlich:
+
+* `Account`
+* `Container`
+
+
+Die folgende Anfrageüberschrift ist erforderlich:
+
+* `X-Auth-Token`
+
+
+Die folgenden unterstützten Abfrageparameter sind optional:
+
+* `Delimiter`
+* `End_marker`
+* `Format`
+* `Limit`
+* `Marker`
+* `Path`
+* `Prefix`
+
+
+Eine erfolgreiche Ausführung liefert die folgenden Header mit einer "HTTP/1.1 200 success" oder einer "HTTP/1.1 204 No Content"-Antwort:
+
+* `Accept-Ranges`
+* `Content-Length`
+* `Content-Type`
+* `Date`
+* `X-Container-Bytes-Used`
+* `X-Container-Object-Count`
+* `X-Timestamp`
+* `X-Trans-Id`
+
+
+
+
+== KOPF Behälter
+
+Dieser Vorgang ruft Containerstatistiken und Metadaten aus einem StorageGRID System ab.
+
+Die folgenden Anfrageparameter sind erforderlich:
+
+* `Account`
+* `Container`
+
+
+Die folgende Anfrageüberschrift ist erforderlich:
+
+* `X-Auth-Token`
+
+
+Eine erfolgreiche Ausführung gibt die folgenden Kopfzeilen mit einer HTTP/1.1 204 No Content-Antwort zurück:
+
+* `Accept-Ranges`
+* `Content-Length`
+* `Date`
+* `X-Container-Bytes-Used`
+* `X-Container-Object-Count`
+* `X-Timestamp`
+* `X-Trans-Id`
+
+
+
+
+== Legen Sie den Behälter
+
+Durch diesen Vorgang wird ein Container für ein Konto in einem StorageGRID-System erstellt.
+
+Die folgenden Anfrageparameter sind erforderlich:
+
+* `Account`
+* `Container`
+
+
+Die folgende Anfrageüberschrift ist erforderlich:
+
+* `X-Auth-Token`
+
+
+Eine erfolgreiche Ausführung gibt die folgenden Header mit einer "HTTP/1.1 201 created" oder "HTTP/1.1 202 Accepted" (falls der Container bereits unter diesem Konto existiert) Antwort zurück:
+
+* `Content-Length`
+* `Date`
+* `X-Timestamp`
+* `X-Trans-Id`
+
+
+Container-Name muss im StorageGRID-Namespace eindeutig sein. Wenn der Container unter einem anderen Konto vorhanden ist, wird der folgende Header zurückgegeben: „HTTP/1.1 409-Konflikt“.
+
+.Verwandte Informationen
+link:monitoring-and-auditing-operations.html["Monitoring und Prüfung von Vorgängen"]

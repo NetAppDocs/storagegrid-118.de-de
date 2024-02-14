@@ -1,0 +1,37 @@
+---
+permalink: upgrade/changes-to-grid-management-api.html 
+sidebar: sidebar 
+keywords: grid management api, api, api version, swagger, rest api 
+summary: StorageGRID 11.8 verwendet Version 4 der Grid-Management-API. Version 4 verfällt Version 3; allerdings werden die Versionen 1, 2 und 3 weiterhin unterstützt. 
+---
+= Änderungen an der Grid-Management-API
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID 11.8 verwendet Version 4 der Grid-Management-API. Version 4 verfällt Version 3; allerdings werden die Versionen 1, 2 und 3 weiterhin unterstützt.
+
+
+NOTE: Sie können mit StorageGRID 11.8 weiterhin veraltete Versionen der Management-API verwenden. Die Unterstützung für diese Versionen der API wird jedoch in einem zukünftigen Release von StorageGRID entfernt. Nach dem Upgrade auf StorageGRID 11.8 können die veralteten APIs mit dem deaktiviert werden `PUT /grid/config/management` API:
+
+Weitere Informationen finden Sie unter link:../admin/using-grid-management-api.html["Verwenden Sie die Grid-Management-API"].
+
+
+
+== Änderungen für `ilm-policies` API v4
+
+Gültig ab StorageGRID 11.8, Version 4 des `ilm-policies` API enthält die folgenden Unterschiede zur Version 3:
+
+* Historische Richtlinien werden nicht mehr zurückgegeben. Eine neue, separate API zum Abrufen von historischen Richtlinien- und Tag-Daten wurde unter hinzugefügt `/grid/ilm-history`.
+* Eigenschaften entfernt: `proposed`, `historical`, `historicalRules`, `activationTime`.
+* Hinzugefügte Eigenschaften: `active` (boolesch), `activatedBy` (Array von Tag-UUIDs, denen die Richtlinie zugewiesen ist).
+* Der optionale Typ-Abfrageparameter für `GET ilm-policies` Jetzt nimmt die Werte `inactive` Und `active.` Die vorherigen Werte waren `proposed`, `active`, und `historical`.
+
+
+
+
+== Neue Endpunkte für das Laufwerksmanagement
+
+Sie können die API-Endpunkte */GRID/drive-Details/{nodeId}* verwenden, um Vorgänge an den Laufwerken in bestimmten Modellen von Appliance-Storage-Nodes durchzuführen.

@@ -1,0 +1,115 @@
+---
+permalink: tenant/what-platform-services-are.html 
+sidebar: sidebar 
+keywords: platform services 
+summary: Die StorageGRID Plattform-Services unterstützen Sie bei der Implementierung einer Hybrid-Cloud-Strategie, da Sie Ereignisbenachrichtigungen und Kopien von S3 Objekten und Objekt-Metadaten an externe Ziele senden können. 
+---
+= Plattform-Services verwalten: Übersicht
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die StorageGRID Plattform-Services unterstützen Sie bei der Implementierung einer Hybrid-Cloud-Strategie, da Sie Ereignisbenachrichtigungen und Kopien von S3 Objekten und Objekt-Metadaten an externe Ziele senden können.
+
+Falls die Verwendung von Plattform-Services für Ihr Mandantenkonto zulässig ist, können Sie die folgenden Services für jeden S3-Bucket konfigurieren:
+
+Replizierung von CloudMirror:: Nutzung link:understanding-cloudmirror-replication-service.html["StorageGRID CloudMirror Replikationsservice"] So spiegeln Sie bestimmte Objekte aus einem StorageGRID Bucket an ein angegebenes externes Ziel:
++
+--
+So können Sie beispielsweise CloudMirror Replizierung verwenden, um spezifische Kundendaten in Amazon S3 zu spiegeln und anschließend AWS Services für Analysen Ihrer Daten nutzen.
+
+
+NOTE: Die CloudMirror-Replizierung wird nicht unterstützt, wenn im Quell-Bucket S3-Objektsperre aktiviert ist.
+
+--
+Benachrichtigungen:: Nutzung link:understanding-notifications-for-buckets.html["Bucket-spezifische Ereignisbenachrichtigungen"] So senden Sie Benachrichtigungen über bestimmte Aktionen, die an Objekten ausgeführt werden, an einen bestimmten externen Amazon Simple Notification Service (Amazon SNS).
++
+--
+Beispielsweise können Sie Warnmeldungen so konfigurieren, dass sie an Administratoren über jedes Objekt, das einem Bucket hinzugefügt wurde, gesendet werden, wo die Objekte Protokolldateien darstellen, die mit einem kritischen Systemereignis verbunden sind.
+
+
+NOTE: Obwohl die Ereignisbenachrichtigung für einen Bucket konfiguriert werden kann, bei dem S3 Object Lock aktiviert ist, werden die S3 Object Lock Metadaten (einschließlich „Aufbewahrung bis Datum“ und „Legal Hold“-Status) der Objekte in den Benachrichtigungsmeldungen nicht enthalten.
+
+--
+Suchintegrations-Service:: Verwenden Sie die link:understanding-search-integration-service.html["suchintegrations-Service"] Senden von S3-Objektmetadaten an einen angegebenen Elasticsearch-Index, bei dem die Metadaten über den externen Service durchsucht oder analysiert werden können.
++
+--
+Sie könnten beispielsweise die Buckets konfigurieren, um S3 Objekt-Metadaten an einen Remote-Elasticsearch-Service zu senden. Anschließend kann Elasticsearch verwendet werden, um nach Buckets zu suchen und um anspruchsvolle Analysen der Muster in den Objektmetadaten durchzuführen.
+
+
+NOTE: Die Elasticsearch-Integration kann auf einem Bucket konfiguriert werden, bei dem die S3-Objektsperre aktiviert ist, aber die S3-Objektsperrmetadaten (einschließlich Aufbewahrung bis Datum und Status der Aufbewahrung) der Objekte werden nicht in die Benachrichtigungen einbezogen.
+
+--
+
+
+Da der Zielspeicherort für Plattformservices normalerweise außerhalb Ihrer StorageGRID-Implementierung liegt, erhalten Sie bei Plattform-Services die Leistung und Flexibilität, die sich aus der Nutzung externer Storage-Ressourcen, Benachrichtigungsservices und Such- oder Analyseservices für Ihre Daten ergibt.
+
+Jede Kombination von Plattform-Services kann für einen einzelnen S3-Bucket konfiguriert werden. Beispielsweise könnten Sie sowohl den CloudMirror-Service als auch Benachrichtigungen über einen StorageGRID S3-Bucket konfigurieren, damit Sie bestimmte Objekte auf den Amazon Simple Storage Service spiegeln können, während Sie gleichzeitig eine Benachrichtigung über jedes einzelne Objekt an eine Monitoring-Applikation eines Drittanbieters senden können, um Ihre AWS-Ausgaben zu verfolgen.
+
+
+TIP: Die Nutzung von Plattformdiensten muss für jedes Mandantenkonto durch einen StorageGRID-Administrator aktiviert werden, der den Grid Manager oder die Grid Management API verwendet.
+
+
+
+== Die Konfiguration von Plattform-Services
+
+Plattform-Services kommunizieren mit externen Endpunkten, die Sie über das konfigurieren link:configuring-platform-services-endpoints.html["Mandanten-Manager"] Oder im link:understanding-tenant-management-api.html["Mandantenmanagement-API"]. Jeder Endpunkt stellt ein externes Ziel dar, z. B. einen StorageGRID S3-Bucket, einen Amazon Web Services-Bucket, ein Amazon SNS-Thema oder ein lokal auf AWS oder anderswo gehostetes Elasticsearch-Cluster.
+
+Nachdem Sie einen externen Endpunkt erstellt haben, können Sie einen Plattformdienst für einen Bucket aktivieren, indem Sie dem Bucket eine XML-Konfiguration hinzufügen. Die XML-Konfiguration identifiziert die Objekte, auf denen der Bucket handeln soll, die Aktion, die der Bucket durchführen sollte, und den Endpunkt, den der Bucket für den Service verwenden sollte.
+
+Sie müssen für jeden Plattformdienst, den Sie konfigurieren möchten, separate XML-Konfigurationen hinzufügen. Beispiel:
+
+* Wenn Sie alle Objekte wünschen, mit denen die Tasten beginnen `/images` Um in einen Amazon S3-Bucket repliziert werden zu können, müssen Sie dem Quell-Bucket eine Replizierungskonfiguration hinzufügen.
+* Wenn Sie auch Benachrichtigungen senden möchten, wenn diese Objekte im Bucket gespeichert sind, müssen Sie eine Benachrichtigungskonfiguration hinzufügen.
+* Wenn Sie die Metadaten für diese Objekte indizieren möchten, müssen Sie die Konfiguration für die Metadatenbenachrichtigung hinzufügen, die zur Implementierung der Suchintegration verwendet wird.
+
+
+Das Format für die Konfigurations-XML wird durch die S3-REST-APIs geregelt, die zur Implementierung von StorageGRID Plattform-Services verwendet werden:
+
+[cols="1a,2a,1a"]
+|===
+| Plattform-Service | S3-REST-API | Siehe 
+
+
+ a| 
+Replizierung von CloudMirror
+ a| 
+* GetBucketReplication
+* PutBucketReplication
+
+ a| 
+* link:configuring-cloudmirror-replication.html["Replizierung von CloudMirror"]
+* link:../s3/operations-on-buckets.htmll["Operationen auf Buckets"]
+
+
+
+
+ a| 
+Benachrichtigungen
+ a| 
+* GetBucketNotificationConfiguration
+* PutBucketNotificationKonfiguration
+
+ a| 
+* link:configuring-event-notifications.html["Benachrichtigungen"]
+* link:../s3/s3/operations-on-buckets.html["Operationen auf Buckets"]
+
+
+
+
+ a| 
+Integration von Suchen
+ a| 
+* Konfiguration der Bucket-Metadaten-Benachrichtigungen ABRUFEN
+* PUT Bucket-Metadaten-Benachrichtigungskonfiguration
+
+ a| 
+* link:using-search-integration-service.html["Integration von Suchen"]
+* link:../s3/custom-operations-on-buckets.html["Benutzerdefinierte Operationen von StorageGRID"]
+
+
+|===
+.Verwandte Informationen
+link:considerations-for-platform-services.html["Überlegungen zu Plattformservices"]

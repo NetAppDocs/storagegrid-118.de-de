@@ -1,0 +1,39 @@
+---
+permalink: audit/accessing-audit-log-file.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, log, log file, access, accessing 
+summary: Die Revisionsfreigabe enthält die aktive audit.log-Datei und alle komprimierten Audit-Log-Dateien. Sie können über die Befehlszeile des Admin-Knotens direkt auf Audit-Log-Dateien zugreifen. 
+---
+= Zugriff auf die Audit-Log-Datei
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Revisionsfreigabe enthält die aktive `audit.log` Datei und alle komprimierten Audit-Log-Dateien. Sie können über die Befehlszeile des Admin-Knotens direkt auf Audit-Log-Dateien zugreifen.
+
+.Bevor Sie beginnen
+* Das ist schon link:../admin/admin-group-permissions.html["Bestimmte Zugriffsberechtigungen"].
+* Sie müssen die haben `Passwords.txt` Datei:
+* Sie müssen die IP-Adresse eines Admin-Knotens kennen.
+
+
+.Schritte
+. Melden Sie sich bei einem Admin-Knoten an:
++
+.. Geben Sie den folgenden Befehl ein: `ssh admin@_primary_Admin_Node_IP_`
+.. Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
+.. Geben Sie den folgenden Befehl ein, um zum Root zu wechseln: `su -`
+.. Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
++
+Wenn Sie als root angemeldet sind, ändert sich die Eingabeaufforderung von `$` Bis `#`.
+
+
+
+. Gehen Sie zu dem Verzeichnis, das die Audit-Log-Dateien enthält:
++
+`cd /var/local/log`
+
+. Sehen Sie sich die aktuelle oder gespeicherte Audit-Protokolldatei nach Bedarf an.
+

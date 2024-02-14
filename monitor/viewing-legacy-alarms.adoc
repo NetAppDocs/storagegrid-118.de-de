@@ -1,0 +1,101 @@
+---
+permalink: monitor/viewing-legacy-alarms.html 
+sidebar: sidebar 
+keywords: legacy alarms 
+summary: 'Alarme \(Legacy System\) werden ausgelöst, wenn Systemattribute die Alarmschwellenwerte erreichen. Sie können die derzeit aktiven Alarme auf der Seite Aktuelle Alarme anzeigen.' 
+---
+= Anzeigen von älteren Alarmen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Alarme (Altsystem) werden ausgelöst, wenn Systemattribute die Alarmschwellenwerte erreichen. Sie können die derzeit aktiven Alarme auf der Seite Aktuelle Alarme anzeigen.
+
+
+NOTE: Das alte Alarmsystem wird zwar weiterhin unterstützt, bietet jedoch deutliche Vorteile und ist einfacher zu bedienen.
+
+.Bevor Sie beginnen
+* Sie müssen mit einem beim Grid Manager angemeldet sein link:../admin/web-browser-requirements.html["Unterstützter Webbrowser"].
+
+
+.Schritte
+. Wählen Sie *SUPPORT* > *Alarme (alt)* > *Aktueller Alarm* aus.
++
+image::../media/current_alarms_page.png[Seite „Aktuelle Alarme“]
+
++
+Das Alarmsymbol zeigt den Schweregrad jedes Alarms wie folgt an:
+
++
+[cols="1a,1a,1a,3a"]
+|===
+| Symbol | Farbe | Alarmschweregrad | Bedeutung 
+
+
+ a| 
+image:../media/icon_alarm_yellow_notice.gif["Gelbes Quadrat-Symbol"]
+ a| 
+Gelb
+ a| 
+Hinweis
+ a| 
+Der Node ist mit dem Grid verbunden. Es ist jedoch eine ungewöhnliche Bedingung vorhanden, die den normalen Betrieb nicht beeinträchtigt.
+
+
+
+ a| 
+image:../media/icon_alert_yellow_minor.png["Hellorangefarbenes Diamantsymbol"]
+ a| 
+Hellorange
+ a| 
+Gering
+ a| 
+Der Node ist mit dem Raster verbunden, aber es existiert eine anormale Bedingung, die den Betrieb in Zukunft beeinträchtigen könnte. Sie sollten untersuchen, um eine Eskalation zu verhindern.
+
+
+
+ a| 
+image:../media/icon_alert_orange_major.png["Dunkles orangefarbenes Diamantsymbol"]
+ a| 
+Dunkelorange
+ a| 
+Major
+ a| 
+Der Node ist mit dem Grid verbunden. Es ist jedoch eine anormale Bedingung vorhanden, die sich derzeit auf den Betrieb auswirkt. Um eine Eskalation zu vermeiden, ist eine sofortige Aufmerksamkeit erforderlich.
+
+
+
+ a| 
+image:../media/icon_alert_red_critical.png["Rotes X-Symbol"]
+ a| 
+Rot
+ a| 
+Kritisch
+ a| 
+Der Node ist mit dem Grid verbunden. Es ist jedoch eine anormale Bedingung vorhanden, die normale Vorgänge angehalten hat. Sie sollten das Problem sofort beheben.
+
+|===
+. Um mehr über das Attribut zu erfahren, das den Alarm ausgelöst hat, klicken Sie mit der rechten Maustaste auf den Attributnamen in der Tabelle.
+. Um weitere Details zu einem Alarm anzuzeigen, klicken Sie in der Tabelle auf den Servicenamen.
++
+Die Registerkarte Alarme für den ausgewählten Dienst wird angezeigt (*SUPPORT* > *Tools* > *Grid Topology* > *_Grid Node_* > *_Service_* > *Alarme*).
+
++
+image::../media/alarms_acknowledging.png[Alarme Quittieren]
+
+. Wenn Sie die Anzahl der aktuellen Alarme löschen möchten, können Sie optional Folgendes tun:
++
+** Bestätigen Sie den Alarm. Ein bestätigter Alarm wird nicht mehr in die Anzahl der älteren Alarme einbezogen, es sei denn, er wird auf der nächsten Stufe ausgelöst oder es wird behoben und tritt erneut auf.
+** Deaktivieren Sie einen bestimmten Standardalarm oder einen globalen benutzerdefinierten Alarm für das gesamte System, um eine erneute Auslösung zu verhindern.
+
+
+
+
+.Verwandte Informationen
+link:alarms-reference.html["Alarmreferenz (Altsystem)"]
+
+link:managing-alarms.html["Quittierung aktueller Alarme (Legacy-System)"]
+
+link:managing-alarms.html["Deaktivieren von Alarmen (Legacy-System)"]

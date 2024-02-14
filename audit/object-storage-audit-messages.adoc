@@ -1,0 +1,172 @@
+---
+permalink: audit/object-storage-audit-messages.html 
+sidebar: sidebar 
+keywords: audit, object storage, object management, object retrieval, node transfer, verification, APCT, ARCB, ARCE, ARCT, AREM, ASCE, ASCT, ATCE, AVCC, BROR, CBSE, CBRE, CGRR, EBDL, EBKR, SCMT, SREM 
+summary: Sie sollten mit Audit-Meldungen vertraut sein, die zur Objektspeicheraudits-Kategorie gehören. Dies sind Ereignisse, die mit der Speicherung und dem Management von Objekten innerhalb des StorageGRID Systems zusammenhängen. Dazu zählen Objekt-Storage und -Abruf, Grid-Node zu Grid-Node-Transfers und Verifizierungen. 
+---
+= Audit-Meldungen zu Objekt-Storage
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Audit-Meldungen der Objekt-Storage-Audit-Kategorie werden für Ereignisse im Zusammenhang mit der Speicherung und Verwaltung von Objekten im StorageGRID System verwendet. Dazu zählen Objekt-Storage und -Abruf, Grid-Node zu Grid-Node-Transfers und Verifizierungen.
+
+[cols="1a,2a,1a"]
+|===
+| Codieren | Beschreibung | Siehe 
+
+
+ a| 
+APCT
+ a| 
+Archiv aus Cloud-Tier: Archivierte Objektdaten werden aus einem externen Archiv-Storage-System gelöscht, das über die S3-API eine Verbindung zur StorageGRID herstellt.
+ a| 
+link:apct-archive-purge-from-cloud-tier.html["APCT: Löschen von Archiven aus der Cloud-Ebene"]
+
+
+
+ a| 
+ARCB
+ a| 
+Archiv Objekt abrufen Begin: Der ARC-Dienst beginnt den Abruf von Objektdaten aus dem externen Archivspeichersystem.
+ a| 
+link:arcb-archive-object-retrieve-begin.html["ARCB: Archiv Objekt abrufen beginnen"]
+
+
+
+ a| 
+ARCE
+ a| 
+Archivobjekt Retrieve End: Objektdaten wurden von einem externen Archivspeichersystem abgerufen, und der ARC-Dienst meldet den Status des Abruffvorgangs.
+ a| 
+link:arce-archive-object-retrieve-end.html["ARCE: Archiv Objekt abrufen Ende"]
+
+
+
+ a| 
+ARCT
+ a| 
+Archive Retrieve von Cloud-Tier: Archivierte Objektdaten werden von einem externen Archiv-Storage-System abgerufen, das über die S3-API eine Verbindung zur StorageGRID herstellt.
+ a| 
+link:arct-archive-retrieve-from-cloud-tier.html["ARCT: Archiv Abrufen aus Cloud-Tier"]
+
+
+
+ a| 
+AREM
+ a| 
+Archiv Objekt entfernen: Ein Inhaltsblock wurde erfolgreich oder erfolglos aus dem externen Archiv-Speichersystem gelöscht.
+ a| 
+link:arem-archive-object-remove.html["ARM: Archivobjekt Entfernen"]
+
+
+
+ a| 
+ASCE
+ a| 
+Archiv Objekt Store Ende: Ein Inhaltsblock wurde auf das externe Archivspeichersystem geschrieben und der ARC-Dienst meldet den Status des Schreibvorgangs.
+ a| 
+link:asce-archive-object-store-end.html["ASCE: Archiv-Objektspeicher Ende"]
+
+
+
+ a| 
+ASCT
+ a| 
+Archivspeicher Cloud-Tier: Objektdaten werden in einem externen Archiv-Storage-System gespeichert, das über die S3-API eine Verbindung zur StorageGRID herstellt.
+ a| 
+link:asct-archive-store-cloud-tier.html["ASCT: Archivspeicher Cloud-Tier"]
+
+
+
+ a| 
+ATCE
+ a| 
+Archive Object Store Begin: Das Schreiben eines Inhaltsblocks in einen externen Archiv-Speicher hat begonnen.
+ a| 
+link:atce-archive-object-store-begin.html["ATCE: Archiv-Objektspeicher beginnen"]
+
+
+
+ a| 
+AVCC
+ a| 
+Archiv Validierung der Cloud-Tier-Konfiguration: Die angegebenen Account- und Bucket-Einstellungen wurden erfolgreich oder nicht erfolgreich validiert.
+ a| 
+link:avcc-archive-validate-cloud-tier-configuration.html["AVCC: Archiv Validierung der Cloud-Tier-Konfiguration"]
+
+
+
+ a| 
+BROR
+ a| 
+Bucket Read Only Request: Ein Bucket wurde in den schreibgeschützten Modus eingegeben oder beendet.
+ a| 
+link:bror-bucket-read-only-request.html["BROR: Bucket Read Only Request"]
+
+
+
+ a| 
+CBSES
+ a| 
+Objekt Send End: Die Quelleinheit hat einen Grid-Node zum Grid-Node-Datentransfer abgeschlossen.
+ a| 
+link:cbse-object-send-end.html["CBSE: Objekt Senden Ende"]
+
+
+
+ a| 
+CBRE
+ a| 
+Empfang des Objekts: Die Zieleinheit hat einen Grid-Node zum Datentransfer des Grid-Node abgeschlossen.
+ a| 
+link:cbre-object-receive-end.html["CBRE: Das Objekt erhält das Ende"]
+
+
+
+ a| 
+CGRR
+ a| 
+Grid-übergreifende Replizierungsanforderung: StorageGRID hat einen Grid-übergreifenden Replizierungsvorgang versucht, um Objekte zwischen Buckets in einer Grid-Verbundverbindung zu replizieren.
+ a| 
+link:cgrr-cross-grid-replication-request.html["CGRR: Grid-übergreifende Replikationsanforderung"]
+
+
+
+ a| 
+EBDL
+ a| 
+Löschen von leeren Buckets: Der ILM-Scanner hat ein Objekt in einem Bucket gelöscht, das alle Objekte löscht (es wurde ein leerer Bucket-Vorgang durchgeführt).
+ a| 
+link:ebdl-empty-bucket-delete.html["EBDL: Leerer Bucket löschen"]
+
+
+
+ a| 
+EBKR
+ a| 
+Anforderung für leere Bucket: Ein Benutzer hat eine Anforderung gesendet, Leere Bucket ein- oder auszuschalten (d. h. Bucket-Objekte zu löschen oder das Löschen von Objekten zu stoppen).
+ a| 
+link:ebkr-empty-bucket-request.html["EBKR: Anforderung für leeren Bucket"]
+
+
+
+ a| 
+SCMT
+ a| 
+Object Store Commit: Ein Inhaltsblock wurde vollständig gespeichert und verifiziert und kann nun angefordert werden.
+ a| 
+link:scmt-object-store-commit.html["SCMT: Object Store Commit Request"]
+
+
+
+ a| 
+SREM
+ a| 
+Objektspeicher Remove: Ein Inhaltsblock wurde von einem Grid-Knoten gelöscht und kann nicht mehr direkt angefordert werden.
+ a| 
+link:srem-object-store-remove.html["SREM: Objektspeicher Entfernen"]
+
+|===

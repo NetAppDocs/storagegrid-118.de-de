@@ -1,0 +1,37 @@
+---
+permalink: tenant/using-search-integration-service.html 
+sidebar: sidebar 
+keywords: how to use search integration service 
+summary: Der Suchintegrations-Service ist einer der drei StorageGRID Plattform-Services. Sie können diesen Service aktivieren, wenn ein Objekt erstellt, gelöscht oder seine Metadaten oder Tags aktualisiert wird, Objektmetadaten an einen Zielsuchindex zu senden. 
+---
+= Verwenden Sie den Suchintegrationsdienst
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der Suchintegrations-Service ist einer der drei StorageGRID Plattform-Services. Sie können diesen Service aktivieren, wenn ein Objekt erstellt, gelöscht oder seine Metadaten oder Tags aktualisiert wird, Objektmetadaten an einen Zielsuchindex zu senden.
+
+Sie können die Suchintegration mit dem Mandanten-Manager konfigurieren, um eine benutzerdefinierte StorageGRID-Konfigurations-XML auf einen Bucket anzuwenden.
+
+
+NOTE: Da der Suchintegrationsdienst dazu führt, dass Objektmetadaten an ein Ziel gesendet werden, wird seine Konfigurations-XML als _Metadaten Notification Configuration XML_ bezeichnet. Diese Konfigurations-XML unterscheidet sich von der XML-Konfiguration _notification_, die zur Aktivierung von Ereignisbenachrichtigungen verwendet wird.
+
+Siehe link:../s3/index.html["Anweisungen zur Implementierung von S3-Client-Applikationen"] Weitere Informationen zu den folgenden benutzerdefinierten StorageGRID S3 REST-API-Operationen:
+
+* Konfiguration für die Benachrichtigung über Bucket-Metadaten LÖSCHEN
+* Konfiguration der Bucket-Metadaten-Benachrichtigungen ABRUFEN
+* PUT Bucket-Metadaten-Benachrichtigungskonfiguration
+
+
+.Verwandte Informationen
+link:configuration-xml-for-search-configuration.html["Konfigurations-XML für die Integration der Suche"]
+
+link:object-metadata-included-in-metadata-notifications.html["Objektmetadaten sind in Metadaten-Benachrichtigungen enthalten"]
+
+link:json-generated-by-search-integration-service.html["JSON durch den Suchintegrations-Service generiert"]
+
+link:configuring-search-integration-service.html["Konfigurieren Sie den Suchintegrationsdienst"]
+
+link:../s3/index.html["S3-REST-API VERWENDEN"]

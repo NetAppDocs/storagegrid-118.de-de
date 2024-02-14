@@ -1,0 +1,95 @@
+---
+permalink: swift/history-of-swift-api-support-in-storagegrid.html 
+sidebar: sidebar 
+keywords: swift api support history 
+summary: Sie sollten sich der Änderungen an der Unterstützung des StorageGRID-Systems für die Swift REST API bewusst sein. 
+---
+= Geschichte der Unterstützung von Swift API in StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bei Änderungen an der Unterstützung des StorageGRID-Systems für die Swift REST-API sollten Sie auf dieser hinweisen.
+
+[cols="1a,3a"]
+|===
+| Freigabe | Kommentare 
+
+
+ a| 
+11.8
+ a| 
+
+
+
+ a| 
+11.7
+ a| 
+Die Unterstützung für Swift-Client-Anwendungen wurde veraltet und wird in einer zukünftigen Version entfernt.
+
+
+
+ a| 
+11.6
+ a| 
+Kleine redaktionelle Änderungen.
+
+
+
+ a| 
+11.5
+ a| 
+Schwache Konsistenz wurde entfernt. Stattdessen wird die verfügbare Konsistenz verwendet.
+
+
+
+ a| 
+11.4
+ a| 
+Unterstützung für TLS 1.3 hinzugefügt. Beschreibung des Zusammenhangs zwischen ILM und Konsistenz hinzugefügt.
+
+
+
+ a| 
+11.3
+ a| 
+Aktualisierte PUT-Objektvorgänge zur Beschreibung der Auswirkungen von ILM-Regeln, die synchrone Platzierung bei der Aufnahme verwenden (die ausgewogenen und strengen Optionen für das Aufnahmeverhalten) Eine zusätzliche Beschreibung der Client-Verbindungen, die Load Balancer-Endpunkte oder Hochverfügbarkeitsgruppen verwenden. TLS 1.1-Chiffren werden nicht mehr unterstützt.
+
+
+
+ a| 
+11.2
+ a| 
+Kleine redaktionelle Änderungen des Dokuments.
+
+
+
+ a| 
+11.1
+ a| 
+Zusätzlicher Support für die Verwendung von HTTP für Swift-Client-Verbindungen zu Grid-Nodes. Die Definitionen der Konsistenzwerte wurden aktualisiert.
+
+
+
+ a| 
+11.0
+ a| 
+Hinzugefügter Support für 1,000 Container für jedes Mandantenkonto.
+
+
+
+ a| 
+10.3
+ a| 
+Administrative Aktualisierungen und Korrekturen des Dokuments. Abschnitte zum Konfigurieren von benutzerdefinierten Serverzertifikaten entfernt.
+
+
+
+ a| 
+10.2
+ a| 
+Unterstützung der Swift API durch das StorageGRID System zu Beginn. Die derzeit unterstützte Version ist OpenStack Swift Object Storage API v1.
+
+|===

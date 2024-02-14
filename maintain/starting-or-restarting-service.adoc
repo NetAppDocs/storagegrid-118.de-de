@@ -1,0 +1,58 @@
+---
+permalink: maintain/starting-or-restarting-service.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, service, start service, restart service 
+summary: Möglicherweise müssen Sie einen Dienst starten, der angehalten wurde, oder Sie müssen einen Dienst anhalten und neu starten. 
+---
+= Dienst starten oder neu starten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Möglicherweise müssen Sie einen Dienst starten, der angehalten wurde, oder Sie müssen einen Dienst anhalten und neu starten.
+
+.Bevor Sie beginnen
+Sie haben die `Passwords.txt` Datei:
+
+.Schritte
+. Melden Sie sich beim Grid-Node an:
++
+.. Geben Sie den folgenden Befehl ein: `ssh admin@_grid_node_IP_`
+.. Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
+.. Geben Sie den folgenden Befehl ein, um zum Root zu wechseln: `su -`
+.. Geben Sie das im aufgeführte Passwort ein `Passwords.txt` Datei:
+
+
++
+Wenn Sie als root angemeldet sind, ändert sich die Eingabeaufforderung von `$` Bis `#`.
+
+. Entscheiden Sie, welcher Befehl das Problem verursacht, basierend darauf, ob der Service derzeit ausgeführt oder angehalten ist.
++
+** Wenn der Dienst derzeit angehalten ist, verwenden Sie das `start` Befehl zum manuellen Starten des Dienstes: `service _servicename_ start`
++
+Beispiel:
+
++
+[listing]
+----
+service ldr start
+----
+** Wenn der Dienst derzeit ausgeführt wird, verwenden Sie das `restart` Befehl, um den Dienst zu beenden und ihn dann neu zu starten: `service _servicename_ restart`
++
+Beispiel:
+
++
+[listing]
+----
+service ldr restart
+----
++
+
+NOTE: Verwenden der `restart` Der Befehl ist der gleiche wie mit dem `stop` Befehl gefolgt vom `start` Befehl. Sie können ein Problem lösen `restart` Selbst wenn der Dienst derzeit angehalten ist.
+
+
+
+. Melden Sie sich aus der Befehlsshell ab: `exit`
+

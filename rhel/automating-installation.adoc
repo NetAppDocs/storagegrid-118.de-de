@@ -1,0 +1,139 @@
+---
+permalink: rhel/automating-installation.html 
+sidebar: sidebar 
+keywords: how to automate red hat linux installation 
+summary: Die Installation des StorageGRID Host Service und die Konfiguration der Grid-Nodes können automatisiert werden. 
+---
+= Automatisieren Sie die StorageGRID-Installation auf Red hat Enterprise Linux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die Installation des StorageGRID Host Service und die Konfiguration der Grid-Nodes können automatisiert werden.
+
+Eine Automatisierung der Implementierung kann in einem der folgenden Fälle von Nutzen sein:
+
+* Sie verwenden bereits ein Standard-Orchestrierungs-Framework wie Ansible, Puppet oder Chef für die Implementierung und Konfiguration physischer oder virtueller Hosts.
+* Sie beabsichtigen, mehrere StorageGRID Instanzen zu implementieren.
+* Sie implementieren eine große, komplexe StorageGRID Instanz.
+
+
+Der StorageGRID-Host-Service wird von einem Paket installiert und durch Konfigurationsdateien gesteuert. Sie können die Konfigurationsdateien mit einer der folgenden Methoden erstellen:
+
+* link:creating-node-configuration-files.html["Erstellen Sie die Konfigurationsdateien"] Interaktiv während einer manuellen Installation
+* Bereiten Sie die Konfigurationsdateien vorab (oder programmatisch) auf die automatisierte Installation mithilfe von Standard-Orchestrierungs-Frameworks vor, wie in diesem Artikel beschrieben.
++
+StorageGRID bietet optionale Python-Skripte zur Automatisierung der Konfiguration von StorageGRID Appliances und des gesamten StorageGRID-Systems (das „Grid“). Sie können diese Skripte direkt verwenden, oder Sie können sie überprüfen, um zu erfahren, wie Sie die verwenden link:overview-of-installation-rest-api.html["REST-API für die StorageGRID Installation"] In den Grid-Implementierungs- und Konfigurations-Tools entwickeln Sie sich selbst.
+
+
+
+
+
+== Automatisieren Sie die Installation und Konfiguration des StorageGRID-Host-Service
+
+Die Installation des StorageGRID-Host-Service kann mithilfe von Standard-Orchestrierungs-Frameworks wie Ansible, Puppet, Chef, Fabric oder SaltStack automatisiert werden.
+
+Der StorageGRID-Host-Service ist eine RPM und orientiert sich an Konfigurationsdateien, die Sie für die automatisierte Installation vorab (oder programmgesteuert) vorbereiten können. Wenn Sie bereits ein Standard-Orchestrierungs-Framework für die Installation und Konfiguration von RHEL verwenden, wäre es ganz einfach, StorageGRID in Ihre Playbooks oder Rezepte hinzuzufügen.
+
+Weitere Informationen dazu finden Sie in der Ansible-Rolle und dem Playbook `/extras` Ordner, der mit dem Installationsarchiv geliefert wird. Im Ansible-Playbook wird gezeigt, wie das funktioniert `storagegrid` Rolle bereitet den Host vor und installiert StorageGRID auf den Ziel-Servern. Die Rolle oder das Playbook können Sie nach Bedarf anpassen.
+
+
+NOTE: Das Beispiel-Playbook enthält nicht die Schritte, die zum Erstellen von Netzwerkgeräten vor dem Start des StorageGRID-Hostdienstes erforderlich sind. Fügen Sie diese Schritte vor der Fertigstellung und Verwendung des Playbook ein.
+
+Sie können alle Schritte zur Vorbereitung der Hosts automatisieren und virtuelle Grid-Nodes implementieren.
+
+
+
+=== Beispiel: Ansible-Rolle und Playbook
+
+Die Beispiel-Rolle und das Playbook für Ansible werden im mit dem Installationsarchiv bereitgestellt `/extras` Ordner. Im Ansible-Playbook wird gezeigt, wie das funktioniert `storagegrid` Rolle bereitet die Hosts vor und installiert StorageGRID auf den Ziel-Servern. Die Rolle oder das Playbook können Sie nach Bedarf anpassen.
+
+
+
+== Automatisieren Sie die Konfiguration von StorageGRID
+
+Nach der Implementierung der Grid-Nodes können Sie die Konfiguration des StorageGRID Systems automatisieren.
+
+.Bevor Sie beginnen
+* Sie kennen den Speicherort der folgenden Dateien aus dem Installationsarchiv.
++
+[cols="1a,1a"]
+|===
+| Dateiname | Beschreibung 
+
+
+| configure-storagegrid.py  a| 
+Python-Skript zur Automatisierung der Konfiguration
+
+
+
+| Configure-storagegrid.sample.json  a| 
+Beispielkonfigurationsdatei für die Verwendung mit dem Skript
+
+
+
+| Configure-storagegrid.blank.json  a| 
+Leere Konfigurationsdatei für die Verwendung mit dem Skript
+
+|===
+* Sie haben ein erstellt `configure-storagegrid.json` Konfigurationsdatei Um diese Datei zu erstellen, können Sie die Beispielkonfigurationsdatei ändern (`configure-storagegrid.sample.json`) Oder die leere Konfigurationsdatei (`configure-storagegrid.blank.json`).
+
+
+.Über diese Aufgabe
+Sie können das verwenden `configure-storagegrid.py` Python-Skript und das `configure-storagegrid.json` Konfigurationsdatei zur automatischen Konfiguration des StorageGRID Systems
+
+
+NOTE: Sie können das System auch mit dem Grid Manager oder der Installations-API konfigurieren.
+
+.Schritte
+. Melden Sie sich an der Linux-Maschine an, die Sie verwenden, um das Python-Skript auszuführen.
+. Wechseln Sie in das Verzeichnis, in dem Sie das Installationsarchiv extrahiert haben.
++
+Beispiel:
+
++
+[listing]
+----
+cd StorageGRID-Webscale-version/platform
+----
++
+Wo `platform` Ist `debs`, `rpms`, Oder `vsphere`.
+
+. Führen Sie das Python-Skript aus und verwenden Sie die von Ihnen erstellte Konfigurationsdatei.
++
+Beispiel:
+
++
+[listing]
+----
+./configure-storagegrid.py ./configure-storagegrid.json --start-install
+----
+
+
+.Ergebnis
+Ein Wiederherstellungspaket `.zip` Die Datei wird während des Konfigurationsprozesses generiert und in das Verzeichnis heruntergeladen, in dem Sie den Installations- und Konfigurationsprozess ausführen. Sie müssen die Recovery-Paket-Datei sichern, damit Sie das StorageGRID-System wiederherstellen können, wenn ein oder mehrere Grid-Knoten ausfallen. Zum Beispiel kopieren Sie den Text auf einen sicheren, gesicherten Netzwerkstandort und an einen sicheren Cloud-Storage-Standort.
+
+
+CAUTION: Die Recovery Package-Datei muss gesichert sein, weil sie Verschlüsselungsschlüssel und Passwörter enthält, die zum Abrufen von Daten vom StorageGRID-System verwendet werden können.
+
+Wenn Sie angegeben haben, dass zufällige Passwörter generiert werden, öffnen Sie die `Passwords.txt` Datei und suchen Sie nach den Kennwörtern, die für den Zugriff auf Ihr StorageGRID-System erforderlich sind.
+
+[listing]
+----
+######################################################################
+##### The StorageGRID "recovery package" has been downloaded as: #####
+#####           ./sgws-recovery-package-994078-rev1.zip          #####
+#####   Safeguard this file as it will be needed in case of a    #####
+#####                 StorageGRID node recovery.                 #####
+######################################################################
+----
+Das StorageGRID System wird installiert und konfiguriert, wenn eine Bestätigungsmeldung angezeigt wird.
+
+[listing]
+----
+StorageGRID has been configured and installed.
+----
+.Verwandte Informationen
+link:overview-of-installation-rest-api.html["Überblick über DIE REST API zur Installation"]

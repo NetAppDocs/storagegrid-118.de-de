@@ -1,0 +1,84 @@
+---
+permalink: swift/account-operations.html 
+sidebar: sidebar 
+keywords: swift account operations 
+summary: Die folgenden Swift-API-Vorgänge werden bei Accounts durchgeführt. 
+---
+= Konto-Operationen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die folgenden Swift-API-Vorgänge werden bei Accounts durchgeführt.
+
+
+
+== GET Konto
+
+Dieser Vorgang ruft die Containerliste ab, die mit den Statistiken zur Konto- und Kontonutzung verknüpft ist.
+
+Der folgende Parameter für die Anfrage ist erforderlich:
+
+* `Account`
+
+
+Die folgende Anfrageüberschrift ist erforderlich:
+
+* `X-Auth-Token`
+
+
+Die folgenden unterstützten Abfrageparameter sind optional:
+
+* `Delimiter`
+* `End_marker`
+* `Format`
+* `Limit`
+* `Marker`
+* `Prefix`
+
+
+Bei einer erfolgreichen Ausführung werden die folgenden Header mit einer Antwort „HTTP/1.1 204 No Content“ zurückgegeben, wenn das Konto gefunden wird und keine Container hat oder die Containerliste leer ist; oder eine „HTTP/1.1 200 OK“-Antwort, wenn das Konto gefunden wird und die Containerliste nicht leer ist:
+
+* `Accept-Ranges`
+* `Content-Length`
+* `Content-Type`
+* `Date`
+* `X-Account-Bytes-Used`
+* `X-Account-Container-Count`
+* `X-Account-Object-Count`
+* `X-Timestamp`
+* `X-Trans-Id`
+
+
+
+
+== HAUPTKONTO
+
+Mit dieser Operation werden Kontoinformationen und Statistiken von einem Swift-Konto abgerufen.
+
+Der folgende Parameter für die Anfrage ist erforderlich:
+
+* `Account`
+
+
+Die folgende Anfrageüberschrift ist erforderlich:
+
+* `X-Auth-Token`
+
+
+Eine erfolgreiche Ausführung gibt die folgenden Kopfzeilen mit einer HTTP/1.1 204 No Content-Antwort zurück:
+
+* `Accept-Ranges`
+* `Content-Length`
+* `Date`
+* `X-Account-Bytes-Used`
+* `X-Account-Container-Count`
+* `X-Account-Object-Count`
+* `X-Timestamp`
+* `X-Trans-Id`
+
+
+.Verwandte Informationen
+link:swift-operations-tracked-in-audit-logs.html["In den Audit-Protokollen werden Swift-Vorgänge nachverfolgt"]

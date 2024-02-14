@@ -1,0 +1,35 @@
+---
+permalink: troubleshoot/troubleshooting-delivery-platform-services-messages.html 
+sidebar: sidebar 
+keywords: how to troubleshoot delivery of platform services message, how to troubleshoot smtt alarm 
+summary: 'Der Alarm Total Events \(SMTT\) wird im Grid Manager ausgelöst, wenn eine Plattformdienstmeldung an ein Ziel gesendet wird, das die Daten nicht annehmen kann.' 
+---
+= Fehlerbehebung bei der Bereitstellung von Plattform-Services-Meldungen (SMTT-Alarm)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Der SMTT-Alarm (Total Events) wird im Grid Manager ausgelöst, wenn eine Plattformdienstmeldung an ein Ziel gesendet wird, das die Daten nicht akzeptieren kann.
+
+.Über diese Aufgabe
+Beispielsweise kann ein mehrteiliger S3-Upload erfolgreich sein, auch wenn die zugehörige Replizierungs- oder Benachrichtigung nicht an den konfigurierten Endpunkt geliefert werden kann. Alternativ kann eine Nachricht für die CloudMirror Replizierung nicht bereitgestellt werden, wenn die Metadaten zu lang sind.
+
+Der SMTT-Alarm enthält eine Meldung „Letztes Ereignis“, die lautet: `Failed to publish notifications for _bucket-name object key_` Für das letzte Objekt, dessen Benachrichtigung fehlgeschlagen ist.
+
+Ereignismeldungen sind auch in aufgeführt `/var/local/log/bycast-err.log` Protokolldatei. Siehe link:../monitor/logs-files-reference.html["Referenz für Protokolldateien"].
+
+Weitere Informationen finden Sie im link:../admin/troubleshooting-platform-services.html["Fehlerbehebung bei Plattform-Services"]. Möglicherweise müssen Sie es link:../tenant/signing-in-to-tenant-manager.html["Greifen Sie über den Tenant Manager auf den Mandanten zu"] So beheben Sie einen Plattformdienstfehler.
+
+.Schritte
+. Um den Alarm anzuzeigen, wählen Sie *NODES* > *_site_* > *_Grid Node_* > *Events* aus.
+. Letztes Ereignis oben in der Tabelle anzeigen.
++
+Ereignismeldungen sind auch in aufgeführt `/var/local/log/bycast-err.log`.
+
+. Befolgen Sie die Anweisungen im SMTT-Alarminhalt, um das Problem zu beheben.
+. Wählen Sie *Anzahl der Ereignisse zurücksetzen*.
+. Benachrichtigen Sie den Mieter über die Objekte, deren Plattform-Services-Nachrichten nicht geliefert wurden.
+. Weisen Sie den Mandanten an, die fehlgeschlagene Replikation oder Benachrichtigung durch Aktualisieren der Metadaten oder Tags des Objekts auszulösen.
+

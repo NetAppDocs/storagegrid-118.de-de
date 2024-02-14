@@ -1,0 +1,105 @@
+---
+permalink: upgrade/removed-or-deprecated-features.html 
+sidebar: sidebar 
+keywords:  
+summary: Einige Funktionen wurden in dieser Version entfernt oder veraltet. Überprüfen Sie diese Elemente, um zu verstehen, ob Sie Clientanwendungen aktualisieren oder Ihre Konfiguration vor dem Upgrade ändern müssen. 
+---
+= Entfernte oder veraltete Funktionen und Fähigkeiten
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Einige Funktionen wurden in dieser Version entfernt oder veraltet. Überprüfen Sie diese Elemente, um zu verstehen, ob Sie Clientanwendungen aktualisieren oder Ihre Konfiguration vor dem Upgrade ändern müssen.
+
+
+
+== Begriffsbestimmung
+
+Veraltet:: Das Feature *sollte nicht* in neuen Produktionsumgebungen verwendet werden. Vorhandene Produktionsumgebungen können die Funktion weiterhin nutzen.
+Ende des Supports:: Zuletzt ausgelieferte Version, die das Feature enthält. Keine zukünftigen Versionen unterstützen dieses Feature.
+Entfernt:: Erste Version, die *nicht* das Feature enthält.
+
+
+
+
+== Support für StorageGRID 11.8-Einstellung der Funktion
+
+Veraltete Funktionen werden in den Hauptversionen von N+2 entfernt. Wenn beispielsweise ein Feature in Version N veraltet ist (z. B. 6.3), ist die letzte Version, in der das Feature vorhanden ist, N+1 (z. B. 6.4). Version N+2 (z. B. 6.5) ist die erste Version, wenn das Feature im Produkt nicht vorhanden ist.
+
+Siehe https://mysupport.netapp.com/site/info/version-support["Seite „Software Version Support“"^] Finden Sie weitere Informationen.
+
+
+NOTE: In bestimmten Situationen stellt NetApp den Support für bestimmte Funktionen möglicherweise früher als angegeben ein.
+
+[cols="3a,1a,1a,1a"]
+|===
+| Merkmal | Veraltet | Ende des Supports | Entfernt 
+
+
+ a| 
+Unterstützung für Archive Node
+ a| 
+11.7
+ a| 
+11.8
+ a| 
+11.9
+
+
+
+ a| 
+Audit-Export über CIFS/Samba
+ a| 
+11.1
+ a| 
+11.6
+ a| 
+11.7
+
+
+
+ a| 
+CLB-Service
+ a| 
+11.4
+ a| 
+11.6
+ a| 
+11.7
+
+
+
+ a| 
+Laufzeit für Docker Container
+ a| 
+11.8
+ a| 
+11.9
+ a| 
+12.0
+
+
+
+ a| 
+NFS-Audit-Export
+ a| 
+11.8
+ a| 
+11.9
+ a| 
+12.0
+
+
+
+ a| 
+Swift API-Unterstützung
+ a| 
+11.7
+ a| 
+11.9
+ a| 
+12.0
+
+|===

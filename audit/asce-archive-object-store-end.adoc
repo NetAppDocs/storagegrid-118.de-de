@@ -1,0 +1,76 @@
+---
+permalink: audit/asce-archive-object-store-end.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, ASCE, Archive Object Store End 
+summary: Diese Meldung zeigt an, dass das Schreiben eines Inhaltsblocks in ein externes Archiv-Speichersystem beendet ist. 
+---
+= ASCE: Archiv-Objektspeicher Ende
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Diese Meldung zeigt an, dass das Schreiben eines Inhaltsblocks in ein externes Archiv-Speichersystem beendet ist.
+
+[cols="1a,1a,4a"]
+|===
+| Codieren | Feld | Beschreibung 
+
+
+ a| 
+CBID
+ a| 
+Kennung Für Inhaltsblock
+ a| 
+Die Kennung des Inhaltsblocks, der auf dem externen Archivspeichersystem gespeichert ist.
+
+
+
+ a| 
+VLID
+ a| 
+Volume-Kennung
+ a| 
+Die eindeutige Kennung des Archiv-Volume, auf das die Objektdaten geschrieben werden.
+
+
+
+ a| 
+VREN
+ a| 
+Überprüfung Aktiviert
+ a| 
+Zeigt an, ob eine Überprüfung für Inhaltsblöcke durchgeführt wird. Aktuell definierte Werte sind:
+
+* VENA: Die Überprüfung ist aktiviert
+* VDSA: Die Überprüfung ist deaktiviert
+
+
+
+
+ a| 
+MCLS
+ a| 
+Management-Klasse
+ a| 
+Eine Zeichenfolge, die die TSM-Managementklasse identifiziert, der der Inhaltsblock zugeordnet ist, falls zutreffend.
+
+
+
+ a| 
+RSLT
+ a| 
+Ergebnis
+ a| 
+Zeigt das Ergebnis des Archivierungsvorgangs an. Aktuell definierte Werte sind:
+
+* ERFOLGREICH (Archivierungsprozess erfolgreich)
+* OFFL: Fehlgeschlagen (Archivierung ist offline)
+* VRFL: Fehlgeschlagen (Objektüberprüfung fehlgeschlagen)
+* ARUN: Fehlgeschlagen (externes Archiv-Storage-System nicht verfügbar)
+* GERR: Fehlgeschlagen (allgemeiner Fehler)
+
+
+|===
+Diese Überwachungsmeldung bedeutet, dass der angegebene Inhaltsblock auf das externe Archivspeichersystem geschrieben wurde. Wenn der Schreibvorgang fehlschlägt, liefert das Ergebnis grundlegende Informationen zur Fehlerbehebung über den Fehlerort. Ausführlichere Informationen zu Archivfehlern finden Sie unter Untersuchung der Attribute von Archivierungs-Knoten im StorageGRID System.

@@ -1,0 +1,64 @@
+---
+permalink: admin/creating-and-activating-domain-policy.html 
+sidebar: sidebar 
+keywords: domain policy for tsm, tivoli storage manager policy 
+summary: Sie müssen eine Domänenrichtlinie erstellen und diese dann aktivieren, um den TSM-Server so zu konfigurieren, dass die vom Archiv-Node gesendeten Daten gespeichert werden. 
+---
+= Erstellen und aktivieren Sie die Domänenrichtlinie
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie müssen eine Domänenrichtlinie erstellen und diese dann aktivieren, um den TSM-Server so zu konfigurieren, dass die vom Archiv-Node gesendeten Daten gespeichert werden.
+
+.Schritte
+. Eine Domänenrichtlinie erstellen.
++
+`copy domain standard tsm-domain`
+
+. Wenn Sie keine vorhandene Management-Klasse verwenden, geben Sie eine der folgenden Optionen ein:
++
+`define policyset tsm-domain standard`
+
++
+`define mgmtclass tsm-domain standard _default_`
+
++
+`_default_` Ist die Standard-Managementklasse für die Bereitstellung.
+
+. Erstellen Sie eine Copygroup in den entsprechenden Speicherpool. Geben Sie (in einer Zeile) ein:
++
+`define copygroup tsm-domain standard _default_ type=archive destination=SGWSDiskPool retinit=event retmin=0 retver=0`
+
++
+`_default_` Ist die Standard-Managementklasse für den Archivknoten. Die Werte von `retinit`, `retmin`, und `retver` Wurden ausgewählt, um das Aufbewahrungsverhalten wiederzugeben, das derzeit vom Archiv-Knoten verwendet wird
+
++
+
+NOTE: Nicht einstellen `retinit` Bis `retinit=create`. Einstellung `retinit=create` Blockiert das Löschen von Inhalten durch den Archivknoten, da Aufbewahrungsereignisse zum Entfernen von Inhalten vom TSM-Server verwendet werden.
+
+. Weisen Sie die Managementklasse als Standard zu.
++
+`assign defmgmtclass _tsm-domain_ standard _default_`
+
+. Legen Sie den neuen Richtliniensatz als aktiv fest.
++
+`activate policyset tsm-domain standard`
+
++
+Ignorieren Sie die Warnung „No Backup copy Group“, die angezeigt wird, wenn Sie den Befehl activate eingeben.
+
+. Registrieren Sie einen Knoten, um den neuen Richtliniensatz auf dem TSM-Server zu verwenden. Geben Sie auf dem TSM-Server (in einer Zeile) Folgendes ein:
++
+`register node arc-user arc-password passexp=0 domain=tsm-domain MAXNUMMP=number-of-sessions`
+
++
+Arc-user und Arc-password sind der Name und das Kennwort des Client-Knotens, den Sie auf dem Archiv-Node definieren, und der Wert von MAXNUMMP ist auf die Anzahl der Bandlaufwerke festgelegt, die für Archive Node Store-Sessions reserviert sind.
+
++
+
+NOTE: Durch die Registrierung eines Knotens wird standardmäßig eine Administrator-Benutzer-ID mit der Berechtigung des Clienteigentümers erstellt, wobei das für den Knoten definierte Passwort angegeben ist.
+
+
