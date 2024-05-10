@@ -22,7 +22,7 @@ NOTE: Die Unterstützung für Swift-Client-Anwendungen wurde veraltet und wird i
 * Sie haben die geprüft link:managing-load-balancing.html["Überlegungen zum Lastausgleich"].
 * Wenn Sie zuvor einen Port neu zugeordnet haben, den Sie für den Load Balancer-Endpunkt verwenden möchten, haben Sie diesen link:../maintain/removing-port-remaps.html["Port-Remap wurde entfernt"].
 * Sie haben alle Hochverfügbarkeitsgruppen (High Availability groups, die Sie verwenden möchten, erstellt. HA-Gruppen werden empfohlen, jedoch nicht erforderlich. Siehe link:managing-high-availability-groups.html["Management von Hochverfügbarkeitsgruppen"].
-* Wenn der Endpunkt des Load Balancer von verwendet wird link:../admin/manage-s3-select-for-tenant-accounts.html["S3 Mandanten für S3 Select"], Es darf die IP-Adressen oder FQDNs von Bare-Metal-Knoten nicht verwenden. Für die bei S3 Select verwendeten Load Balancer-Endpunkte sind nur SG100- oder SG1000-Appliances und VMware-basierte Software-Nodes zulässig.
+* Wenn der Endpunkt des Load Balancer von verwendet wird link:../admin/manage-s3-select-for-tenant-accounts.html["S3 Mandanten für S3 Select"], Es darf die IP-Adressen oder FQDNs von Bare-Metal-Knoten nicht verwenden. Für die für S3 Select verwendeten Load Balancer-Endpunkte sind nur Service-Appliances und VMware-basierte Software-Nodes zulässig.
 * Sie haben alle VLAN-Schnittstellen konfiguriert, die Sie verwenden möchten. Siehe link:configure-vlan-interfaces.html["Konfigurieren Sie die VLAN-Schnittstellen"].
 * Wenn Sie einen HTTPS-Endpunkt erstellen (empfohlen), haben Sie die Informationen für das Serverzertifikat.
 +

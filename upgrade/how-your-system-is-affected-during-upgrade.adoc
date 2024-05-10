@@ -49,6 +49,7 @@ Während der StorageGRID 11.8-Aktualisierung:
 * SG100 und SG1000 Appliances werden automatisch auf die BIOS-Firmware-Version 3B12.EC und BMC-Firmware-Version 4.73.07 aktualisiert.
 * Die SGF6112-Appliance wird automatisch auf die BIOS-Firmware-Version 3A10.QD und BMC-Firmware-Version 3.15.07 aktualisiert.
 * SGF6112 wird vom Legacy-Startmodus in den UEFI-Startmodus umgewandelt, wobei Secure Boot aktiviert ist.
+* SG110 und SG1100 Appliances wurden mit StorageGRID 11.8-kompatibler BIOS-Firmware geliefert.
 
 
 

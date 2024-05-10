@@ -2,7 +2,7 @@
 permalink: maintain/starting-software-installation-on-services-appliance-recovery.html 
 sidebar: sidebar 
 keywords: storagegrid, recover, services appliance, start software installation 
-summary: Um einen Gateway-Node oder Admin-Node auf einer SG100- oder SG1000-Service-Appliance zu installieren, verwenden Sie das Installationsprogramm der StorageGRID-Appliance, das auf der Appliance enthalten ist. 
+summary: Um einen Gateway-Knoten oder einen Admin-Knoten auf einer Service-Appliance zu installieren, verwenden Sie den StorageGRID-Appliance-Installer, der in der Appliance enthalten ist. 
 ---
 = Starten der Softwareinstallation auf der Services-Appliance
 :allow-uri-read: 
@@ -11,7 +11,7 @@ summary: Um einen Gateway-Node oder Admin-Node auf einer SG100- oder SG1000-Serv
 
 
 [role="lead"]
-Um einen Gateway-Node oder Admin-Node auf einer SG100- oder SG1000-Service-Appliance zu installieren, verwenden Sie das Installationsprogramm der StorageGRID-Appliance, das auf der Appliance enthalten ist.
+Um einen Gateway-Knoten oder einen Admin-Knoten auf einer Service-Appliance zu installieren, verwenden Sie den StorageGRID-Appliance-Installer, der in der Appliance enthalten ist.
 
 .Bevor Sie beginnen
 * Die Appliance ist in einem Rack installiert, mit Ihren Netzwerken verbunden und eingeschaltet.
@@ -31,7 +31,7 @@ NOTE: Eine aktuelle Version der StorageGRID-Software wird während der Fertigung
 
 
 .Über diese Aufgabe
-So installieren Sie die StorageGRID-Software auf einer SG100- oder SG1000-Services-Appliance:
+So installieren Sie die StorageGRID-Software auf einer Service-Appliance:
 
 * Für einen primären Admin-Node geben Sie den Namen des Knotens an und laden dann die entsprechenden Softwarepakete hoch (falls erforderlich).
 * Für einen nicht-primären Admin-Node oder einen Gateway-Node geben Sie die IP-Adresse des primären Admin-Node und den Namen des Node an oder bestätigen Sie diese.
@@ -41,7 +41,7 @@ So installieren Sie die StorageGRID-Software auf einer SG100- oder SG1000-Servic
 
 
 .Schritte
-. Öffnen Sie einen Browser, und geben Sie eine der IP-Adressen für die SG100- oder SG1000-Services-Appliance ein.
+. Öffnen Sie einen Browser, und geben Sie eine der IP-Adressen für die Services-Appliance ein.
 +
 `https://_Controller_IP_:8443`
 

@@ -39,22 +39,29 @@ link:specifying-urn-for-platform-services-endpoint.html["URN für Endpunkt von P
 +
 [role="tabbed-block"]
 ====
-.Endpunkte der AWS-Integration für Suchanfragen
+.Endpunkte für die Suchintegration
 --
-Für Endpunkte der AWS-Suchintegration können Sie die folgenden Anmeldedaten verwenden:
+Für Endpunkte der Suchintegration können Sie die folgenden Anmeldeinformationen verwenden:
 
 *** Zugriffsschlüssel: Zugriffsschlüssel-ID und geheimer Zugriffsschlüssel
 *** Basic HTTP: Benutzername und Passwort
-*** CAP (C2S Access Portal): Temporäre Anmeldeinformationen URL, Server- und Client-Zertifikate, Clientschlüssel und eine optionale private Client-Schlüssel-Passphrase.
 
 
 --
-.CloudMirror Replizierung und Amazon SNS-Endpunkte
+.Endpunkte der CloudMirror Replizierung
 --
-Für die CloudMirror-Replizierung und Amazon SNS-Endpunkte können Sie die folgenden Anmeldedaten verwenden:
+Für die CloudMirror-Replikation können Sie die folgenden Anmeldedaten verwenden:
 
 *** Zugriffsschlüssel: Zugriffsschlüssel-ID und geheimer Zugriffsschlüssel
 *** CAP (C2S Access Portal): Temporäre Anmeldeinformationen URL, Server- und Client-Zertifikate, Clientschlüssel und eine optionale private Client-Schlüssel-Passphrase.
+
+
+--
+.Amazon SNS-Endpunkte
+--
+Für Amazon SNS-Endpunkte können Sie die folgenden Anmeldeinformationen verwenden:
+
+*** Zugriffsschlüssel: Zugriffsschlüssel-ID und geheimer Zugriffsschlüssel
 
 
 --
@@ -136,9 +143,9 @@ NOTE: Sie können die URN eines Endpunkts nicht ändern, nachdem der Endpunkt er
 +
 [role="tabbed-block"]
 ====
-.Endpunkte der AWS-Integration für Suchanfragen
+.Endpunkte für die Suchintegration
 --
-Geben Sie die Anmeldedaten für einen Endpunkt für die Integration der AWS-Suche ein oder laden Sie sie hoch.
+Geben Sie die Anmeldeinformationen für einen Endpunkt für die Suchintegration ein, oder laden Sie sie hoch.
 
 Die von Ihnen eingegebenen Anmeldeinformationen müssen über Schreibberechtigungen für die Zielressource verfügen.
 
@@ -176,25 +183,11 @@ Verwendet einen Benutzernamen und ein Passwort, um Verbindungen zum Ziel zu auth
 ** Passwort
 
 
-
-
- a| 
-KAPPE (C2S-Zugangsportal)
- a| 
-Verwendet Zertifikate und Schlüssel zur Authentifizierung von Verbindungen zum Ziel.
- a| 
-** URL für temporäre Anmeldeinformationen
-** Server-CA-Zertifikat (PEM-Datei-Upload)
-** Client-Zertifikat (PEM-Datei-Upload)
-** Privater Client-Schlüssel (Upload der PEM-Datei, verschlüsseltes OpenSSL-Format oder unverschlüsseltes privates Schlüsselformat)
-** Private Client-Schlüssel-Passphrase (optional)
-
-
 |===
 --
-.CloudMirror Replizierung oder Amazon SNS-Endpunkte
+.Endpunkte der CloudMirror Replizierung
 --
-Geben Sie die Anmeldeinformationen für eine CloudMirror-Replikation oder einen Amazon SNS-Endpunkt ein oder laden Sie sie hoch.
+Geben Sie die Anmeldeinformationen für einen CloudMirror-Replikations-Endpunkt ein oder laden Sie sie hoch.
 
 Die von Ihnen eingegebenen Anmeldeinformationen müssen über Schreibberechtigungen für die Zielressource verfügen.
 
@@ -233,6 +226,37 @@ Verwendet Zertifikate und Schlüssel zur Authentifizierung von Verbindungen zum 
 ** Client-Zertifikat (PEM-Datei-Upload)
 ** Privater Client-Schlüssel (Upload der PEM-Datei, verschlüsseltes OpenSSL-Format oder unverschlüsseltes privates Schlüsselformat)
 ** Private Client-Schlüssel-Passphrase (optional)
+
+
+|===
+--
+.Amazon SNS-Endpunkte
+--
+Geben Sie die Anmeldeinformationen für einen Amazon SNS-Endpunkt ein oder laden Sie sie hoch.
+
+Die von Ihnen eingegebenen Anmeldeinformationen müssen über Schreibberechtigungen für die Zielressource verfügen.
+
+[cols="1a,2a,2a"]
+|===
+| Authentifizierungstyp | Beschreibung | Anmeldedaten 
+
+
+ a| 
+Anonym
+ a| 
+Gibt anonymen Zugriff auf das Ziel. Funktioniert nur für Endpunkte, bei denen die Sicherheit deaktiviert ist.
+ a| 
+Keine Authentifizierung.
+
+
+
+ a| 
+Zugriffsschlüssel
+ a| 
+Verwendet AWS Zugangsdaten für die Authentifizierung von Verbindungen mit dem Ziel
+ a| 
+** Zugriffsschlüssel-ID
+** Geheimer Zugriffsschlüssel
 
 
 |===

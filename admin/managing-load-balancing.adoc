@@ -30,7 +30,7 @@ NOTE: Obwohl der StorageGRID Load Balancer-Service der empfohlene Load-Balancing
 
 == Wie viele Nodes für Lastausgleich benötige ich?
 
-Als allgemeine Best Practice sollte jeder Standort in Ihrem StorageGRID-System zwei oder mehr Nodes mit dem Load Balancer Service umfassen. Ein Standort kann beispielsweise zwei Gateway-Nodes oder einen Admin-Node und einen Gateway-Node umfassen. Vergewissern Sie sich, dass für jeden Load-Balancing-Node eine entsprechende Netzwerk-, Hardware- oder Virtualisierungsinfrastruktur vorhanden ist, unabhängig davon, ob Sie SG100- oder SG1000-Servicegeräte, Bare Metal-Nodes oder VM-basierte Nodes verwenden.
+Als allgemeine Best Practice sollte jeder Standort in Ihrem StorageGRID-System zwei oder mehr Nodes mit dem Load Balancer Service umfassen. Ein Standort kann beispielsweise zwei Gateway-Nodes oder einen Admin-Node und einen Gateway-Node umfassen. Stellen Sie sicher, dass für jeden Load Balancing-Node eine geeignete Netzwerk-, Hardware- oder Virtualisierungsinfrastruktur bereitgestellt wird, unabhängig davon, ob Sie Services-Appliances, Bare-Metal-Nodes oder VM-basierte Nodes nutzen.
 
 
 

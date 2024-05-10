@@ -28,7 +28,7 @@ Führen Sie Vorabprüfungen durch und aktualisieren Sie den primären Admin-Node
  a| 
 Die Upgrade-Vorabprüfungen werden ausgeführt, und der primäre Admin-Node wird angehalten, aktualisiert und neu gestartet.
  a| 
-30 Minuten bis 1 Stunde, wobei SG100- und SG1000-Appliance-Nodes die meiste Zeit erfordern.
+30 Minuten bis 1 Stunde, bei Service-Appliance-Nodes, die die meiste Zeit benötigen.
 
 Ungelöste Vorabprüffehler erhöhen sich diesmal.
  a| 

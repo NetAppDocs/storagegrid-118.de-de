@@ -25,7 +25,7 @@ Für alle StorageGRID Nodes ist das BS-Laufwerk und alle Storage Volumes ein Wri
 
 == Anforderungen für Virtual Machines, die NetApp ONTAP Storage nutzen
 
-Wenn Sie einen StorageGRID-Knoten als Virtual Machine mit Speicher von einem NetApp ONTAP-System bereitstellen, haben Sie bestätigt, dass für das Volume keine FabricPool-Tiering-Richtlinie aktiviert ist. Wenn ein StorageGRID Node beispielsweise als virtuelle Maschine auf einem VMware-Host ausgeführt wird, stellen Sie sicher, dass für das Volume, das den Datastore für den Node unterstützt, keine FabricPool-Tiering-Richtlinie aktiviert ist. Das Deaktivieren von FabricPool Tiering für Volumes, die in Verbindung mit StorageGRID Nodes verwendet werden, vereinfacht die Fehlerbehebung und Storage-Vorgänge.
+Wenn Sie einen StorageGRID-Knoten als Virtual Machine mit Speicher von einem NetApp ONTAP-System bereitstellen, haben Sie bestätigt, dass für das Volume keine FabricPool-Tiering-Richtlinie aktiviert ist. Wenn beispielsweise ein StorageGRID-Knoten als virtuelle Maschine auf einem VMware-Host ausgeführt wird, stellen Sie sicher, dass für das Volume, das den Datastore für den Node sichert, keine FabricPool-Tiering-Richtlinie aktiviert ist. Das Deaktivieren von FabricPool Tiering für Volumes, die in Verbindung mit StorageGRID Nodes verwendet werden, vereinfacht die Fehlerbehebung und Storage-Vorgänge.
 
 
 NOTE: Verwenden Sie FabricPool niemals, um StorageGRID-bezogene Daten in das Tiering zurück zu StorageGRID selbst zu verschieben. Das Tiering von StorageGRID-Daten zurück in die StorageGRID verbessert die Fehlerbehebung und reduziert die Komplexität von betrieblichen Abläufen.
@@ -84,6 +84,8 @@ Maximale getestete LUN-Größe: 39 TB.
  a| 
 Storage-Node (nur Metadaten)
  a| 
+100 GB LUN FÜR OS
+
 1 LUN
 
 Mindestgröße pro LUN: 4 TB

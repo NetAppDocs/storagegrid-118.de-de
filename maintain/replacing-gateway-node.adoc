@@ -35,7 +35,7 @@ link:all-node-types-replacing-linux-node.html["Ersetzen Sie einen Linux-Knoten"]
 
 
  a| 
-SG100- und SG1000-Services-Appliances
+Service-Appliances
  a| 
 link:replacing-failed-node-with-services-appliance.html["Ersetzen Sie eine Service Appliance"]
 

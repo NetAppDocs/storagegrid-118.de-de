@@ -24,6 +24,6 @@ Sie haben die folgenden Informationen über den ausgefallenen Node:
 Führen Sie diese Vorgehensweise nur aus, wenn Sie einen ausgefallenen Node, der auf VMware oder Linux gehostet wurde, wiederherstellen und diesen durch einen Node ersetzen, der auf einer Services Appliance gehostet wird.
 
 .Schritte
-. Befolgen Sie die Anweisungen zum Installieren einer neuen SG100- oder SG1000-Services-Appliance. Siehe https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/index.html["Schnellstart für die Hardwareinstallation"^].
+. Befolgen Sie die Anweisungen zum Installieren eines neuen Service-Geräts. Siehe https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/index.html["Schnellstart für die Hardwareinstallation"^].
 . Verwenden Sie bei der Aufforderung zu einem Node-Namen den Node-Namen des ausgefallenen Node.
 

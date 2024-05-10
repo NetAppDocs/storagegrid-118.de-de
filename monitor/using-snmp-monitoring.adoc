@@ -70,6 +70,8 @@ Die Tabelle bietet eine allgemeine Zusammenfassung der unterstützten SNMP-Versi
 
  a| 
 Abfragen
+
+(GET und GETNEXT)
  a| 
 Schreibgeschützte MIB-Abfragen
  a| 
@@ -92,6 +94,8 @@ Benutzer des benutzerbasierten Sicherheitsmodells (USM)
 
  a| 
 Benachrichtigungen
+
+(TRAP und INFORM)
  a| 
 Nur Traps
  a| 

@@ -57,7 +57,7 @@ Die SelectObjectContent-Anforderung muss an ein gesendet werden link:configuring
 
 Die vom Endpunkt verwendeten Admin- und Gateway-Nodes müssen einen der folgenden sein:
 
-* Ein SG100- oder SG1000-Appliance-Node
+* Ein Knoten der Service-Appliance
 * Ein auf VMware basierender Software-Node
 * Ein Bare-Metal-Knoten, auf dem ein Kernel mit aktivierter cgroup v2 ausgeführt wird
 

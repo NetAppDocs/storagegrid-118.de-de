@@ -23,7 +23,7 @@ Jede HA-Gruppe bietet Zugriff auf die Shared Services auf den ausgewählten Node
 
 * HA-Gruppen, die Gateway-Nodes, Admin-Nodes oder beide umfassen, bieten hochverfügbare Datenverbindungen für S3- und Swift-Clients.
 * HA-Gruppen, die nur Admin-Nodes enthalten, bieten hochverfügbare Verbindungen zum Grid Manager und dem Mandanten-Manager.
-* Eine HA-Gruppe, die nur SG100- oder SG1000-Appliances und VMware-basierte Software-Nodes enthält, kann für hochverfügbare Verbindungen bereitstellen link:../admin/manage-s3-select-for-tenant-accounts.html["S3-Mandanten, die S3 Select nutzen"].
+* Eine HA-Gruppe, die nur Service Appliances und VMware-basierte Software Nodes umfasst, kann hochverfügbare Verbindungen für bereitstellen link:../admin/manage-s3-select-for-tenant-accounts.html["S3-Mandanten, die S3 Select nutzen"].
 HA-Gruppen werden empfohlen, wenn S3 Select verwendet wird, jedoch nicht erforderlich.
 
 
