@@ -44,7 +44,7 @@ Um Zeit zu sparen und Konsistenz zu gewährleisten, können Sie die Installation
 
 * Nutzen Sie ein Standard-Orchestrierungs-Framework wie Ansible, Puppet oder Chef für die Automatisierung von:
 +
-** Installation von RHEL
+** Installation von Ubuntu oder Debian
 ** Konfiguration von Netzwerk und Storage
 ** Installation der Container-Engine und des StorageGRID-Host-Service
 ** Implementierung von Virtual Grid-Nodes

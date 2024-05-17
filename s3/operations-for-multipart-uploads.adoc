@@ -31,9 +31,9 @@ Die folgenden Bedingungen und Hinweise gelten für alle mehrteiligen Uploadvorg�
 
 
 * Alle mehrteiligen Uploads unterstützen StorageGRID link:consistency-controls.html["Konsistenzwerte"].
+* Wenn ein Objekt mithilfe von mehrteiligen Uploads aufgenommen wird, wird der angezeigt link:../admin/what-object-segmentation-is.html["Schwellenwert für Objektsegmentierung (1 gib)"] Wird nicht angewendet.
 * Nach Bedarf können Sie verwenden link:using-server-side-encryption.html["Serverseitige Verschlüsselung"] Mit mehrteiligen Uploads. Um SSE (serverseitige Verschlüsselung mit über StorageGRID gemanagten Schlüsseln) zu verwenden, müssen Sie das angeben `x-amz-server-side-encryption` Request Header nur in der CreateMultipartUpload-Anforderung. Um SSE-C (serverseitige Verschlüsselung mit vom Kunden bereitgestellten Schlüsseln) zu verwenden, geben Sie in der CreateMultipartUpload-Anforderung und in jeder nachfolgenden UploadPart-Anforderung die gleichen drei Verschlüsselungsschlüsselanforderungsheader an.
-
-
++
 [cols="2a,3a"]
 |===
 | Betrieb | Implementierung 
@@ -89,3 +89,4 @@ UploadPartCopy
 Siehe link:upload-part-copy.html["UploadPartCopy"]
 
 |===
+
