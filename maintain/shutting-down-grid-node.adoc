@@ -66,6 +66,13 @@ Bei diesem Befehl wird der Controller heruntergefahren, das Gerät ist jedoch we
 +
 [role="tabbed-block"]
 ====
+.SG6160
+--
+.. Schalten Sie den SG6100-CN-Speicher-Controller aus.
+.. Warten Sie, bis die blaue LED-Betriebsanzeige am SG6100-CN-Speicher-Controller ausgeschaltet ist.
+
+
+--
 .SGF6112
 --
 .. Schalten Sie das Gerät aus.

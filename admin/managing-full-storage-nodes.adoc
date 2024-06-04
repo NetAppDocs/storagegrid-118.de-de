@@ -23,7 +23,7 @@ Jeder Storage-Node unterstützt eine maximale Anzahl an Storage-Volumes. Der def
 
 == Hinzufügen von Shelfs zur Storage-Erweiterung
 
-Einige Storage-Nodes von StorageGRID Appliances, z. B. SG6060, können zusätzliche Storage-Shelfs unterstützen. Bei StorageGRID Appliances mit Erweiterungsfunktionen, die nicht bereits auf die maximale Kapazität erweitert wurden, können Sie Storage-Shelfs zur Steigerung der Kapazität hinzufügen. Siehe Anweisungen für link:../expand/index.html["Erweitern eines StorageGRID Systems"].
+Einige Storage-Nodes der StorageGRID Appliance, z. B. SG6060 oder SG6160, können zusätzliche Storage-Shelfs unterstützen. Bei StorageGRID Appliances mit Erweiterungsfunktionen, die nicht bereits auf die maximale Kapazität erweitert wurden, können Sie Storage-Shelfs zur Steigerung der Kapazität hinzufügen. Siehe Anweisungen für link:../expand/index.html["Erweitern eines StorageGRID Systems"].
 
 
 

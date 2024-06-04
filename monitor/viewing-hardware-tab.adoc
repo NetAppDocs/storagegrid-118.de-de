@@ -266,7 +266,7 @@ Die numerische Kennung für das Storage-Shelf.
 *** 1: Zweites Erweiterungs-Shelf
 
 
-*Hinweis:* Erweiterungseinschübe gelten nur für das SG6060.
+*Hinweis:* Erweiterungseinschübe gelten nur für die SG6060 und SG6160.
 
 
 

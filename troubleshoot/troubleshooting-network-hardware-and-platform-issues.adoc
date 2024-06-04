@@ -180,6 +180,7 @@ NOTE: Diese Schritte gelten nur für NRER-Fehler, die durch FEC-Nichtübereinsti
 .. Überprüfen Sie die physikalische Integrität der Kabel vom Gerät zum Switch.
 .. Wenn Sie die FEC-Einstellungen ändern möchten, um zu versuchen, den NRER-Alarm zu lösen, stellen Sie zunächst sicher, dass das Gerät auf der Seite Verbindungskonfiguration des Installationsprogramms für das StorageGRID-Gerät für den Modus *Auto* konfiguriert ist (siehe Anweisungen für Ihr Gerät:
 +
+*** https://docs.netapp.com/us-en/storagegrid-appliances/sg6100/changing-link-configuration-of-sgf6112-appliance.html["SG6160"^]
 *** https://docs.netapp.com/us-en/storagegrid-appliances/sg6100/changing-link-configuration-of-sgf6112-appliance.html["SGF6112"^]
 *** https://docs.netapp.com/us-en/storagegrid-appliances/sg6000/changing-link-configuration-of-sg6000-cn-controller.html["SG6000"^]
 *** https://docs.netapp.com/us-en/storagegrid-appliances/sg5700/changing-link-configuration-of-e5700sg-controller.html["SG5700"^]

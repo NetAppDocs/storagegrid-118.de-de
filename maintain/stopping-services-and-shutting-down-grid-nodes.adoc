@@ -74,6 +74,12 @@ Bei diesem Befehl wird der Compute-Controller heruntergefahren, das Gerät ist j
 ... Warten Sie, bis die blaue Betriebs-LED erlischt.
 
 
+** Für die SG6160 Appliance
++
+... Schalten Sie den SG6100-CN-Speicher-Controller aus.
+... Warten Sie, bis die blaue LED-Betriebsanzeige am SG6100-CN-Speicher-Controller ausgeschaltet ist.
+
+
 ** Für das SG6000-Gerät
 +
 ... Warten Sie, bis die grüne LED Cache Active auf der Rückseite der Storage Controller ausgeschaltet ist.
@@ -101,7 +107,7 @@ Das StorageGRID-Grid wurde jetzt heruntergefahren.
 
 
 .Verwandte Informationen
-https://docs.netapp.com/us-en/storagegrid-appliances/sg6100/index.html["SGF6112 Storage Appliances"^]
+https://docs.netapp.com/us-en/storagegrid-appliances/sg6100/index.html["SGF6112 und SG6160 Storage Appliances"^]
 
 https://docs.netapp.com/us-en/storagegrid-appliances/sg6000/index.html["SG6000 Storage-Appliances"^]
 

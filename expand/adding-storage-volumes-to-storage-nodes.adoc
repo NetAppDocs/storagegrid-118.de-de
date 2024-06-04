@@ -17,7 +17,7 @@ Sie können die Storage-Kapazität von Storage-Nodes mit maximal 16 Storage-Volu
 Prüfen Sie vor dem Hinzufügen von Speicher-Volumes den link:guidelines-for-adding-object-capacity.html["Richtlinien zum Hinzufügen von Objektkapazität"] Um sicherzustellen, dass Sie wissen, wo Volumes hinzugefügt werden müssen, um die Anforderungen Ihrer ILM-Richtlinie zu erfüllen.
 
 
-NOTE: Diese Anweisungen gelten nur für softwarebasierte Speicherknoten. Siehe https://docs.netapp.com/us-en/storagegrid-appliances/sg6000/adding-expansion-shelf-to-deployed-sg6060.html["Erweiterungs-Shelf für das implementierte SG6060 hinzufügen"^] Erfahren Sie, wie Sie Storage Volumes zum SG6060 hinzufügen, indem Sie Erweiterungs-Shelfs installieren. Storage-Nodes anderer Appliances können nicht erweitert werden.
+NOTE: Diese Anweisungen gelten nur für softwarebasierte Speicherknoten. Siehe https://docs.netapp.com/us-en/storagegrid-appliances/sg6000/adding-expansion-shelf-to-deployed-sg6060.html["Erweiterungs-Shelf für das implementierte SG6060 hinzufügen"^] Oder https://docs.netapp.com/us-en/storagegrid-appliances/sg6100/adding-expansion-shelf-to-deployed-sg6160.html["Erweiterungs-Shelf zu implementiertem SG6160 hinzufügen"^] Erfahren Sie, wie Sie durch Installation von Erweiterungs-Shelfs Speicher-Volumes zum SG6060 oder SG6160 hinzufügen. Storage-Nodes anderer Appliances können nicht erweitert werden.
 
 .Über diese Aufgabe
 Der zugrunde liegende Storage eines Storage-Node wird in Storage-Volumes unterteilt. Storage Volumes sind blockbasierte Storage-Geräte, die vom StorageGRID System formatiert und zum Speichern von Objekten gemountet werden. Jeder Storage Node kann bis zu 16 Storage Volumes unterstützen, die im Grid Manager als _Object Stores_ bezeichnet werden.
