@@ -114,6 +114,18 @@ Diese LED leuchtet, wenn zwischengespeicherte Daten auf die Laufwerke geschriebe
 
 
 --
+.SG5800
+--
+.. Warten Sie, bis die grüne LED Cache Active auf der Rückseite des Storage Controllers ausgeschaltet ist.
++
+Diese LED leuchtet, wenn zwischengespeicherte Daten auf die Laufwerke geschrieben werden müssen. Sie müssen warten, bis diese LED ausgeschaltet ist, bevor Sie den Strom ausschalten.
+
+.. Wählen Sie auf der Startseite des SANtricity System Managers die Option *Vorgänge in Bearbeitung anzeigen*.
+.. Bestätigen Sie, dass alle Vorgänge abgeschlossen wurden, bevor Sie mit dem nächsten Schritt fortfahren.
+.. Schalten Sie beide Netzschalter am Controller Shelf aus und warten Sie, bis alle LEDs am Controller Shelf ausgeschaltet sind.
+
+
+--
 .SG5700
 --
 .. Warten Sie, bis die grüne LED Cache Active auf der Rückseite des Storage Controllers ausgeschaltet ist.
@@ -167,5 +179,6 @@ Sie können diese Knoten in beliebiger Reihenfolge einschalten.
 * https://docs.netapp.com/us-en/storagegrid-appliances/sg110-1100/index.html["Service Appliances für SG110 und SG1100"^]
 * https://docs.netapp.com/us-en/storagegrid-appliances/sg100-1000/index.html["SG100- und SG1000-Services-Appliances"^]
 * https://docs.netapp.com/us-en/storagegrid-appliances/sg6000/index.html["SG6000 Storage-Appliances"^]
+* https://docs.netapp.com/us-en/storagegrid-appliances/sg5800/index.html["Storage Appliances der SG5800"^]
 * https://docs.netapp.com/us-en/storagegrid-appliances/sg5700/index.html["Storage Appliances der SG5700"^]
 
