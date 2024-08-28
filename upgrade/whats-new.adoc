@@ -42,6 +42,12 @@ Verbesserungen bei SGF6112:: Unterstützung von StorageGRID 11.8 und StorageGRID
 == Konfiguration und Management
 
 Standard für das gesamte Consistency Grid:: Sie können die ändern link:../s3/consistency-controls.html["Grid-weite Standardkonsistenz"] Verwenden des Grid Manager oder des Grid-config-Endpunkts des link:../admin/using-grid-management-api.html["Private Grid-Management-API"]. Der neue Standard wird auf Buckets angewendet, die nach der Änderung erstellt wurden.
+Standard-Überwachungsziele:: Neuinstallationen von StorageGRID 11.8 standardmäßig auf lokale Knoten-Überwachungsziele. Zuvor wurden (`/var/local/log/audit.log`nur auf Admin-Knoten Überwachungsmeldungen an das Audit-Protokoll gesendet.
++
+--
+Informationen zum Ändern von Überwachungsprotokollzielen finden Sie unter link:../monitor/configure-audit-messages.html#Select-audit-information-destinations["Wählen Sie Ziele für Audit-Informationen aus"].
+
+--
 ILM-Richtlinien-Tags:: Erlaubt ILM-Richtlinien pro Bucket, die mit Bucket-Tags gesteuert werden Es können mehrere aktive und inaktive ILM-Richtlinien gleichzeitig vorhanden sein. Siehe link:../ilm/ilm-policy-overview.html["ILM-Richtlinien:Übersicht"].
 Kafka-Endpunkte:: Unterstützung für Kafka-Endpunkte für link:../tenant/understanding-notifications-for-buckets.html["Bucket-Ereignisbenachrichtigungen"].
 Load Balancer für den Datenverkehr der Managementoberfläche:: Erstellen Sie Load Balancer-Endpunkte, um den Workload der Managementoberfläche auf Admin-Nodes zu verwalten. Siehe link:../admin/managing-load-balancing.html["Überlegungen zum Lastausgleich"]. Im Rahmen dieser Änderung können Sie jetzt die Ports 443, 8443 und 9443 von Grid Manager und Tenant Manager verwenden, wenn Sie HTTPS-Load-Balancer-Endpunkte für den S3- oder Swift-Client-Zugriff erstellen.

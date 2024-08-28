@@ -601,7 +601,7 @@ TIP: *Nur lokale Knoten* und *externer Syslog-Server* bieten normalerweise eine 
 
 
  a| 
-Nur lokale Nodes
+Nur lokale Knoten (Standard)
  a| 
 Überwachungsmeldungen, Sicherheitsereignisprotokolle und Anwendungsprotokolle werden nicht an Admin-Nodes gesendet. Stattdessen werden sie nur auf den Knoten gespeichert, die sie generiert haben („der lokale Knoten“). Die auf jedem lokalen Knoten generierten Audit-Informationen werden in gespeichert `/var/local/log/localaudit.log`
 
