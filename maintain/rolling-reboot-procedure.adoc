@@ -131,5 +131,5 @@ Sie können das Rolling-Reboot-Verfahren vom primären Admin-Node aus stoppen. W
 
 .Schritte
 . Wählen Sie *MAINTENANCE* > *Tasks* > *Rolling reboot*.
-. Wählen Sie im Schritt *Monitor reboot* die Option *Neustart stoppen* aus.
+. Wählen Sie im Schritt *Monitor reboot* die Option *Neustart stoppen*.
 

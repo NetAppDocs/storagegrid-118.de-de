@@ -64,7 +64,7 @@ AutoSupport Druckgröße +
 AutoSupport dekomprimierte Größe +
 Erfassungszeit insgesamt (ms)
  a| 
-AutoSupport-Verlaufsdatei
+AutoSupport-Verlaufsdatei.
 
 
 
@@ -158,6 +158,29 @@ Statusdatei für Grid Tasks (Maintenance Procedures). Enthält Details zu den ak
 
 
  a| 
+GRID.JSON
+ a| 
+Grid + Revision + Softwareversion + Beschreibung + Lizenz + Passwörter + DNS + NTP + Sites + Nodes
+ a| 
+Grid-Informationen.
+
+
+
+ a| 
+ILM-CONFIGURATION.XML
+ a| 
+Attribut-ID +
+Attributname +
+Wert +
+Index +
+Tabelle ID +
+Tabellenname
+ a| 
+Liste der Attribute für ILM-Konfigurationen
+
+
+
+ a| 
 ILM-STATUS.XML
  a| 
 Knoten +
@@ -178,7 +201,7 @@ ILM.XML
  a| 
 ILM-RAW XML
  a| 
-Aktive ILM-Richtliniendatei Enthält Details zu aktiven ILM-Richtlinien, z. B. Storage-Pool-ID, Aufnahmeverhalten, Filter, Regeln und Beschreibung
+Aktive ILM-Richtliniendatei Enthält Details zu aktiven ILM-Richtlinien, z. B. Storage-Pool-ID, Aufnahmeverhalten, Filter, Regeln und Beschreibung Enthält außerdem den XML-Code für die standardmäßige ILM-Richtlinie.
 
 
 

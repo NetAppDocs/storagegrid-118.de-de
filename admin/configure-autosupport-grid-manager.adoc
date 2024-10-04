@@ -80,7 +80,7 @@ Sie können das automatische Senden von wöchentlichen AutoSupport-Paketen jeder
 
 == Deaktivieren Sie ereignisgesteuerte AutoSupport
 
-Standardmäßig ist das StorageGRID System so konfiguriert, dass es AutoSupport jede Stunde oder wenn eine wichtige Warnmeldung oder ein anderes bedeutendes Systemereignis an den technischen Support sendet.
+Standardmäßig ist das StorageGRID System so konfiguriert, dass jede Stunde ein AutoSupport-Paket an den technischen Support gesendet wird.
 
 Sie können ereignisgesteuerte AutoSupport jederzeit deaktivieren.
 

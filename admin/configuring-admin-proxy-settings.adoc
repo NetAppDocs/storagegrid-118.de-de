@@ -38,7 +38,7 @@ Lassen Sie diese Felder leer, wenn Ihr Proxyserver keinen Benutzernamen oder kei
 
 . Wählen Sie eine der folgenden Optionen:
 +
-** Wenn Sie die Verbindung zum Admin-Proxy sichern möchten, wählen Sie *Zertifikat überprüfen*. Laden Sie ein CA-Bundle hoch, um die Authentizität der SSL-Zertifikate zu überprüfen, die vom Administrator-Proxy-Server präsentiert werden.
+** Wenn Sie die Verbindung zum Admin-Proxy sichern möchten, wählen Sie *Proxy-Zertifikat überprüfen* aus. Laden Sie ein CA-Bundle hoch, um die Authentizität der SSL-Zertifikate zu überprüfen, die vom Administrator-Proxy-Server präsentiert werden.
 +
 
 CAUTION: AutoSupport On-Demand, E-Series AutoSupport über StorageGRID und die Ermittlung des Aktualisierungspfads auf der StorageGRID Upgrade-Seite funktionieren nicht, wenn ein Proxy-Zertifikat verifiziert wurde.
@@ -46,7 +46,7 @@ CAUTION: AutoSupport On-Demand, E-Series AutoSupport über StorageGRID und die E
 +
 Nach dem Hochladen des CA-Bündels werden die zugehörigen Metadaten angezeigt.
 
-** Wenn Sie Zertifikate bei der Kommunikation mit dem Admin-Proxyserver nicht überprüfen möchten, wählen Sie *Zertifikat nicht verifizieren*.
+** Wenn Sie Zertifikate bei der Kommunikation mit dem Admin-Proxyserver nicht überprüfen möchten, wählen Sie *Proxy-Zertifikat nicht verifizieren*.
 
 
 . Wählen Sie *Speichern*.
