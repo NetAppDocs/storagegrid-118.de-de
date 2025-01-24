@@ -53,8 +53,6 @@ Die Ergebnisse der Objektmetadaten werden angezeigt. Auf dieser Seite werden die
 ** Bei Objektkopien in einem Cloud Storage Pool befindet sich der Speicherort des Objekts, einschließlich des Namens des externen Buckets und der eindeutigen Kennung des Objekts.
 ** Für segmentierte Objekte und mehrteilige Objekte, eine Liste von Objektsegmenten einschließlich Segment-IDs und Datengrößen. Bei Objekten mit mehr als 100 Segmenten werden nur die ersten 100 Segmente angezeigt.
 ** Alle Objekt-Metadaten im nicht verarbeiteten internen Speicherformat. Diese RAW-Metadaten enthalten interne System-Metadaten, die nicht garantiert werden, dass sie über Release bis Release beibehalten werden.
-
-
 +
 Das folgende Beispiel zeigt die Ergebnisse für die Suche nach Objektmetadaten für ein S3-Testobjekt, das als zwei replizierte Kopien gespeichert ist.
 
@@ -64,6 +62,8 @@ NOTE: Der folgende Screenshot ist ein Beispiel. Die Ergebnisse variieren je nach
 
 +
 image::../media/object_lookup_results.png[Ergebnisse Für Objekt-Lookup]
+
+
 
 . Vergewissern Sie sich, dass das Objekt am richtigen Ort und an den richtigen Stellen gespeichert ist und dass es sich um den richtigen Kopiertyp handelt.
 +

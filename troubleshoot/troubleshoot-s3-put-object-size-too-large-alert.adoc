@@ -34,7 +34,7 @@ Wenn Sie als root angemeldet sind, ändert sich die Eingabeaufforderung von `$` 
 .. Eingabe `cd /var/local/log`
 .. Ermitteln Sie, welche Mandanten Objekte mit einer Größe von mehr als 5 gib verwenden.
 +
-... Eingabe `zgrep SPUT * | egrep "CSIZ\(UI64\):[0-9]*[5-9][0-9]{9}"`
+... Eingabe `zgrep SPUT * | egrep "CSIZ\(UI64\):([5-9]|[1-9][0-9]+)[0-9]{9}"`
 ... Sehen Sie sich für jede Audit-Meldung in den Ergebnissen an `S3AI` Feld, um die Konto-ID des Mandanten zu bestimmen. Verwenden Sie die anderen Felder in der Meldung, um zu bestimmen, welche IP-Adresse vom Client, vom Bucket und vom Objekt verwendet wurde:
 +
 [cols="1a,2a"]
