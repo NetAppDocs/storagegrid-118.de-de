@@ -45,7 +45,7 @@ Die Festplattenverschlüsselung ist nicht bei von SANtricity gemanagten Laufwerk
  a| 
 Laufwerkssicherheit in SANtricity System Manager
  a| 
-Wenn die Laufwerkssicherheitsfunktion für eine SG5700- oder SG6000-Speicheranwendung aktiviert ist, können Sie diese verwenden https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/accessing-and-configuring-santricity-system-manager.html["SANtricity System Manager"^] So erstellen und verwalten Sie den Sicherheitsschlüssel. Der Schlüssel ist erforderlich, um auf die Daten auf den gesicherten Laufwerken zuzugreifen.
+Wenn die Laufwerkssicherheitsfunktion für Ihre StorageGRID-Appliance aktiviert ist, können Sie den Sicherheitsschlüssel mit https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/accessing-and-configuring-santricity-system-manager.html["SANtricity System Manager"^] erstellen und verwalten. Der Schlüssel ist erforderlich, um auf die Daten auf den gesicherten Laufwerken zuzugreifen.
  a| 
 Storage-Appliances mit Full Disk Encryption-Laufwerken (FDE) oder Self-Encrypting Drives Alle Daten auf den gesicherten Laufwerken sind vor physischem Verlust oder Entfernung aus dem Datacenter geschützt. Kann nicht mit einigen Storage Appliances oder Service-Appliances verwendet werden.
 
