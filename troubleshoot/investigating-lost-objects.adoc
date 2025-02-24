@@ -60,7 +60,7 @@ Wenn Sie als root angemeldet sind, ändert sich die Eingabeaufforderung von `$` 
 
 . Verwenden Sie die `ObjectByUUID` Befehl zum Suchen des Objekts anhand seiner ID (UUID) und bestimmen Sie, ob die Daten gefährdet sind.
 +
-.. Telnet für localhost 1402 für den Zugriff auf die LDR-Konsole.
+.. Verwenden Sie SSH, um sich bei einem beliebigen Storage-Node anzumelden. Rufen Sie dann die LDR-Konsole auf, indem Sie „telnet 0 1402“ eingeben.
 .. Geben Sie Ein: `/proc/OBRP/ObjectByUUID UUID_value`
 +
 In diesem ersten Beispiel, das Objekt mit `UUID 926026C4-00A4-449B-AC72-BCCA72DD1311` Hat zwei Standorte aufgelistet.

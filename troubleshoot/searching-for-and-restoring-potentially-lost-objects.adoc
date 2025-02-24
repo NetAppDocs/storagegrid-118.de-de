@@ -120,7 +120,7 @@ NOTE: Schließen Sie den Pfad der Objektdatei immer in einzelne Anführungszeich
 . Wenn der Objektpfad gefunden wurde, versuchen Sie, das Objekt in StorageGRID wiederherzustellen:
 +
 .. Ändern Sie vom gleichen Speicherknoten aus die Eigentumsrechte an der Objektdatei, so dass sie von StorageGRID gemanagt werden kann. Geben Sie Ein: `chown ldr-user:bycast 'file_path_of_object'`
-.. Telnet für localhost 1402 für den Zugriff auf die LDR-Konsole. Geben Sie Ein: `telnet 0 1402`
+.. Verwenden Sie SSH, um sich bei einem beliebigen Storage-Node anzumelden. Rufen Sie dann die LDR-Konsole auf, indem Sie „telnet 0 1402“ eingeben.
 .. Geben Sie Ein: `cd /proc/STOR`
 .. Geben Sie Ein: `Object_Found 'file_path_of_object'`
 +

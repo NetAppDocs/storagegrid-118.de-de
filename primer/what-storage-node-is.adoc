@@ -33,6 +33,20 @@ NOTE: Sie können den Storage-Node-Typ nur auswählen, wenn Sie den softwarebasi
 
 Die Installation eines Node, der nur Metadaten enthält, ist in der Regel nicht erforderlich. Die ausschließliche Verwendung eines Storage-Nodes für Metadaten kann jedoch sinnvoll sein, wenn Ihr Grid eine sehr große Anzahl kleiner Objekte speichert. Die Installation von dedizierten Metadaten sorgt für ein besseres Gleichgewicht zwischen dem für eine sehr große Anzahl an kleinen Objekten erforderlichen Speicherplatz und dem für alle Metadaten erforderlichen Speicherplatz.
 
+Die Node-Ressourcen, die nur auf Softwarebasierten Metadaten basieren, müssen mit den vorhandenen Storage-Nodes-Ressourcen übereinstimmen. Beispiel:
+
+* Wenn der bestehende StorageGRID Standort SG6000 oder SG6100 Appliances verwendet, müssen die rein softwarebasierten Nodes mit Metadaten die folgenden Mindestanforderungen erfüllen:
++
+** 128 GB RAM
+** 8-Core-CPU
+** 8 TB SSD oder äquivalenter Storage für die Cassandra-Datenbank (rangedb/0)
+
+
+* Wenn der bestehende StorageGRID-Standort virtuelle Storage-Nodes mit 24 GB RAM, 8 Kern-CPUs und 3 TB oder 4 TB Metadaten-Storage verwendet, sollten die rein softwarebasierten Metadaten-Nodes ähnliche Ressourcen verwenden (24 GB RAM, 8 Kern-CPU und 4 TB Metadaten-Storage (rangedb/0).
+
+
+Beim Hinzufügen eines neuen StorageGRID Standorts sollte die Metadaten-Gesamtkapazität des neuen Standorts mindestens den vorhandenen StorageGRID Standorten entsprechen, und neue Standortressourcen sollten den Storage-Nodes an den vorhandenen StorageGRID Standorten entsprechen.
+
 Bei der Installation eines Grid mit softwarebasierten, metadatenbasierten Nodes muss das Grid auch eine Mindestanzahl an Nodes für Objekt-Storage enthalten:
 
 * Für ein Grid an einem Standort werden mindestens zwei Storage-Nodes für Objekte und Metadaten konfiguriert.
