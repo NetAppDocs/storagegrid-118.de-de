@@ -184,7 +184,7 @@ Ein grünes Banner zeigt an, dass Ihre Konfiguration gespeichert wurde.
 Optional können Sie einen externen Syslog-Server konfigurieren, um Audit-Protokolle, Anwendungsprotokolle und Sicherheitsereignisprotokolle an einem Ort außerhalb des Grids zu speichern.
 
 
-NOTE: Wenn Sie keinen externen Syslog-Server verwenden möchten, überspringen Sie diesen Schritt, und fahren Sie mit fort <<Select-audit-information-destinations,Wählen Sie Ziele für Audit-Informationen aus>>.
+NOTE: Wenn Sie keinen externen Syslog-Server verwenden möchten, überspringen Sie diesen Schritt und gehen Sie zu <<select-audit-information-destinations,Wählen Sie Ziele für Audit-Informationen aus>>.
 
 
 TIP: Wenn die in diesem Verfahren verfügbaren Konfigurationsoptionen nicht flexibel genug sind, um Ihre Anforderungen zu erfüllen, können Sie zusätzliche Konfigurationsoptionen mithilfe des anwenden `audit-destinations` Endpunkte, die sich im Abschnitt „Private API“ der befinden link:../admin/using-grid-management-api.html["Grid Management API"]. Sie können beispielsweise die API verwenden, wenn Sie unterschiedliche Syslog-Server für verschiedene Knotengruppen verwenden möchten.
@@ -585,9 +585,15 @@ NOTE: StorageGRID-Audit-Informationen werden erst dann an den externen Syslog-Se
 
 Sie können festlegen, wo Audit-Protokolle, Sicherheitsereignisprotokolle und link:../monitor/storagegrid-software-logs.html["StorageGRID-Softwareprotokolle"] Werden gesendet.
 
+[NOTE]
+====
+StorageGRID verwendet standardmäßig lokale Überwachungsziele für Knoten und speichert die Audit-Informationen in `/var/local/log/localaudit.log`.
 
-NOTE: Einige Ziele sind nur verfügbar, wenn Sie einen externen Syslog-Server konfiguriert haben.
+Bei Verwendung von `/var/local/log/localaudit.log` werden die Audit-Protokolleinträge für Grid Manager und Tenant Manager möglicherweise an einen Storage Node gesendet. Mit dem Befehl finden Sie den Node mit den neuesten Einträgen `run-each-node --parallel "zgrep MGAU /var/local/log/localaudit.log | tail"`.
 
+Einige Ziele sind nur verfügbar, wenn Sie einen externen Syslog-Server konfiguriert haben.
+
+====
 .Schritte
 . Wählen Sie auf der Seite Audit and syslog Server das Ziel für Audit-Informationen aus.
 +
@@ -603,7 +609,7 @@ TIP: *Nur lokale Knoten* und *externer Syslog-Server* bieten normalerweise eine 
  a| 
 Nur lokale Knoten (Standard)
  a| 
-Überwachungsmeldungen, Sicherheitsereignisprotokolle und Anwendungsprotokolle werden nicht an Admin-Nodes gesendet. Stattdessen werden sie nur auf den Knoten gespeichert, die sie generiert haben („der lokale Knoten“). Die auf jedem lokalen Knoten generierten Audit-Informationen werden in gespeichert `/var/local/log/localaudit.log`
+Überwachungsmeldungen, Sicherheitsereignisprotokolle und Anwendungsprotokolle werden nicht an Admin-Nodes gesendet. Stattdessen werden sie nur auf den Knoten gespeichert, die sie generiert haben („der lokale Knoten“). Die auf jedem lokalen Knoten generierten Audit-Informationen werden in gespeichert `/var/local/log/localaudit.log`.
 
 *Hinweis*: StorageGRID entfernt periodisch lokale Protokolle in einer Rotation, um Speicherplatz freizugeben. Wenn die Protokolldatei für einen Knoten 1 GB erreicht, wird die vorhandene Datei gespeichert und eine neue Protokolldatei gestartet. Die Rotationsgrenze für das Protokoll beträgt 21 Dateien. Wenn die 22. Version der Protokolldatei erstellt wird, wird die älteste Protokolldatei gelöscht. Auf jedem Node werden durchschnittlich etwa 20 GB an Protokolldaten gespeichert.
 
@@ -612,21 +618,25 @@ Nur lokale Knoten (Standard)
  a| 
 Admin-Nodes/lokale Nodes
  a| 
-Audit-Meldungen werden an das Audit-Protokoll gesendet (`/var/local/log/audit.log`) Auf Admin-Knoten werden Sicherheitsereignisprotokolle und Anwendungsprotokolle auf den Knoten gespeichert, die sie generiert haben.
+Audit-Meldungen werden an das Überwachungsprotokoll auf Admin-Nodes gesendet, Sicherheitsereignisprotokolle und Anwendungsprotokolle werden auf den Knoten gespeichert, die sie generiert haben. Die Audit-Informationen werden in folgenden Dateien gespeichert:
+
+** Admin-Nodes (primär und nicht primär): `/var/local/audit/export/audit.log`
+** Alle Knoten: Die `/var/local/log/localaudit.log` Datei ist normalerweise leer oder fehlt. Sie kann sekundäre Informationen enthalten, z. B. eine zusätzliche Kopie einiger Nachrichten.
+
 
 
 
  a| 
 Externer Syslog-Server
  a| 
-Audit-Informationen werden an einen externen Syslog-Server gesendet und auf den lokalen Knoten gespeichert. Die Art der gesendeten Informationen hängt davon ab, wie Sie den externen Syslog-Server konfiguriert haben. Diese Option ist erst aktiviert, nachdem Sie einen externen Syslog-Server konfiguriert haben.
+Audit-Informationen werden an einen externen Syslog-Server gesendet und auf den lokalen Knoten gespeichert (`/var/local/log/localaudit.log`). Die Art der gesendeten Informationen hängt davon ab, wie Sie den externen Syslog-Server konfiguriert haben. Diese Option ist erst aktiviert, nachdem Sie einen externen Syslog-Server konfiguriert haben.
 
 
 
  a| 
 Admin-Node und externer Syslog-Server
  a| 
-Audit-Meldungen werden an das Audit-Protokoll gesendet (`/var/local/log/audit.log`) Auf Admin-Knoten, und Audit-Informationen werden an den externen syslog-Server gesendet und auf dem lokalen Knoten gespeichert. Die Art der gesendeten Informationen hängt davon ab, wie Sie den externen Syslog-Server konfiguriert haben. Diese Option ist erst aktiviert, nachdem Sie einen externen Syslog-Server konfiguriert haben.
+Audit-Meldungen werden an das Audit-Protokoll gesendet (`/var/local/audit/export/audit.log`) auf Admin-Knoten, und Audit-Informationen werden an den externen Syslog-Server gesendet und auf dem lokalen Knoten gespeichert (`/var/local/log/localaudit.log`). Die Art der gesendeten Informationen hängt davon ab, wie Sie den externen Syslog-Server konfiguriert haben. Diese Option ist erst aktiviert, nachdem Sie einen externen Syslog-Server konfiguriert haben.
 
 |===
 . Wählen Sie *Speichern*.

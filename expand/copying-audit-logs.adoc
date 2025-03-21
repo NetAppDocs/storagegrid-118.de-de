@@ -86,7 +86,9 @@ Wenn Sie als root angemeldet sind, ändert sich die Eingabeaufforderung von `$` 
 
 . Benutzer- und Gruppeneinstellungen für die Audit-Log-Dateien aktualisieren:
 +
-`cd /var/local/log` +
+`cd /var/local/log`
+
++
 `chown ams-user:bycast *`
 
 . Melden Sie sich vom Server ab:

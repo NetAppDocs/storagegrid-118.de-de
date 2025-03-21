@@ -25,6 +25,12 @@ Jeder Admin-Knoten speichert Audit-Meldungen in Textdateien. Die Revisionsfreiga
 
 Für den einfachen Zugriff auf Audit-Protokolle können Sie link:../admin/configuring-audit-client-access.html["Konfigurieren Sie den Client-Zugriff für die Prüfung für NFS"]. Sie können auch direkt über die Befehlszeile des Admin-Knotens auf Audit-Protokolldateien zugreifen.
 
-Optional können Sie das Ziel der Audit-Protokolle ändern und Audit-Informationen an einen externen Syslog-Server senden. Lokale Protokolle von Audit-Datensätzen werden weiterhin generiert und gespeichert, wenn ein externer Syslog-Server konfiguriert ist. Siehe link:../monitor/configure-audit-messages.html["Konfigurieren von Überwachungsmeldungen und Protokollzielen"].
+StorageGRID kann standardmäßig Audit-Informationen senden oder das Ziel ändern:
+
+* Je nach Installation werden StorageGRID standardmäßig auf den lokalen Node oder die Audit-Ziele des Admin-Node gesetzt.
+* Die Audit-Protokolleinträge von Grid Manager und Tenant Manager können an einen Storage Node gesendet werden.
+* Optional können Sie das Ziel der Audit-Protokolle ändern und Audit-Informationen an einen externen Syslog-Server senden. Lokale Protokolle von Audit-Datensätzen werden weiterhin generiert und gespeichert, wenn ein externer Syslog-Server konfiguriert ist.
+* link:../monitor/configure-audit-messages.html["Erfahren Sie mehr über das Konfigurieren von Überwachungsmeldungen und Protokollzielen"].
+
 
 Einzelheiten zur Audit-Log-Datei, zum Format der Audit-Meldungen, zu den Typen der Audit-Meldungen und zu den zur Analyse von Audit-Meldungen verfügbaren Tools finden Sie unter link:../audit/index.html["Prüfung von Audit-Protokollen"].
