@@ -62,23 +62,7 @@ Nachdem Sie Ihre Konfiguration gespeichert haben, werden alle externen Ports auf
 
 
 
-=== Beispiel 2: Beschränken Sie den Zugriff auf den Grid-Manager und den Tenant Manager
-
-Angenommen, Sie möchten aus Sicherheitsgründen den Zugriff auf Grid Manager und Tenant Manager (voreingestellte Ports) einschränken. Sie können die folgenden allgemeinen Schritte verwenden:
-
-. Verwenden Sie den Umschalter auf der Registerkarte externen Zugriff verwalten, um Port 443 zu blockieren.
-. Verwenden Sie die Umschalttaste auf der Registerkarte externen Zugriff verwalten, um den Zugriff auf Port 8443 zu ermöglichen.
-. Verwenden Sie die Umschalttaste auf der Registerkarte externen Zugriff verwalten, um den Zugriff auf Port 9443 zu ermöglichen.
-
-
-Nachdem Sie Ihre Konfiguration gespeichert haben, können Hosts nicht auf Port 443 zugreifen, aber sie können dennoch über Port 8443 und den Tenant Manager über Port 9443 auf den Grid Manager zugreifen.
-
-
-NOTE: Die Ports 443, 8443 und 9443 sind die voreingestellten Ports für Grid Manager und Tenant Manager. Sie können jeden beliebigen Port umschalten, um den Zugriff auf einen bestimmten Grid Manager oder Tenant Manager zu beschränken.
-
-
-
-=== Beispiel 3: Sperren sensibler Ports
+=== Beispiel 2: Sperren sensibler Ports
 
 Angenommen, Sie möchten sensible Ports und den Dienst auf diesem Port sperren (z. B. SSH an Port 22). Sie können die folgenden allgemeinen Schritte verwenden:
 
@@ -93,7 +77,7 @@ Nachdem Sie die Konfiguration gespeichert haben, stehen den Hosts auf der Liste 
 
 
 
-=== Beispiel 4: Deaktivieren Sie den Zugriff auf nicht verwendete Dienste
+=== Beispiel 3: Zugriff auf nicht verwendete Dienste deaktivieren
 
 Auf Netzwerkebene können Sie einige Dienste deaktivieren, die Sie nicht verwenden möchten. Wenn Sie beispielsweise keinen Swift-Zugriff bereitstellen, führen Sie die folgenden allgemeinen Schritte aus:
 
