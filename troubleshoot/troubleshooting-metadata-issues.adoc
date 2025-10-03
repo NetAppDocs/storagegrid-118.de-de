@@ -191,11 +191,18 @@ Ein Alarm für Total Events (SMTT) wird ausgelöst, wenn die Cassandra-Datenbank
 Wenn für die Cassandra-Datenbank ein Fehler außerhalb des Arbeitsspeichers auftritt, wird ein Heap Dump erstellt, ein SMTT-Alarm (Total Events) ausgelöst und die Anzahl der Cassandra Heap Out of Memory-Fehler wird um eins erhöht.
 
 .Schritte
-. Um das Ereignis anzuzeigen, wählen Sie *SUPPORT* > *Tools* > *Grid-Topologie* > *Konfiguration*.
+. Sehen Sie sich die Veranstaltung an:
++
+.. Wählen Sie *SUPPORT* > *Tools* > *Grid-Topologie* aus.
+.. Erweitern Sie die Site und wählen Sie dann *_grid_node_* aus.
+.. Wählen Sie *SSM* und dann *Ereignisse* > *Konfiguration*.
+
+
 . Stellen Sie sicher, dass die Anzahl der Cassandra Heap-Fehler bei einem Speicherfehler mindestens 1 beträgt.
 +
 Das können Sie link:../monitor/running-diagnostics.html["Führen Sie eine Diagnose aus"] Um zusätzliche Informationen über den aktuellen Zustand des Rasters zu erhalten.
 
+. Melden Sie sich per SSH als „admin“ beim ausgewählten Knoten an und wechseln Sie zum lokalen Root-Benutzer.
 . Gehen Sie zu `/var/local/core/`, Komprimieren Sie die `Cassandra.hprof` Datei erstellen und an den technischen Support senden.
 . Erstellen Sie ein Backup der `Cassandra.hprof` Datei und löschen Sie sie aus dem `/var/local/core/ directory`.
 +
