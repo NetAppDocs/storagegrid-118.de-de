@@ -248,6 +248,21 @@ Interner Metadaten-Datenverkehr:
 
 
  a| 
+5353
+ a| 
+UDP
+ a| 
+Alle Nodes
+ a| 
+Alle Nodes
+ a| 
+Bietet den Multicast-DNS-Dienst (mDNS), der für IP-Änderungen im gesamten Netzwerk und für die Ermittlung des primären Admin-Knotens während der Installation, Erweiterung und Wiederherstellung verwendet wird.
+
+*Hinweis*: Die Konfiguration dieses Ports ist optional.
+
+
+
+ a| 
 7001
  a| 
 TCP
