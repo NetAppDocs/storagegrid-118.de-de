@@ -1,5 +1,15 @@
 ---
 indexpage:
+  title: Konfiguration und Management eines StorageGRID Systems
+  summary: Die Konfigurationsaufgaben, die Sie für ein neues StorageGRID-System durchführen
+    müssen, hängen davon ab, wie Sie Ihr Grid verwenden. Sie richten mindestens den
+    Systemzugriff ein, verwenden die FabricPool- und S3-Assistenten und managen verschiedene
+    Storage- und Sicherheitseinstellungen.
+  keywords: storagegrid system, configure, manage, security, settings, admin, group
+  lead: Die Konfigurationsaufgaben, die Sie für ein neues StorageGRID-System durchführen
+    müssen, hängen davon ab, wie Sie Ihr Grid verwenden. Sie richten mindestens den
+    Systemzugriff ein, verwenden die FabricPool- und S3-Assistenten und managen verschiedene
+    Storage- und Sicherheitseinstellungen.
   tiles:
   - title: Los geht's
     links:

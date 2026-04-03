@@ -1,5 +1,15 @@
 ---
 indexpage:
+  title: Wartung eines StorageGRID Systems
+  summary: Sie können Nodes oder Standorte hinzufügen, um die Kapazität oder Funktionalität
+    Ihres Systems zu erweitern. Sie können zudem verschiedene Wartungsverfahren zur
+    Wiederherstellung nach Ausfällen oder zur Aktualisierung und effizienten Performance
+    Ihres StorageGRID Systems durchführen.
+  keywords: storagegrid system, maintenance, capacity, grid, remove, maintain, decommission
+  lead: Sie können Nodes oder Standorte hinzufügen, um die Kapazität oder Funktionalität
+    Ihres Systems zu erweitern. Sie können zudem verschiedene Wartungsverfahren zur
+    Wiederherstellung nach Ausfällen oder zur Aktualisierung und effizienten Performance
+    Ihres StorageGRID Systems durchführen.
   tiles:
   - title: Los geht's
     links:

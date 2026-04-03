@@ -1,5 +1,11 @@
 ---
 indexpage:
+  title: Erweitern Sie ein Raster
+  summary: Sie können die Kapazität oder Funktionen Ihres StorageGRID Systems ohne
+    Unterbrechung des Systembetriebs erweitern.
+  keywords: storagegrid system, capacity, grid, capabilities, operations, expansion
+  lead: Sie können die Kapazität oder Funktionen Ihres StorageGRID Systems ohne Unterbrechung
+    des Systembetriebs erweitern.
   tiles:
   - title: Los geht's
     links:

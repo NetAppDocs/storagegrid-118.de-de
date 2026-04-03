@@ -1,5 +1,13 @@
 ---
 indexpage:
+  title: Nutzung von StorageGRID Mandanten und Clients
+  summary: Nach Abschluss der Erstkonfiguration können StorageGRID-Mandantenkonten
+    Buckets erstellen und S3-Client-Applikationen verwenden, um Objekte aufzunehmen,
+    abzurufen und zu löschen.
+  keywords: applications, tenant, ingest, storagegrid systems, monitor, api, management
+  lead: Nach Abschluss der Erstkonfiguration können StorageGRID-Mandantenkonten Buckets
+    erstellen und S3-Client-Applikationen verwenden, um Objekte aufzunehmen, abzurufen
+    und zu löschen.
   tiles:
   - title: Erfahren Sie mehr über Mandanten
     links:

@@ -1,5 +1,15 @@
 ---
 indexpage:
+  title: Überwachung und Fehlerbehebung für ein StorageGRID System
+  summary: Wenn Ihr System betriebsbereit ist, sollten Sie seine Aktivitäten regelmäßig
+    überwachen und etwaige Warnmeldungen beheben und beheben. Sie können auch einen
+    externen Syslog-Server konfigurieren, SNMP-Überwachung verwenden oder zusätzliche
+    Daten sammeln.
+  keywords: monitor, troubleshoot, storagegrid system, dashboard, audit, message
+  lead: Wenn Ihr System betriebsbereit ist, sollten Sie seine Aktivitäten regelmäßig
+    überwachen und etwaige Warnmeldungen beheben und beheben. Sie können auch einen
+    externen Syslog-Server konfigurieren, SNMP-Überwachung verwenden oder zusätzliche
+    Daten sammeln.
   tiles:
   - title: Überwachen Sie Ihr System
     links:

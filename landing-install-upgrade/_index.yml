@@ -1,5 +1,16 @@
 ---
 indexpage:
+  title: Installation, Upgrade und Hotfix-StorageGRID
+  summary: Ein StorageGRID System besteht aus individuellen Hardware- und softwarebasierten
+    Nodes. Sie installieren zuerst die Hardware für jeden Appliance-Node und konfigurieren
+    jeden Linux- oder VMware-Host. Anschließend installieren Sie die StorageGRID Software
+    auf jedem Appliance- oder Software-Host und verbinden die Nodes mit einem Grid.
+  keywords: storagegrid system, appliance hardware, software, install, vmware, red
+    gat, ubuntu, debian, automate
+  lead: Ein StorageGRID System besteht aus individuellen Hardware- und softwarebasierten
+    Nodes. Sie installieren zuerst die Hardware für jeden Appliance-Node und konfigurieren
+    jeden Linux- oder VMware-Host. Anschließend installieren Sie die StorageGRID Software
+    auf jedem Appliance- oder Software-Host und verbinden die Nodes mit einem Grid.
   tiles:
   - title: Schnellstart
     links:

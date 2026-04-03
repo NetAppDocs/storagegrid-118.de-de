@@ -1,5 +1,11 @@
 ---
 indexpage:
+  title: Erste Schritte mit einem StorageGRID System
+  summary: Bevor Sie ein StorageGRID-System installieren und verwenden, sollten Sie
+    sich etwas Zeit nehmen, um sich über StorageGRID zu informieren.
+  keywords: storagegrid system, install, network, topology, data, manage
+  lead: Bevor Sie ein StorageGRID-System installieren und verwenden, sollten Sie sich
+    etwas Zeit nehmen, um sich über StorageGRID zu informieren.
   tiles:
   - title: Lernen und entdecken
     links:
