@@ -174,7 +174,7 @@ NOTE: Wenn Sie einen Grid-Node wiederherstellen, müssen Sie den Namen des Node 
 .. Geben Sie über das Drop-Down-Menü *Temporary Installation password* ein temporäres Installationspasswort an, damit Sie auf die VM-Konsole zugreifen oder SSH verwenden können, bevor der neue Node dem Grid Beitritt.
 +
 
-NOTE: Das temporäre Installationspasswort wird nur während der Node-Installation verwendet. Nachdem dem Raster ein Node hinzugefügt wurde, können Sie über den darauf zugreifen link:../admin/change-node-console.html["Passwort für die Node-Konsole"], Die im aufgeführt ist `Passwords.txt` Datei im Wiederherstellungspaket.
+NOTE: Das temporäre Installationspasswort wird nur während der Knoteninstallation verwendet. Nachdem ein Knoten dem Grid hinzugefügt wurde, können Sie darauf zugreifen, indem Sie die link:../admin/change-node-console-password.html["Passwort für die Node-Konsole"] verwenden, die in der  `Passwords.txt` Datei im Wiederherstellungspaket aufgeführt ist.
 
 +
 *** *Node Name* verwenden: Der Wert, den Sie für das Feld *Node Name* angegeben haben, wird als temporäres Installationspasswort verwendet.

@@ -31,7 +31,7 @@ Server für Grid-Nodes:: Ermitteln Sie eine Reihe von Servern (physische, virtue
 NOTE: Wenn bei der StorageGRID-Installation keine StorageGRID Appliance (Hardware) Storage Nodes verwendet werden, müssen Sie Hardware-RAID-Storage mit batteriegestütztem Schreib-Cache (BBWC) verwenden. StorageGRID unterstützt die Verwendung von Virtual Storage Area Networks (VSANs), Software-RAID oder keinen RAID-Schutz.
 
 --
-Node-Migration (falls erforderlich):: Verstehen Sie die link:node-container-migration-requirements.html["Anforderungen für die Node-Migration"], Wenn Sie planmäßige Wartungsarbeiten auf physischen Hosts ohne Serviceunterbrechung durchführen möchten.
+Node-Migration (falls erforderlich):: Verstehen Sie die link:../swnodes/node-container-migration-requirements.html["Anforderungen für die Node-Migration"], wenn Sie planmäßige Wartungsarbeiten an physischen Hosts ohne Serviceunterbrechung durchführen möchten.
 Verwandte Informationen:: https://imt.netapp.com/matrix/#welcome["NetApp Interoperabilitäts-Matrix-Tool"^]
 
 

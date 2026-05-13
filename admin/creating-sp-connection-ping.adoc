@@ -19,8 +19,7 @@ Sie verwenden PingFederate, um für jeden Admin-Node in Ihrem System eine SP-Ver
 * Sie haben die *SP-Verbindungs-ID* für jeden Admin-Knoten in Ihrem System. Diese Werte finden Sie in der Detailtabelle Admin Nodes auf der StorageGRID Single Sign-On-Seite.
 * Sie haben die *SAML-Metadaten* für jeden Admin-Knoten in Ihrem System heruntergeladen.
 * Sie haben Erfahrung beim Erstellen von SP-Verbindungen in PingFederate Server.
-* Sie haben die
-https://docs.pingidentity.com/bundle/pingfederate-103/page/kfj1564002962494.html["Administrator's Reference Guide"^] Für PingFederate Server. Die PingFederate-Dokumentation bietet detaillierte Schritt-für-Schritt-Anleitungen und Erklärungen.
+* Sie haben die https://docs.pingidentity.com/pingfederate/latest/administrators_reference_guide/pf_administrators_reference_guide.html["Administrator's Reference Guide"^] für den PingFederate Server. Die PingFederate Dokumentation enthält detaillierte Schritt-für-Schritt-Anleitungen und Erklärungen.
 * Sie haben die link:admin-group-permissions.html["Administratorberechtigung"] Für PingFederate Server.
 
 
